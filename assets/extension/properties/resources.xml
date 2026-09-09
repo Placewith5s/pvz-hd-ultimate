@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<ResourceManifest>
+<Resources id="LoadingImages">
+<SetDefaults path="extension/reanim" idprefix="IMAGE_REANIM_" />
+<Image id="ZOMBIE_JACKBOX_CRAZY_HEAD" path="Zombie_jackbox_crazy_head" />
+<Image id="ZOMBIE_JACKBOX_CRAZY_HEAD2" path="Zombie_jackbox_crazy_head2" />
+</Resources>
+</ResourceManifest>
+        

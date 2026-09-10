@@ -45,12 +45,6 @@ ZombieDefinition gZombieDefs[NUM_ZOMBIE_TYPES] = {  //0x69DA80
     { ZOMBIE_CATAPULT,          REANIM_CATAPULT,            5,      46,     10,     1500,   _S("CATAPULT_ZOMBIE") },
     { ZOMBIE_GARGANTUAR,        REANIM_GARGANTUAR,          10,     48,     15,     1500,   _S("GARGANTUAR") },
     { ZOMBIE_IMP,               REANIM_IMP,                 10,     48,     1,      0,      _S("IMP") },
-    { ZOMBIE_DOOR_TRAFFIC_CONE,              REANIM_ZOMBIE,              4,      53,     5,      3500,   _S("SCREEN_DOOR_CONEHEAD_ZOMBIE") },
-    { ZOMBIE_DOOR_PAIL,              REANIM_ZOMBIE,              4,      53,     5,      3500,   _S("SCREEN_DOOR_BUCKETHEAD_ZOMBIE") },
-    { ZOMBIE_BUNGEE_PAIL,            REANIM_BUNGEE,              3,      60,     10,     1000,   _S("BUNGEE_BUCKETHEAD_ZOMBIE") },
-    { ZOMBIE_POGO_PAIL,              REANIM_POGO,                4,      60,     10,     1000,   _S("POGO_BUCKETHEAD_ZOMBIE") },
-    { ZOMBIE_JACK_IN_THE_BOX_CRAZY,   REANIM_JACKINTHEBOX,        3,      60,     10,     1000,   _S("JACK_IN_THE_BOX_CRAZY_ZOMBIE") },
-    { ZOMBIE_DANCER_COOL,            REANIM_DANCER,              5,      60,     5,      1000,   _S("DANCING_COOL_ZOMBIE") },
     { ZOMBIE_BOSS,              REANIM_BOSS,                10,     60,     1,      0,      _S("BOSS") },
 #ifdef _HAS_BLOOM_AND_DOOM_CONTENTS
     { ZOMBIE_DOG_WALKER,        REANIM_NONE,                2,      11,     1,      4000,   _S("DOG_WALKING_ZOMBIE") },
@@ -67,6 +61,12 @@ ZombieDefinition gZombieDefs[NUM_ZOMBIE_TYPES] = {  //0x69DA80
     { ZOMBIE_POTATOMINE_HEAD,          REANIM_ZOMBIE_ZOMBOTANY,              1,      48,     1,      4000,   _S("ZOMBIE") },
     { ZOMBIE_PUMPKIN_HEAD,      REANIM_ZOMBIE_ZOMBOTANY,              4,      48,     1,      3000,   _S("ZOMBIE") },
     { ZOMBIE_CABBAGEPULT_HEAD,      REANIM_ZOMBIE_ZOMBOTANY,              1,      48,     1,     4000,   _S("ZOMBIE") },
+    { ZOMBIE_DOOR_TRAFFIC_CONE,              REANIM_ZOMBIE,              4,      53,     5,      3500,   _S("SCREEN_DOOR_CONEHEAD_ZOMBIE") },
+    { ZOMBIE_DOOR_PAIL,              REANIM_ZOMBIE,              4,      53,     5,      3500,   _S("SCREEN_DOOR_BUCKETHEAD_ZOMBIE") },
+    { ZOMBIE_BUNGEE_PAIL,            REANIM_BUNGEE,              3,      60,     10,     1000,   _S("BUNGEE_BUCKETHEAD_ZOMBIE") },
+    { ZOMBIE_POGO_PAIL,              REANIM_POGO,                4,      60,     10,     1000,   _S("POGO_BUCKETHEAD_ZOMBIE") },
+    { ZOMBIE_JACK_IN_THE_BOX_CRAZY,   REANIM_JACKINTHEBOX,        3,      60,     10,     1000,   _S("JACK_IN_THE_BOX_CRAZY_ZOMBIE") },
+    { ZOMBIE_DANCER_COOL,            REANIM_DANCER,              5,      60,     5,      1000,   _S("DANCING_COOL_ZOMBIE") },
     { ZOMBIE_REDEYE_GARGANTUAR, REANIM_GARGANTUAR,          10,     48,     15,     6000,   _S("REDEYED_GARGANTUAR") },
 #ifdef _HAS_NEW_GIGA_ZOMBIES
     { ZOMBIE_BLACK_FOOTBALL,    REANIM_ZOMBIE_BLACKFOOTBALL,7,      16,     5,      2000,   _S("BLACK_FOOTBALL_ZOMBIE") },
@@ -99,6 +99,10 @@ static ZombieType gBossZombieList[] = {  //0x69DE1C
 ZombieDefinition& GetZombieDefinition(ZombieType theZombieType)
 {
     TOD_ASSERT(theZombieType >= 0 && theZombieType < NUM_ZOMBIE_TYPES);
+
+    printf("mZombieType = %d\n", gZombieDefs[theZombieType].mZombieType);
+    printf("expected = %d\n", theZombieType);
+
     TOD_ASSERT(gZombieDefs[theZombieType].mZombieType == theZombieType);
 
     return gZombieDefs[theZombieType];

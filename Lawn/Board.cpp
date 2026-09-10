@@ -2136,7 +2136,8 @@ bool Board::ChooseSeedsOnCurrentLevel()
 	if (mApp->IsIZombieLevel() || mApp->IsSlotMachineLevel())
 		return false;
 
-	if (mApp->mGameMode >= GameMode::GAMEMODE_LAST_STAND_STAGE_1 && mApp->mGameMode <= GameMode::GAMEMODE_LAST_STAND_STAGE_6)
+	if ((mApp->mGameMode >= GameMode::GAMEMODE_LAST_STAND_STAGE_1 && mApp->mGameMode <= GameMode::GAMEMODE_LAST_STAND_STAGE_5) ||
+		mApp->mGameMode == GameMode::GAMEMODE_LAST_STAND_STAGE_6)
 		return false;
 
 	return (!mApp->IsFirstTimeAdventureMode() /*|| mApp->mPlayerLevelRef > 4 */|| mLevel > 7);
@@ -4006,7 +4007,7 @@ void Board::UpdateToolTip()
 		Rect aRect = aZombie->GetZombieRect();
 		mToolTip->mX = aRect.mWidth / 2 + aRect.mX + 5;
 		mToolTip->mY = aRect.mHeight + aRect.mY - 10;
-		if (aZombie->mZombieType == ZombieType::ZOMBIE_BUNGEE || aZombie->mZombieType == ZombieType::ZOMBIE_BUNGEE_PAIL)
+		if (aZombie->mZombieType == ZombieType::ZOMBIE_BUNGEE)
 		{
 			mToolTip->mY = aZombie->mY;
 		}
@@ -10925,7 +10926,8 @@ int Board::GetNumSeedsInBank()
 	{
 		return 10;
 	}
-	if (mApp->mGameMode >= GameMode::GAMEMODE_LAST_STAND_STAGE_1 && mApp->mGameMode <= GameMode::GAMEMODE_LAST_STAND_STAGE_6)
+	if ((mApp->mGameMode >= GameMode::GAMEMODE_LAST_STAND_STAGE_1 && mApp->mGameMode <= GameMode::GAMEMODE_LAST_STAND_STAGE_5) ||
+		mApp->mGameMode == GameMode::GAMEMODE_LAST_STAND_STAGE_6)
 	{
 		return 8;
 	}

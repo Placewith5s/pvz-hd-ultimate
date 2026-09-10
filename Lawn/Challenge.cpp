@@ -3336,19 +3336,19 @@ void Challenge::InitZombieWaves()
 		aList[ZOMBIE_CATAPULT] = true;
 		aList[ZOMBIE_GARGANTUAR] = true;
 	}
-	//else if (mApp->mGameMode == GameMode::GAMEMODE_LAST_STAND_STAGE_6)
-	//{
-	//	aList[ZOMBIE_NORMAL] = true;
-	//	aList[ZOMBIE_TRAFFIC_CONE] = true;
-	//	aList[ZOMBIE_POLEVAULTER] = true;
-	//	aList[ZOMBIE_PAIL] = true;
-	//	aList[ZOMBIE_NEWSPAPER] = true;
-	//	aList[ZOMBIE_DOOR] = true;
-	//	aList[ZOMBIE_JACK_IN_THE_BOX] = true;
-	//	aList[ZOMBIE_TRASHCAN] = true;
-	//	aList[ZOMBIE_BLACK_FOOTBALL] = true;
-	//	aList[ZOMBIE_POGO] = true;
-	//}
+	else if (mApp->mGameMode == GameMode::GAMEMODE_LAST_STAND_STAGE_6)
+	{
+		aList[ZOMBIE_NORMAL] = true;
+		aList[ZOMBIE_TRAFFIC_CONE] = true;
+		aList[ZOMBIE_POLEVAULTER] = true;
+		aList[ZOMBIE_PAIL] = true;
+		aList[ZOMBIE_NEWSPAPER] = true;
+		aList[ZOMBIE_DOOR] = true;
+		aList[ZOMBIE_JACK_IN_THE_BOX] = true;
+		aList[ZOMBIE_TRASHCAN] = true;
+		aList[ZOMBIE_BLACK_FOOTBALL] = true;
+		aList[ZOMBIE_POGO] = true;
+	}
 	else if (mApp->IsLastStandEndless(mApp->mGameMode))
 	{
 		aList[ZOMBIE_NORMAL] = true;

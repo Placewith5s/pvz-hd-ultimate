@@ -655,9 +655,13 @@ void Challenge::StartLevel()
 	{
 		mBoard->mZombieCountDown = 4500;
 	}
-	if (aGameMode == GAMEMODE_CHALLENGE_POGO_PARTY)
+	if (aGameMode == GAMEMODE_CHALLENGE_POGO_PARTY || aGameMode == GAMEMODE_CHALLENGE_POGO_PARTY_2)
 	{
 		mBoard->mZombieCountDown = 5500;
+	}
+	if (aGameMode == GAMEMODE_CHALLENGE_POGO_PARTY_3)
+	{
+		mBoard->mZombieCountDown = 7750;
 	}
 	if (aGameMode == GAMEMODE_CHALLENGE_ZOMBIQUARIUM)
 	{
@@ -2950,6 +2954,15 @@ void Challenge::InitZombieWaves()
 	else if (aGameMode == GAMEMODE_CHALLENGE_POGO_PARTY)
 	{
 		aList[ZOMBIE_POGO] = true;
+	}
+	else if (aGameMode == GAMEMODE_CHALLENGE_POGO_PARTY_2)
+	{
+		aList[ZOMBIE_POGO_PAIL] = true;
+	}
+	else if (aGameMode == GAMEMODE_CHALLENGE_POGO_PARTY_3)
+	{
+		aList[ZOMBIE_POGO] = true;
+		aList[ZOMBIE_POGO_PAIL] = true;
 	}
 	else if (mApp->IsBungeeBlitzLevel())
 	{

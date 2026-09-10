@@ -742,6 +742,7 @@ void Board::PickZombieWaves()
 				 aGameMode == GameMode::GAMEMODE_CHALLENGE_COLUMN || mApp->IsShovelLevel() || aGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_2 ||
 				 aGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_3 ||
 				 aGameMode == GameMode::GAMEMODE_CHALLENGE_WALLNUT_BOWLING_2 || aGameMode == GameMode::GAMEMODE_CHALLENGE_POGO_PARTY ||
+				 aGameMode == GameMode::GAMEMODE_CHALLENGE_POGO_PARTY_2 ||
 			aGameMode == GameMode::GAMEMODE_CHALLENGE_WORLD_7_4 || aGameMode == GameMode::GAMEMODE_CHALLENGE_WORLD_7_7 || aGameMode == GameMode::GAMEMODE_CHALLENGE_WORLD_7_9
 #ifdef _DS_MINIGAMES
 
@@ -749,7 +750,7 @@ void Board::PickZombieWaves()
 #endif
 			)
 			mNumWaves = 30;
-		// zombotany 4 here
+		// zombotany 4 and pogo party extreme are here
 		else
 			mNumWaves = 40;
 	}
@@ -1212,6 +1213,8 @@ void Board::PickBackground()
 	case GameMode::GAMEMODE_SURVIVAL_NORMAL_STAGE_6:
 	case GameMode::GAMEMODE_SURVIVAL_HARD_STAGE_6:
 	case GameMode::GAMEMODE_SURVIVAL_ENDLESS_STAGE_6:
+	case GameMode::GAMEMODE_CHALLENGE_POGO_PARTY_2:
+	case GameMode::GAMEMODE_CHALLENGE_POGO_PARTY_3:
 	//case GameMode::GAMEMODE_LAST_STAND_STAGE_6:
 	//case GameMode::GAMEMODE_LAST_STAND_ENDLESS_STAGE_6:
 		mBackground = BackgroundType::BACKGROUND_6_BOSS;
@@ -3024,7 +3027,8 @@ ZombieType Board::PickZombieType(int theZombiePoints, int theWaveIndex, ZombiePi
 			}
 		}
 		// 僵尸最早出现的波数的限制（出怪限制）
-		else if (aGameMode != GameMode::GAMEMODE_CHALLENGE_POGO_PARTY && aGameMode != GameMode::GAMEMODE_CHALLENGE_BOBSLED_BONANZA && aGameMode != GameMode::GAMEMODE_CHALLENGE_AIR_RAID
+		else if (aGameMode != GameMode::GAMEMODE_CHALLENGE_POGO_PARTY && aGameMode != GameMode::GAMEMODE_CHALLENGE_POGO_PARTY_2 && aGameMode != GameMode::GAMEMODE_CHALLENGE_POGO_PARTY_3 &&
+			aGameMode != GameMode::GAMEMODE_CHALLENGE_BOBSLED_BONANZA && aGameMode != GameMode::GAMEMODE_CHALLENGE_AIR_RAID
 #ifdef _MOBILE_MINIGAMES
 			&& aGameMode != GameMode::GAMEMODE_CHALLENGE_HEAT_WAVE
 #endif
@@ -10955,6 +10959,8 @@ bool Board::StageHasGraveStones()
 {
 	if (mApp->IsWallnutBowlingLevel() ||
 		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_POGO_PARTY ||
+		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_POGO_PARTY_2 ||
+		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_POGO_PARTY_3 ||
 		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_BEGHOULED ||
 		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_BEGHOULED_TWIST ||
 		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_PORTAL_COMBAT ||

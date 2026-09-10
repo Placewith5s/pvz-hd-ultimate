@@ -116,7 +116,7 @@ void AlmanacDialog::ClearPlantsAndZombies()
 		delete mZombie;
 		mZombie = nullptr;
 	}
-	for (Zombie* &aZombie : mZombiePerfTest)
+	for (Zombie*& aZombie : mZombiePerfTest)
 	{
 		if (aZombie)
 		{
@@ -194,7 +194,7 @@ void AlmanacDialog::SetupZombie()
 			aFollower->mApp->ReanimationGet(aFollower->mBodyReanimID)->mAnimTime = 1.0f;
 			aFollower->mAltitude = 18.0f;
 			aFollower->mZombiePhase = ZombiePhase::PHASE_BOBSLED_BOARDING;
-			
+
 			mFollowersList.push_back(aFollower);
 		}
 	}
@@ -304,7 +304,7 @@ void AlmanacDialog::Update()
 		mScrollbar->mScrollValue = ClampFloat(mScrollbar->mScrollValue += mScrollAmount * aScrollSpeed, 0, mScrollbar->mScrollRange);
 		mScrollAmount *= 0.9f;
 	}
-	
+
 	mApp->mPoolEffect->PoolEffectUpdate();
 	MarkDirty();
 }
@@ -319,7 +319,7 @@ void AlmanacDialog::DrawIndex(Graphics* g)
 {
 	g->DrawImage(Sexy::IMAGE_ALMANAC_INDEXBACK, 0, 0);
 	TodDrawString(g, _S("[SUBURBAN_ALMANAC_INDEX]"), BOARD_WIDTH / 2, 60, Sexy::FONT_HOUSEOFTERROR28, Color(220, 220, 220), DrawStringJustification::DS_ALIGN_CENTER);
-	
+
 	if (mPlant)
 	{
 		g->PushState();
@@ -365,7 +365,7 @@ void AlmanacDialog::DrawPlants(Graphics* g)
 		}
 	}
 
-	if (mSelectedSeed == SeedType::SEED_LILYPAD || mSelectedSeed == SeedType::SEED_TANGLEKELP || 
+	if (mSelectedSeed == SeedType::SEED_LILYPAD || mSelectedSeed == SeedType::SEED_TANGLEKELP ||
 		mSelectedSeed == SeedType::SEED_CATTAIL || mSelectedSeed == SeedType::SEED_SEASHROOM)
 	{
 		bool aNight = mSelectedSeed == SeedType::SEED_SEASHROOM;
@@ -388,7 +388,7 @@ void AlmanacDialog::DrawPlants(Graphics* g)
 			521, 107
 		);
 	}
-	
+
 	if (mPlant)
 	{
 		g->PushState();
@@ -410,7 +410,7 @@ void AlmanacDialog::DrawPlants(Graphics* g)
 		TodDrawStringWrapped(g, aCostStr, Rect(485, 520, 134, 50), Sexy::FONT_BRIANNETOD12, Color::White, DS_ALIGN_LEFT);
 
 		SexyString aRechargeStr = TodReplaceString(
-			_S("{KEYWORD}{WAIT_TIME}: {STAT}{WAIT_TIME_LENGTH}"), 
+			_S("{KEYWORD}{WAIT_TIME}: {STAT}{WAIT_TIME_LENGTH}"),
 			_S("{WAIT_TIME_LENGTH}"),
 			aPlantDef.mRefreshTime == 750 ? _S("[WAIT_TIME_SHORT]") : aPlantDef.mRefreshTime == 3000 ? _S("[WAIT_TIME_LONG]") : _S("[WAIT_TIME_VERY_LONG]")
 		);
@@ -471,11 +471,9 @@ void AlmanacDialog::DrawZombies(Graphics* g)
 				case ZombieType::ZOMBIE_ZAMBONI:		g->TranslateF(-25, 3);		break;
 				case ZombieType::ZOMBIE_DOLPHIN_RIDER:	g->TranslateF(-2, -10);	break;
 				case ZombieType::ZOMBIE_POGO:			g->TranslateF(0, -3);		break;
-				case ZombieType::ZOMBIE_POGO_PAIL:			g->TranslateF(0, -3);		break;
 				case ZombieType::ZOMBIE_GARGANTUAR:		g->TranslateF(15, 17);		break;
 				case ZombieType::ZOMBIE_IMP:			g->TranslateF(-8, -7);		break;
 				case ZombieType::ZOMBIE_BUNGEE:			g->TranslateF(-4, 3);		break;
-				case ZombieType::ZOMBIE_BUNGEE_PAIL:			g->TranslateF(-4, 3);		break;
 #ifdef _HAS_NEW_DANCER
 				case ZombieType::ZOMBIE_BACKUP_DANCER:	g->TranslateF(-2, 5);		break;
 #else
@@ -493,7 +491,7 @@ void AlmanacDialog::DrawZombies(Graphics* g)
 					g->SetColor(Color(0, 0, 0, 40));
 					g->SetColorizeImages(true);
 				}
-				if (aZombieType == ZombieType::ZOMBIE_BUNGEE || aZombieType == ZombieType::ZOMBIE_BUNGEE_PAIL)
+				if (aZombieType == ZombieType::ZOMBIE_BUNGEE)
 				{
 					g->mTransY -= 300;
 				}
@@ -532,12 +530,11 @@ void AlmanacDialog::DrawZombies(Graphics* g)
 			if (aFolllower)
 			{
 				followerID++;
-				
+
 				g->PushState();
 				aFolllower->BeginDraw(g);
 				g->SetClipRect(-42 - 50 * followerID, -51, 197, 187);
-				if ((aFolllower->mZombieType != ZombieType::ZOMBIE_BUNGEE && aFolllower->mZombieType != ZombieType::ZOMBIE_BUNGEE_PAIL) &&
-					aFolllower->mZombieType != ZombieType::ZOMBIE_BOSS &&
+				if (aFolllower->mZombieType != ZombieType::ZOMBIE_BUNGEE && aFolllower->mZombieType != ZombieType::ZOMBIE_BOSS &&
 					aFolllower->mZombieType != ZombieType::ZOMBIE_ZAMBONI && aFolllower->mZombieType != ZombieType::ZOMBIE_CATAPULT)
 					aFolllower->DrawShadow(g);
 				if (followerID == 1) {
@@ -560,13 +557,11 @@ void AlmanacDialog::DrawZombies(Graphics* g)
 		case ZombieType::ZOMBIE_FOOTBALL:		g->TranslateF(-10, 0);		break;
 		case ZombieType::ZOMBIE_BALLOON:		g->TranslateF(0, -20);		break;
 		case ZombieType::ZOMBIE_BUNGEE:			g->TranslateF(15, 0);		break;
-		case ZombieType::ZOMBIE_BUNGEE_PAIL:			g->TranslateF(15, 0);		break;
 		case ZombieType::ZOMBIE_CATAPULT:		g->TranslateF(-10, 0);		break;
 		case ZombieType::ZOMBIE_BOSS:			g->TranslateF(-540, -175);	break;
 		default: break;
 		}
-		if ((mZombie->mZombieType != ZombieType::ZOMBIE_BUNGEE && mZombie->mZombieType != ZombieType::ZOMBIE_BUNGEE_PAIL) &&
-			mZombie->mZombieType != ZombieType::ZOMBIE_BOSS &&
+		if (mZombie->mZombieType != ZombieType::ZOMBIE_BUNGEE && mZombie->mZombieType != ZombieType::ZOMBIE_BOSS &&
 			mZombie->mZombieType != ZombieType::ZOMBIE_ZAMBONI && mZombie->mZombieType != ZombieType::ZOMBIE_CATAPULT)
 			mZombie->DrawShadow(g);
 		mZombie->Draw(g);
@@ -627,7 +622,7 @@ void AlmanacDialog::DrawZombies(Graphics* g)
 	int aClipWidthOffset = mScrollbar->mDisabled ? 10 : 0;
 
 	g->PushState();
-	g->SetClipRect(484, 377 , 258, aHeaderHeight);
+	g->SetClipRect(484, 377, 258, aHeaderHeight);
 	TodDrawStringWrapped(g, aHeader, Rect(484, 377, 258, 170), Sexy::FONT_BRIANNETOD12, Color(40, 50, 90), aAlign, true);
 	g->PopState();
 
@@ -637,7 +632,7 @@ void AlmanacDialog::DrawZombies(Graphics* g)
 
 	mScrollbar->Resize(738, 377 + aHeaderHeight, 8, aBoxHeight);
 	mScrollbar->mViewport = Rect(484, 377 + aHeaderHeight, 248 + aClipWidthOffset, aBoxHeight);
-	
+
 	TodDrawStringWrapped(g, aDescription, Rect(484, 377 + aHeaderHeight, 248 + aClipWidthOffset, 170), Sexy::FONT_BRIANNETOD12, Color(40, 50, 90), aAlign, true);
 	g->PopState();
 }
@@ -779,10 +774,10 @@ bool AlmanacDialog::ZombieHasDescription(ZombieType theZombieType)
 void AlmanacDialog::GetZombiePosition(ZombieType theZombieType, int& x, int& y)
 {
 	if (theZombieType == ZombieType::ZOMBIE_BOSS)
-		x = 192, y = 566;
+		x = 192, y = 486;
 	else
 	{
-		int theIndex = (int) theZombieType;
+		int theIndex = (int)theZombieType;
 
 		if (theZombieType >= ZombieType::ZOMBIE_BOSS)
 			--theIndex;
@@ -844,7 +839,7 @@ void AlmanacDialog::MouseDown(int x, int y, int theClickCount)
 		mApp->PlaySample(Sexy::SOUND_TAP);
 	}
 
-	if(mScrollbar->isThumbOver())
+	if (mScrollbar->isThumbOver())
 	{
 		mScrollbar->MouseDown(x, y, theClickCount);
 	}

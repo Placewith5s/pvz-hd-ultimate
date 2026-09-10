@@ -320,16 +320,6 @@ ZombieAllowedLevels gZombieAllowedLevels[NUM_ZOMBIE_TYPES] = {  //0x6A35B0
 	{ ZOMBIE_POTATOMINE_HEAD, {0} },
 	{ ZOMBIE_PUMPKIN_HEAD, {0} },
 	{ ZOMBIE_CABBAGEPULT_HEAD, {0} },
-	{ ZOMBIE_REDEYE_GARGANTUAR,
-		{
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 1, 1, 0,
-		}
-	},
 	{ ZOMBIE_DOOR_TRAFFIC_CONE,
 		{
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -350,10 +340,20 @@ ZombieAllowedLevels gZombieAllowedLevels[NUM_ZOMBIE_TYPES] = {  //0x6A35B0
 			0, 0, 1, 1, 0, 0, 1, 0, 1, 0,
 		}
 	},
-	{ ZOMBIE_BUNGEE_PAIL, {0}},
+	{ ZOMBIE_BUNGEE_PAIL, {0} },
 	{ ZOMBIE_POGO_PAIL, {0} },
 	{ ZOMBIE_JACK_IN_THE_BOX_CRAZY, {0} },
 	{ ZOMBIE_DANCER_COOL, {0} },
+	{ ZOMBIE_REDEYE_GARGANTUAR,
+		{
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 1, 1, 0,
+		}
+	},
 #ifdef _HAS_NEW_GIGA_ZOMBIES
 	{ ZOMBIE_BLACK_FOOTBALL,
 		{

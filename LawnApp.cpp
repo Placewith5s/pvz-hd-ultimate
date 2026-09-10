@@ -4857,7 +4857,8 @@ bool LawnApp::ChallengeHasScores(GameMode theGameMode)
 
 bool LawnApp::IsLastStand() {
 	bool aIsLastStand = mGameMode == GameMode::GAMEMODE_CHALLENGE_LAST_STAND;
-	aIsLastStand |= (mGameMode >= GameMode::GAMEMODE_LAST_STAND_STAGE_1 && mGameMode <= GameMode::GAMEMODE_LAST_STAND_STAGE_6);
+	aIsLastStand |= (mGameMode >= GameMode::GAMEMODE_LAST_STAND_STAGE_1 && mGameMode <= GameMode::GAMEMODE_LAST_STAND_STAGE_5 ||
+		mGameMode == GameMode::GAMEMODE_LAST_STAND_STAGE_6);
 	aIsLastStand |= IsLastStandEndless(mGameMode);
 	return aIsLastStand;
 }

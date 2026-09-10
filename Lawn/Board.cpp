@@ -1215,8 +1215,8 @@ void Board::PickBackground()
 	case GameMode::GAMEMODE_SURVIVAL_ENDLESS_STAGE_6:
 	case GameMode::GAMEMODE_CHALLENGE_POGO_PARTY_2:
 	case GameMode::GAMEMODE_CHALLENGE_POGO_PARTY_3:
-	//case GameMode::GAMEMODE_LAST_STAND_STAGE_6:
-	//case GameMode::GAMEMODE_LAST_STAND_ENDLESS_STAGE_6:
+	case GameMode::GAMEMODE_LAST_STAND_STAGE_6:
+	case GameMode::GAMEMODE_LAST_STAND_ENDLESS_STAGE_6:
 		mBackground = BackgroundType::BACKGROUND_6_BOSS;
 		break;
 
@@ -1981,18 +1981,18 @@ void Board::InitLevel()
 		mSeedBank->mSeedPackets[6].SetPacketType(SeedType::SEED_TALLNUT);
 		mSeedBank->mSeedPackets[7].SetPacketType(SeedType::SEED_JALAPENO);
 	}
-	//else if (aGameMode == GameMode::GAMEMODE_LAST_STAND_STAGE_6)
-	//{
-	//	TOD_ASSERT(mSeedBank->mNumPackets == 8);
-	//	mSeedBank->mSeedPackets[0].SetPacketType(SeedType::SEED_FUMESHROOM);
-	//	mSeedBank->mSeedPackets[1].SetPacketType(SeedType::SEED_GLOOMSHROOM);
-	//	mSeedBank->mSeedPackets[2].SetPacketType(SeedType::SEED_SCAREDYSHROOM);
-	//	mSeedBank->mSeedPackets[3].SetPacketType(SeedType::SEED_FLOWERPOT);
-	//	mSeedBank->mSeedPackets[4].SetPacketType(SeedType::SEED_PUMPKINSHELL);
-	//	mSeedBank->mSeedPackets[5].SetPacketType(SeedType::SEED_ICESHROOM);
-	//	mSeedBank->mSeedPackets[6].SetPacketType(SeedType::SEED_DOOMSHROOM);
-	//	mSeedBank->mSeedPackets[7].SetPacketType(SeedType::SEED_HYPNOSHROOM);
-	//}
+	else if (aGameMode == GameMode::GAMEMODE_LAST_STAND_STAGE_6)
+	{
+		TOD_ASSERT(mSeedBank->mNumPackets == 8);
+		mSeedBank->mSeedPackets[0].SetPacketType(SeedType::SEED_FUMESHROOM);
+		mSeedBank->mSeedPackets[1].SetPacketType(SeedType::SEED_GLOOMSHROOM);
+		mSeedBank->mSeedPackets[2].SetPacketType(SeedType::SEED_SCAREDYSHROOM);
+		mSeedBank->mSeedPackets[3].SetPacketType(SeedType::SEED_FLOWERPOT);
+		mSeedBank->mSeedPackets[4].SetPacketType(SeedType::SEED_PUMPKINSHELL);
+		mSeedBank->mSeedPackets[5].SetPacketType(SeedType::SEED_ICESHROOM);
+		mSeedBank->mSeedPackets[6].SetPacketType(SeedType::SEED_DOOMSHROOM);
+		mSeedBank->mSeedPackets[7].SetPacketType(SeedType::SEED_HYPNOSHROOM);
+	}
 	else if (!ChooseSeedsOnCurrentLevel() && !HasConveyorBeltSeedBank() && mApp->mGameMode == GameMode::GAMEMODE_ADVENTURE)
 	{
 		mSeedBank->mNumPackets = max(GetNumSeedsInBank(), 1);
@@ -2136,11 +2136,8 @@ bool Board::ChooseSeedsOnCurrentLevel()
 	if (mApp->IsIZombieLevel() || mApp->IsSlotMachineLevel())
 		return false;
 
-	if (mApp->mGameMode >= GameMode::GAMEMODE_LAST_STAND_STAGE_1 && mApp->mGameMode <= GameMode::GAMEMODE_LAST_STAND_STAGE_5)
+	if (mApp->mGameMode >= GameMode::GAMEMODE_LAST_STAND_STAGE_1 && mApp->mGameMode <= GameMode::GAMEMODE_LAST_STAND_STAGE_6)
 		return false;
-
-	//if (mApp->mGameMode >= GameMode::GAMEMODE_LAST_STAND_STAGE_1 && mApp->mGameMode <= GameMode::GAMEMODE_LAST_STAND_STAGE_6)
-	//	return false;
 
 	return (!mApp->IsFirstTimeAdventureMode() /*|| mApp->mPlayerLevelRef > 4 */|| mLevel > 7);
 }
@@ -10928,14 +10925,10 @@ int Board::GetNumSeedsInBank()
 	{
 		return 10;
 	}
-	if (mApp->mGameMode >= GameMode::GAMEMODE_LAST_STAND_STAGE_1 && mApp->mGameMode <= GameMode::GAMEMODE_LAST_STAND_STAGE_5)
+	if (mApp->mGameMode >= GameMode::GAMEMODE_LAST_STAND_STAGE_1 && mApp->mGameMode <= GameMode::GAMEMODE_LAST_STAND_STAGE_6)
 	{
 		return 8;
 	}
-	//if (mApp->mGameMode >= GameMode::GAMEMODE_LAST_STAND_STAGE_1 && mApp->mGameMode <= GameMode::GAMEMODE_LAST_STAND_STAGE_6)
-	//{
-	//	return 8;
-	//}
 
 	int aNumSeeds = mApp->mPlayerInfo->mPurchases[(int)StoreItem::STORE_ITEM_PACKET_UPGRADE] + 6;
 	int aSeedsAvailable = mApp->GetSeedsAvailable();

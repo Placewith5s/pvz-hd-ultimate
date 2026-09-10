@@ -130,8 +130,8 @@ ChallengeDefinition gChallengeDefs[NUM_CHALLENGE_MODES] = {
 	{ GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_4,             0,   ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE,   2,  1,  _S("[WAR_AND_PEAS_4]") },
 	{ GameMode::GAMEMODE_CHALLENGE_POGO_PARTY_2,             10,   ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE,   2,  2,  _S("[POGO_PARTY_2]") },
 	{ GameMode::GAMEMODE_CHALLENGE_POGO_PARTY_3,             10,   ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE,   2,  3,  _S("[POGO_PARTY_EXTREME]") },
-	//{ GameMode::GAMEMODE_LAST_STAND_STAGE_6,                   10,  ChallengePage::CHALLENGE_PAGE_LAST_STAND,   3,  0,  _S("[LAST_STAND_NIGHT_ROOF]") },
-	//{ GameMode::GAMEMODE_LAST_STAND_ENDLESS_STAGE_6,           10,  ChallengePage::CHALLENGE_PAGE_LAST_STAND,   3,  1,  _S("[LAST_STAND_NIGHT_ROOF_ENDLESS]") },
+	{ GameMode::GAMEMODE_LAST_STAND_STAGE_6,                   10,  ChallengePage::CHALLENGE_PAGE_LAST_STAND,   3,  0,  _S("[LAST_STAND_NIGHT_ROOF]") },
+	{ GameMode::GAMEMODE_LAST_STAND_ENDLESS_STAGE_6,           10,  ChallengePage::CHALLENGE_PAGE_LAST_STAND,   3,  1,  _S("[LAST_STAND_NIGHT_ROOF_ENDLESS]") },
 };
 
 //0x42DAE0
@@ -184,10 +184,10 @@ ChallengeScreen::ChallengeScreen(LawnApp* theApp, ChallengePage thePage)
 
 		int pageOffset = 0;
 		if (thePage == ChallengePage::CHALLENGE_PAGE_CHALLENGE && (aPageIdx == ChallengePage::CHALLENGE_PAGE_LIMBO_CHALLENGE || aPageIdx == ChallengePage::CHALLENGE_PAGE_CHALLENGE))
+			pageOffset += 2;
+		if (thePage == ChallengePage::CHALLENGE_PAGE_PUZZLE && (aPageIdx == ChallengePage::CHALLENGE_PAGE_LAST_STAND || aPageIdx == ChallengePage::CHALLENGE_PAGE_PUZZLE))
 			pageOffset += 4;
-		if (thePage == ChallengePage::CHALLENGE_PAGE_PUZZLE && (aPageIdx == ChallengePage::CHALLENGE_PAGE_LAST_STAND || thePage == ChallengePage::CHALLENGE_PAGE_PUZZLE))
-			pageOffset += 4;
-		if (thePage == ChallengePage::CHALLENGE_PAGE_CHALLENGE && (aPageIdx == ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE || thePage == ChallengePage::CHALLENGE_PAGE_CHALLENGE))
+		if (thePage == ChallengePage::CHALLENGE_PAGE_CHALLENGE && (aPageIdx == ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE || aPageIdx == ChallengePage::CHALLENGE_PAGE_CHALLENGE))
 			pageOffset += 3;
 		aPageButton->Resize(200 + 100 * (aPageIdx - pageOffset), 540, 100, 75);
 
@@ -543,8 +543,7 @@ int ChallengeScreen::AccomplishmentsNeeded(int theChallengeIndex)
 	int aTrophiesNeeded = MoreTrophiesNeeded(theChallengeIndex);
 	GameMode aGameMode = GetChallengeDefinition(theChallengeIndex).mChallengeMode;
 	if (mApp->IsSurvivalEndless(aGameMode) && aTrophiesNeeded <= 3 && mApp->GetNumTrophies(CHALLENGE_PAGE_SURVIVAL) < 10 &&
-		mApp->GetNumTrophies(CHALLENGE_PAGE_LAST_STAND) < 5 &&
-		/*mApp->GetNumTrophies(CHALLENGE_PAGE_LAST_STAND) < 6 &&*/
+		mApp->GetNumTrophies(CHALLENGE_PAGE_LAST_STAND) < 6 &&
 		mApp->GetNumTrophies(CHALLENGE_PAGE_CUSTOM_CHALLENGE) < 14 &&
 		mApp->HasFinishedAdventure() && !mApp->IsTrialStageLocked()) aTrophiesNeeded = 1;
 	return mCheatEnableChallenges ? 0 : aTrophiesNeeded;
@@ -940,21 +939,25 @@ void ChallengeScreen::ButtonDepress(int theId)
 	{
 		mApp->KillChallengeScreen();
 		mApp->DoBackToMain();
+		return;
 	}
 
 	int aChallengeMode = theId - ChallengeScreen::ChallengeScreen_Mode;
-	if (aChallengeMode >= 0 && aChallengeMode < NUM_CHALLENGE_MODES)
-	{
-		mApp->KillChallengeScreen();
-		mApp->PreNewGame((GameMode)(aChallengeMode + 1), true);
-	}
-
 	int aPageIndex = theId - ChallengeScreen::ChallengeScreen_Page;
+
 	if (aPageIndex >= 0 && aPageIndex < ChallengePage::MAX_CHALLANGE_PAGES)
 	{
 		mPageIndex = (ChallengePage)aPageIndex;
 		UpdateButtons();
 		UpdateScrollRange();
+		return;
+	}
+
+	if (aChallengeMode >= 0 && aChallengeMode < NUM_CHALLENGE_MODES)
+	{
+		mApp->KillChallengeScreen();
+		mApp->PreNewGame((GameMode)(aChallengeMode + 1), true);
+		return;
 	}
 }
 

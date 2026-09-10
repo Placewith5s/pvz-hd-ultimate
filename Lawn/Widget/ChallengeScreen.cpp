@@ -128,6 +128,8 @@ ChallengeDefinition gChallengeDefs[NUM_CHALLENGE_MODES] = {
 	{ GameMode::GAMEMODE_CHALLENGE_WORLD_7_10,             19,   ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE,   1,  4,  _S("[7_10]") },
 	{ GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_3,             0,   ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE,   2,  0,  _S("[WAR_AND_PEAS_3]") },
 	{ GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_4,             0,   ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE,   2,  1,  _S("[WAR_AND_PEAS_4]") },
+	{ GameMode::GAMEMODE_CHALLENGE_POGO_PARTY_2,             10,   ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE,   2,  2,  _S("[POGO_PARTY_2]") },
+	{ GameMode::GAMEMODE_CHALLENGE_POGO_PARTY_3,             10,   ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE,   2,  3,  _S("[POGO_PARTY_EXTREME]") },
 	//{ GameMode::GAMEMODE_LAST_STAND_STAGE_6,                   10,  ChallengePage::CHALLENGE_PAGE_LAST_STAND,   3,  0,  _S("[LAST_STAND_NIGHT_ROOF]") },
 	//{ GameMode::GAMEMODE_LAST_STAND_ENDLESS_STAGE_6,           10,  ChallengePage::CHALLENGE_PAGE_LAST_STAND,   3,  1,  _S("[LAST_STAND_NIGHT_ROOF_ENDLESS]") },
 };
@@ -301,15 +303,25 @@ ChallengeScreen::~ChallengeScreen()
 	delete mToolTip;
 }
 
+#include <chrono>
+
 ChallengeDefinition& GetChallengeDefinition(int theChallengeMode)
 {
 	TOD_ASSERT(theChallengeMode >= 0 && theChallengeMode < NUM_CHALLENGE_MODES);
 
 	ChallengeDefinition& aDef = gChallengeDefs[theChallengeMode];
 
-	printf("theChallengeMode = %d\n", theChallengeMode);
-	printf("aDef.mChallengeMode = %d\n", aDef.mChallengeMode);
-	printf("expected = %d\n", theChallengeMode + GAMEMODE_SURVIVAL_NORMAL_STAGE_1);
+	static auto lastPrint = std::chrono::steady_clock::now() - std::chrono::seconds(5);
+	auto now = std::chrono::steady_clock::now();
+
+	if (now - lastPrint >= std::chrono::seconds(5))
+	{
+		lastPrint = now;
+
+		printf("theChallengeMode = %d\n", theChallengeMode);
+		printf("aDef.mChallengeMode = %d\n", aDef.mChallengeMode);
+		printf("expected = %d\n", theChallengeMode + GAMEMODE_SURVIVAL_NORMAL_STAGE_1);
+	}
 
 	TOD_ASSERT(aDef.mChallengeMode == theChallengeMode + GAMEMODE_SURVIVAL_NORMAL_STAGE_1);
 
@@ -533,7 +545,7 @@ int ChallengeScreen::AccomplishmentsNeeded(int theChallengeIndex)
 	if (mApp->IsSurvivalEndless(aGameMode) && aTrophiesNeeded <= 3 && mApp->GetNumTrophies(CHALLENGE_PAGE_SURVIVAL) < 10 &&
 		mApp->GetNumTrophies(CHALLENGE_PAGE_LAST_STAND) < 5 &&
 		/*mApp->GetNumTrophies(CHALLENGE_PAGE_LAST_STAND) < 6 &&*/
-		mApp->GetNumTrophies(CHALLENGE_PAGE_CUSTOM_CHALLENGE) < 12 &&
+		mApp->GetNumTrophies(CHALLENGE_PAGE_CUSTOM_CHALLENGE) < 14 &&
 		mApp->HasFinishedAdventure() && !mApp->IsTrialStageLocked()) aTrophiesNeeded = 1;
 	return mCheatEnableChallenges ? 0 : aTrophiesNeeded;
 }

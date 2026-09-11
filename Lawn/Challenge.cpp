@@ -82,7 +82,7 @@ ZombieAllowedLevels gZombieAllowedLevels[NUM_ZOMBIE_TYPES] = {  //0x6A35B0
 			0, 0, 0, 1, 0, 0, 0, 0, 1, 0,
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 			0, 1, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 1, 0, 1, 0, 1, 1, 1, 1, 0,
+			0, 1, 0, 1, 0, 0, 1, 0, 1, 0,
 		}
 	},
 	{ ZOMBIE_PAIL,
@@ -102,7 +102,7 @@ ZombieAllowedLevels gZombieAllowedLevels[NUM_ZOMBIE_TYPES] = {  //0x6A35B0
 			0, 1, 0, 1, 0, 0, 0, 0, 0, 0,
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			1, 1, 1, 1, 0, 0, 0, 0, 1, 0,
+			0, 1, 0, 1, 0, 0, 0, 0, 1, 0,
 		}
 	},
 	{ ZOMBIE_DOOR,
@@ -122,7 +122,7 @@ ZombieAllowedLevels gZombieAllowedLevels[NUM_ZOMBIE_TYPES] = {  //0x6A35B0
 			0, 1, 0, 0, 1, 0, 0, 0, 0, 0,
 			0, 1, 0, 0, 0, 0, 0, 0, 0, 0,
 			0, 0, 0, 1, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 1, 0,
+			0, 0, 0, 0, 0, 1, 1, 0, 1, 0,
 		}
 	},
 	{ ZOMBIE_DANCER,

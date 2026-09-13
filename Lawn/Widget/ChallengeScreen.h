@@ -20,7 +20,7 @@ private:
     {
         ChallengeScreen_Back = 100,
         ChallengeScreen_Mode = 200,
-        ChallengeScreen_Page = 300
+        ChallengeScreen_Page = 400
     };
 
 public:

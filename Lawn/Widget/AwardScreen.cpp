@@ -324,7 +324,7 @@ void AwardScreen::Draw(Graphics* g)
 				else if (mApp->IsPuzzleMode())
 					aMsgChar = _S("[UNLOCKED_I_ZOMBIE_LEVEL]");
 				else
-					aMsgChar = mApp->GetNumTrophies(CHALLENGE_PAGE_CHALLENGE) <= 29 ? _S("[CHALLENGE_UNLOCKED]") : _S("[GET_MORE_TROPHIES]");
+					aMsgChar = mApp->GetNumTrophies(CHALLENGE_PAGE_CHALLENGE) <= 17 ? _S("[CHALLENGE_UNLOCKED]") : _S("[GET_MORE_TROPHIES]");
 
 				DrawBottom(g, _S("[GOT_TROPHY]"), _S("[TROPHY]"), aMsgChar);
 				g->DrawImage(Sexy::IMAGE_TROPHY_HI_RES, BOARD_WIDTH / 2 - Sexy::IMAGE_TROPHY_HI_RES->mWidth / 2, 137);

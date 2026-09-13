@@ -1248,6 +1248,9 @@ void Board::PickBackground()
 	case GameMode::GAMEMODE_CHALLENGE_WORLD_7_8:
 	case GameMode::GAMEMODE_CHALLENGE_WORLD_7_9:
 	case GameMode::GAMEMODE_CHALLENGE_WORLD_7_10:
+	case GameMode::GAMEMODE_SURVIVAL_NORMAL_STAGE_7:
+	case GameMode::GAMEMODE_SURVIVAL_HARD_STAGE_7:
+	case GameMode::GAMEMODE_SURVIVAL_ENDLESS_STAGE_7:
 		mBackground = BackgroundType::BACKGROUND_GREENHOUSE;
 		break;
 

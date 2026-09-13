@@ -556,7 +556,7 @@ void Challenge::StartLevel()
 		mChallengeStateCounter = 400;
 	}
 	GameMode aGameMode = mApp->mGameMode;
-	if (aGameMode == GAMEMODE_CHALLENGE_BOBSLED_BONANZA)
+	if (aGameMode == GAMEMODE_CHALLENGE_BOBSLED_BONANZA || aGameMode == GAMEMODE_CHALLENGE_VEHICLE_PARTY)
 	{
 		for (int i = 0; i < MAX_GRID_SIZE_Y; i++)
 		{
@@ -651,7 +651,8 @@ void Challenge::StartLevel()
 		mBoard->mCurrentWave = 9;
 		mBoard->mZombieCountDown = 2400;
 	}
-	if (aGameMode == GAMEMODE_CHALLENGE_AIR_RAID || aGameMode == GAMEMODE_CHALLENGE_BOBSLED_BONANZA)
+	if (aGameMode == GAMEMODE_CHALLENGE_AIR_RAID ||
+		aGameMode == GAMEMODE_CHALLENGE_BOBSLED_BONANZA || aGameMode == GAMEMODE_CHALLENGE_VEHICLE_PARTY)
 	{
 		mBoard->mZombieCountDown = 4500;
 	}
@@ -3053,6 +3054,12 @@ void Challenge::InitZombieWaves()
 	{
 		aList[ZOMBIE_BOBSLED] = true;
 		aList[ZOMBIE_ZAMBONI] = true;
+	}
+	else if (aGameMode == GAMEMODE_CHALLENGE_VEHICLE_PARTY)
+	{
+		aList[ZOMBIE_BOBSLED] = true;
+		aList[ZOMBIE_ZAMBONI] = true;
+		aList[ZOMBIE_CATAPULT] = true;
 	}
 	else if (aGameMode == GAMEMODE_CHALLENGE_AIR_RAID)
 	{

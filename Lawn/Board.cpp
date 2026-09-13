@@ -1172,6 +1172,7 @@ void Board::PickBackground()
 	case GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_2:
 	case GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_3:
 	case GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_4:
+	case GameMode::GAMEMODE_CHALLENGE_VEHICLE_PARTY:
 	case GameMode::GAMEMODE_UPSELL:
 	case GameMode::GAMEMODE_INTRO:
 #ifdef _MOBILE_MINIGAMES
@@ -2049,7 +2050,8 @@ void Board::PlaceRake()
 	else
 	{
 		if (!StageHasZombieWalkInFromRight() || mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_BEGHOULED ||
-			mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_BEGHOULED_TWIST || mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_BOBSLED_BONANZA)
+			mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_BEGHOULED_TWIST || mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_BOBSLED_BONANZA ||
+			mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_VEHICLE_PARTY)
 			return;
 	}
 
@@ -3029,7 +3031,8 @@ ZombieType Board::PickZombieType(int theZombiePoints, int theWaveIndex, ZombiePi
 		}
 		// 僵尸最早出现的波数的限制（出怪限制）
 		else if (aGameMode != GameMode::GAMEMODE_CHALLENGE_POGO_PARTY && aGameMode != GameMode::GAMEMODE_CHALLENGE_POGO_PARTY_2 && aGameMode != GameMode::GAMEMODE_CHALLENGE_POGO_PARTY_3 &&
-			aGameMode != GameMode::GAMEMODE_CHALLENGE_BOBSLED_BONANZA && aGameMode != GameMode::GAMEMODE_CHALLENGE_AIR_RAID
+			aGameMode != GameMode::GAMEMODE_CHALLENGE_BOBSLED_BONANZA && aGameMode != GameMode::GAMEMODE_CHALLENGE_VEHICLE_PARTY &&
+			aGameMode != GameMode::GAMEMODE_CHALLENGE_AIR_RAID
 #ifdef _MOBILE_MINIGAMES
 			&& aGameMode != GameMode::GAMEMODE_CHALLENGE_HEAT_WAVE
 #endif

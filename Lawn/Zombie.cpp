@@ -5339,7 +5339,7 @@ void Zombie::UpdateZamboni()
     if (anIceX < 800)
     {
         mBoard->mIceTimer[mRow] = 3000;
-        if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_BOBSLED_BONANZA)
+        if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_BOBSLED_BONANZA || mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_VEHICLE_PARTY)
         {
             mBoard->mIceTimer[mRow] = INT_MAX;
         }

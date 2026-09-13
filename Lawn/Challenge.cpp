@@ -655,11 +655,11 @@ void Challenge::StartLevel()
 	{
 		mBoard->mZombieCountDown = 4500;
 	}
-	if (aGameMode == GAMEMODE_CHALLENGE_POGO_PARTY || aGameMode == GAMEMODE_CHALLENGE_POGO_PARTY_2)
+	if (aGameMode == GAMEMODE_CHALLENGE_POGO_PARTY)
 	{
 		mBoard->mZombieCountDown = 5500;
 	}
-	if (aGameMode == GAMEMODE_CHALLENGE_POGO_PARTY_3)
+	if (aGameMode == GAMEMODE_CHALLENGE_POGO_PARTY_2 || aGameMode == GAMEMODE_CHALLENGE_POGO_PARTY_3)
 	{
 		mBoard->mZombieCountDown = 7750;
 	}

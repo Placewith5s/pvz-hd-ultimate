@@ -1173,6 +1173,7 @@ void Board::PickBackground()
 	case GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_3:
 	case GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_4:
 	case GameMode::GAMEMODE_CHALLENGE_VEHICLE_PARTY:
+	case GameMode::GAMEMODE_CHALLENGE_SLOT_MACHINE_2:
 	case GameMode::GAMEMODE_UPSELL:
 	case GameMode::GAMEMODE_INTRO:
 #ifdef _MOBILE_MINIGAMES
@@ -1207,6 +1208,7 @@ void Board::PickBackground()
 	case GameMode::GAMEMODE_CHALLENGE_BUNGEE_BLITZ:
 	case GameMode::GAMEMODE_LAST_STAND_STAGE_5:
 	case GameMode::GAMEMODE_LAST_STAND_ENDLESS_STAGE_5:
+	case GameMode::GAMEMODE_CHALLENGE_SLOT_MACHINE_3:
 		mBackground = BackgroundType::BACKGROUND_5_ROOF;
 		break;
 
@@ -1252,6 +1254,7 @@ void Board::PickBackground()
 	case GameMode::GAMEMODE_SURVIVAL_NORMAL_STAGE_7:
 	case GameMode::GAMEMODE_SURVIVAL_HARD_STAGE_7:
 	case GameMode::GAMEMODE_SURVIVAL_ENDLESS_STAGE_7:
+	case GameMode::GAMEMODE_CHALLENGE_SLOT_MACHINE_4:
 		mBackground = BackgroundType::BACKGROUND_GREENHOUSE;
 		break;
 
@@ -1660,7 +1663,8 @@ Rect Board::GetShovelButtonRect()
 		aRect.mY = 0;
 	}
 
-	if (mApp->IsSlotMachineLevel() || mApp->IsSquirrelLevel())
+	if (mApp->IsSlotMachineLevel() || mApp->IsSlotMachinePoolLevel() || mApp->IsSlotMachineRoofLevel()
+		|| mApp->IsSquirrelLevel())
 		aRect.mX = 600;
 	
 	if (mApp->IsAdventureMode() && mApp->IsFirstTimeAdventureMode() && mLevel == 5 && mApp->mGameScene == GameScenes::SCENE_LEVEL_INTRO ||
@@ -1802,12 +1806,19 @@ void Board::InitLevel()
 		aPacket->mPacketType = SeedType::SEED_NONE;
 	}
 	// 设定固定卡牌
-	if (mApp->IsSlotMachineLevel())
+	if (mApp->IsSlotMachineLevel() || mApp->IsSlotMachinePoolLevel())
 	{
 		TOD_ASSERT(mSeedBank->mNumPackets == 3);
 		mSeedBank->mSeedPackets[0].SetPacketType(SeedType::SEED_SUNFLOWER);
 		mSeedBank->mSeedPackets[1].SetPacketType(SeedType::SEED_PEASHOOTER);
 		mSeedBank->mSeedPackets[2].SetPacketType(SeedType::SEED_SNOWPEA);
+	}
+	else if (mApp->IsSlotMachineRoofLevel())
+	{
+		TOD_ASSERT(mSeedBank->mNumPackets == 3);
+		mSeedBank->mSeedPackets[0].SetPacketType(SeedType::SEED_SUNFLOWER);
+		mSeedBank->mSeedPackets[1].SetPacketType(SeedType::SEED_CABBAGEPULT);
+		mSeedBank->mSeedPackets[2].SetPacketType(SeedType::SEED_KERNELPULT);
 	}
 	else if (aGameMode == GameMode::GAMEMODE_CHALLENGE_ICE)
 	{
@@ -2138,7 +2149,8 @@ bool Board::ChooseSeedsOnCurrentLevel()
 		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_ZOMBIQUARIUM)
 		return false;
 
-	if (mApp->IsIZombieLevel() || mApp->IsSlotMachineLevel())
+	if (mApp->IsIZombieLevel() ||
+		mApp->IsSlotMachineLevel() || mApp->IsSlotMachinePoolLevel() || mApp->IsSlotMachineRoofLevel())
 		return false;
 
 	if ((mApp->mGameMode >= GameMode::GAMEMODE_LAST_STAND_STAGE_1 && mApp->mGameMode <= GameMode::GAMEMODE_LAST_STAND_STAGE_5) ||
@@ -4281,7 +4293,8 @@ void Board::UpdateToolTip()
 	{
 		mToolTip->SetWarningText(_S("[WAITING_FOR_SEED]"));
 	}
-	else if (!CanTakeSunMoney(aPlantCost) && !HasConveyorBeltSeedBank() && !mApp->IsSlotMachineLevel())
+	else if (!CanTakeSunMoney(aPlantCost) && !HasConveyorBeltSeedBank() &&
+		!mApp->IsSlotMachineLevel() && !mApp->IsSlotMachinePoolLevel() && !mApp->IsSlotMachineRoofLevel())
 	{
 		mToolTip->SetWarningText(_S("[NOT_ENOUGH_SUN]"));
 	}
@@ -5132,7 +5145,7 @@ bool Board::MouseHitTest(int x, int y, HitResult* theHitResult)
 		}
 	}
 
-	if (mApp->IsSlotMachineLevel())
+	if (mApp->IsSlotMachineLevel() || mApp->IsSlotMachinePoolLevel() || mApp->IsSlotMachineRoofLevel())
 	{
 		Rect aSlotMachineHandleRect = mChallenge->SlotMachineGetHandleRect();
 		if (aSlotMachineHandleRect.Contains(x, y) && mChallenge->mChallengeState == ChallengeState::STATECHALLENGE_NORMAL && !HasLevelAwardDropped())
@@ -7761,8 +7774,10 @@ bool Board::HasProgressMeter()
 	if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_BEGHOULED || 
 		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_BEGHOULED_TWIST || 
 		mApp->IsFinalBossLevel() || 
-		mApp->IsSlotMachineLevel() || 
-		mApp->IsSquirrelLevel() || 
+		mApp->IsSlotMachineLevel() ||
+		mApp->IsSlotMachinePoolLevel() ||
+		mApp->IsSlotMachineRoofLevel() ||
+		mApp->IsSquirrelLevel() ||
 		mApp->IsIZombieLevel())
 		return true;
 
@@ -7797,6 +7812,8 @@ bool Board::ProgressMeterHasFlags()
 		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_BOMB_ALL_TOGETHER ||
 #endif
 		mApp->IsSlotMachineLevel() ||
+		mApp->IsSlotMachinePoolLevel() ||
+		mApp->IsSlotMachineRoofLevel() ||
 		mApp->IsSquirrelLevel() ||
 		mApp->IsIZombieLevel())
 		return false;
@@ -7837,7 +7854,8 @@ void Board::DrawProgressMeter(Graphics* g)
 		SexyString aMatchStr = StrFormat(_S("%d/%d %s"), mChallenge->mChallengeScore, 7, TodStringTranslate(_S("[SQUIRRELS]")).c_str());
 		TodDrawString(g, aMatchStr, aPosX, 589, Sexy::FONT_DWARVENTODCRAFT12, aColor, DrawStringJustification::DS_ALIGN_CENTER);
 	}
-	else if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_SLOT_MACHINE)
+	else if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_SLOT_MACHINE || mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_SLOT_MACHINE_2 ||
+		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_SLOT_MACHINE_3 || mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_SLOT_MACHINE_4)
 	{
 		int aSunMoney = ClampInt(mSunMoney, 0, 2000);
 		SexyString aMatchStr = StrFormat(_S("%d/%d %s"), aSunMoney, 2000, TodStringTranslate(_S("[SUN]")).c_str());
@@ -7901,6 +7919,8 @@ void Board::DrawProgressMeter(Graphics* g)
 #endif
 		mApp->IsSquirrelLevel() || 
 		mApp->IsSlotMachineLevel() ||
+		mApp->IsSlotMachinePoolLevel() ||
+		mApp->IsSlotMachineRoofLevel() ||
 		mApp->IsIZombieLevel() || 
 		mApp->IsFinalBossLevel())
 	{
@@ -10917,7 +10937,7 @@ int Board::GetNumSeedsInBank()
 	{
 		return 10;
 	}
-	if (mApp->IsSlotMachineLevel())
+	if (mApp->IsSlotMachineLevel() || mApp->IsSlotMachinePoolLevel() || mApp->IsSlotMachineRoofLevel())
 	{
 		return 3;
 	}
@@ -11066,7 +11086,9 @@ int Board::LeftFogColumn()
 //0x41C210
 int Board::GetSeedPacketPositionX(int theIndex)
 {
-	if (mApp->IsSlotMachineLevel())			return theIndex * 59 + 247;
+	if (mApp->IsSlotMachineLevel() || mApp->IsSlotMachinePoolLevel() || mApp->IsSlotMachineRoofLevel())
+		return theIndex * 59 + 247;
+
 	if (HasConveyorBeltSeedBank())			return theIndex * 50 + 91;
 	
 	if (mSeedBank->mNumPackets <= 7)		return theIndex * 59 + 85;

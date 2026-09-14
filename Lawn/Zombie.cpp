@@ -12725,8 +12725,6 @@ void Zombie::BossSpawnContact()
             ZombieType::ZOMBIE_GARGANTUAR
         };
     }
-
-    // reset list for players that played 6-10 adventure again or dr zomboss revenge before 7-10 minigame
     else
     {
         ZombieType gBossZombieList[] = {

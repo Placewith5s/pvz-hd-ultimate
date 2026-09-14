@@ -285,6 +285,8 @@ public:
 	/*inline*/ bool					IsWallnutBowlingLevel();
 	/*inline*/ bool					IsMiniBossLevel();
 	/*inline*/ bool					IsSlotMachineLevel();
+	/*inline*/ bool					IsSlotMachinePoolLevel();
+	/*inline*/ bool					IsSlotMachineRoofLevel();
 	/*inline*/ bool					IsLittleTroubleLevel();
 	/*inline*/ bool					IsStormyNightLevel();
 	/*inline*/ bool					IsFinalBossLevel();

@@ -5414,7 +5414,8 @@ void Plant::MouseDown(int x, int y, int theClickCount)
         else if (!isReady) {
             mBoard->mToolTip->SetWarningText(_S("[WAITING_FOR_SEED]"));
         }
-        else if (!hasEnoughSuns && !mBoard->HasConveyorBeltSeedBank() && !mApp->IsSlotMachineLevel()) {
+        else if (!hasEnoughSuns && !mBoard->HasConveyorBeltSeedBank() &&
+            !mApp->IsSlotMachineLevel() && !mApp->IsSlotMachinePoolLevel() && !mApp->IsSlotMachineRoofLevel()) {
             mBoard->mToolTip->SetWarningText(_S("[NOT_ENOUGH_SUN]"));
             mApp->PlaySample(Sexy::SOUND_BUZZER);
             mBoard->mOutOfMoneyCounter = 70;

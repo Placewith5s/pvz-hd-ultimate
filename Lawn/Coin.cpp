@@ -1586,7 +1586,9 @@ int Coin::GetDisappearTime()
         aTime = 1500;
     }
 
-    if ((mApp->IsScaryPotterLevel() || mApp->IsSlotMachineLevel()) && mType == CoinType::COIN_USABLE_SEED_PACKET)
+    if ((mApp->IsScaryPotterLevel() ||
+        mApp->IsSlotMachineLevel() || mApp->IsSlotMachinePoolLevel() || mApp->IsSlotMachineRoofLevel()) &&
+        mType == CoinType::COIN_USABLE_SEED_PACKET)
     {
         aTime = 1500;
     }

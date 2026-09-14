@@ -3323,7 +3323,9 @@ bool LawnApp::IsContinuousChallenge()
 {
 	return 
 		IsArtChallenge() || 
-		IsSlotMachineLevel() || 
+		IsSlotMachineLevel() ||
+		IsSlotMachinePoolLevel() ||
+		IsSlotMachineRoofLevel() ||
 		IsFinalBossLevel() || 
 		mGameMode == GameMode::GAMEMODE_CHALLENGE_BEGHOULED || 
 		mGameMode == GameMode::GAMEMODE_UPSELL || 
@@ -3392,7 +3394,18 @@ bool LawnApp::IsWallnutBowlingLevel()
 //0x453870
 bool LawnApp::IsSlotMachineLevel()
 {
-	return (mBoard && mGameMode == GameMode::GAMEMODE_CHALLENGE_SLOT_MACHINE);
+	return (mBoard &&
+		(mGameMode == GameMode::GAMEMODE_CHALLENGE_SLOT_MACHINE || mGameMode == GameMode::GAMEMODE_CHALLENGE_SLOT_MACHINE_4));
+}
+
+bool LawnApp::IsSlotMachinePoolLevel()
+{
+	return (mBoard && mGameMode == GameMode::GAMEMODE_CHALLENGE_SLOT_MACHINE_2);
+}
+
+bool LawnApp::IsSlotMachineRoofLevel()
+{
+	return (mBoard && mGameMode == GameMode::GAMEMODE_CHALLENGE_SLOT_MACHINE_3);
 }
 
 //0x453890
@@ -3832,7 +3845,8 @@ bool LawnApp::HasBeatenChallenge(GameMode theGameMode)
 		return false;
 	}
 
-	if (mGameMode == GameMode::GAMEMODE_UPSELL && theGameMode > GameMode::GAMEMODE_CHALLENGE_SLOT_MACHINE) {
+	if (mGameMode == GameMode::GAMEMODE_UPSELL && (theGameMode > GameMode::GAMEMODE_CHALLENGE_SLOT_MACHINE ||
+		theGameMode >= GameMode::GAMEMODE_CHALLENGE_SLOT_MACHINE_2 && theGameMode <= GameMode::GAMEMODE_CHALLENGE_SLOT_MACHINE_4)) {
 		return false;
 	}
 	return mPlayerInfo->mChallengeRecords[aChallengeIndex] > 0;
@@ -4586,9 +4600,9 @@ int LawnApp::GetNumTrophies(ChallengePage thePage)
 int LawnApp::TrophiesNeedForGoldSunflower()
 {
 	// previously 48
-	// 15 minigames
+	// 18 minigames
 	// 6 last stand puzzles
-	return 69 - GetNumTrophies(CHALLENGE_PAGE_SURVIVAL) - GetNumTrophies(CHALLENGE_PAGE_CHALLENGE) - GetNumTrophies(CHALLENGE_PAGE_CUSTOM_CHALLENGE) - GetNumTrophies(CHALLENGE_PAGE_PUZZLE) - GetNumTrophies(CHALLENGE_PAGE_LAST_STAND);
+	return 72 - GetNumTrophies(CHALLENGE_PAGE_SURVIVAL) - GetNumTrophies(CHALLENGE_PAGE_CHALLENGE) - GetNumTrophies(CHALLENGE_PAGE_CUSTOM_CHALLENGE) - GetNumTrophies(CHALLENGE_PAGE_PUZZLE) - GetNumTrophies(CHALLENGE_PAGE_LAST_STAND);
 }
 
 //0x455C50

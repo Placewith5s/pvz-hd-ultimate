@@ -3289,7 +3289,7 @@ bool LawnApp::IsSurvivalNormal(GameMode theGameMode)
 	int aLevel = theGameMode - GameMode::GAMEMODE_SURVIVAL_NORMAL_STAGE_1;
 	int aLimboLevel = theGameMode - GameMode::GAMEMODE_SURVIVAL_NORMAL_STAGE_6;
 	int aLimboLevel2 = theGameMode - GameMode::GAMEMODE_SURVIVAL_NORMAL_STAGE_7;
-	return aLevel >= 0 && aLevel <= 4 || aLimboLevel >= 0 && aLimboLevel <= 1 || aLimboLevel2 >= 0 && aLimboLevel2 <= 1;
+	return aLevel >= 0 && aLevel <= 4 || aLimboLevel >= 0 && aLimboLevel <= 1 || aLimboLevel2 == 0;
 }
 
 bool LawnApp::IsSurvivalHard(GameMode theGameMode)
@@ -3297,7 +3297,7 @@ bool LawnApp::IsSurvivalHard(GameMode theGameMode)
 	int aLevel = theGameMode - GameMode::GAMEMODE_SURVIVAL_HARD_STAGE_1;
 	int aLimboLevel = theGameMode - GameMode::GAMEMODE_SURVIVAL_HARD_STAGE_6;
 	int aLimboLevel2 = theGameMode - GameMode::GAMEMODE_SURVIVAL_HARD_STAGE_7;
-	return aLevel >= 0 && aLevel <= 4 || aLimboLevel >= 0 && aLimboLevel <= 1 || aLimboLevel2 >= 0 && aLimboLevel2 <= 1;
+	return aLevel >= 0 && aLevel <= 4 || aLimboLevel >= 0 && aLimboLevel <= 1 || aLimboLevel2 == 0;
 }
 
 bool LawnApp::IsSurvivalEndless(GameMode theGameMode)
@@ -3305,7 +3305,7 @@ bool LawnApp::IsSurvivalEndless(GameMode theGameMode)
 	int aLevel = theGameMode - GameMode::GAMEMODE_SURVIVAL_ENDLESS_STAGE_1;
 	int aLimboLevel = theGameMode - GameMode::GAMEMODE_SURVIVAL_ENDLESS_STAGE_6;
 	int aLimboLevel2 = theGameMode - GameMode::GAMEMODE_SURVIVAL_ENDLESS_STAGE_7;
-	return aLevel >= 0 && aLevel <= 4 || aLimboLevel >= 0 && aLimboLevel <= 1 || aLimboLevel2 >= 0 && aLimboLevel2 <= 1;
+	return aLevel >= 0 && aLevel <= 4 || aLimboLevel >= 0 && aLimboLevel <= 1 || aLimboLevel2 == 0;
 }
 
 bool LawnApp::IsEndlessScaryPotter(GameMode theGameMode)

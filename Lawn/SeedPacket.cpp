@@ -38,6 +38,10 @@ void SeedPacket::PickNextSlotMachineSeed()
 		SeedType::SEED_SUNFLOWER,
 		SeedType::SEED_PEASHOOTER,
 		SeedType::SEED_SNOWPEA,
+		SeedType::SEED_CABBAGEPULT,
+		SeedType::SEED_KERNELPULT,
+		SeedType::SEED_LILYPAD,
+		SeedType::SEED_FLOWERPOT,
 		SeedType::SEED_WALLNUT,
 		SeedType::SEED_SLOT_MACHINE_SUN,
 		SeedType::SEED_SLOT_MACHINE_DIAMOND
@@ -49,8 +53,11 @@ void SeedPacket::PickNextSlotMachineSeed()
 	{
 		SeedType aSeedType = SLOT_SEED_TYPES[i];
 
+		//printf("aSeedType (slot machine) = %d\n", aSeedType);
+
 		int aWeight = 100;
-		if (aSeedType == SeedType::SEED_PEASHOOTER)
+
+		if (aSeedType == SeedType::SEED_PEASHOOTER && mApp->mGameMode != GameMode::GAMEMODE_CHALLENGE_SLOT_MACHINE_3)
 		{
 			aWeight = TodAnimateCurve(0, 5, aPeasCount, 200, 100, TodCurves::CURVE_LINEAR);
 		}
@@ -58,6 +65,20 @@ void SeedPacket::PickNextSlotMachineSeed()
 		{
 			aWeight = 30;
 		}
+
+		// no new seeds for day and greenhouse slot machines
+		if ((mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_SLOT_MACHINE || mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_SLOT_MACHINE_4) &&
+			(aSeedType == SeedType::SEED_LILYPAD || aSeedType == SeedType::SEED_FLOWERPOT ||
+			aSeedType == SeedType::SEED_CABBAGEPULT || aSeedType == SeedType::SEED_KERNELPULT))
+			aWeight = 0;
+		// no flower pots and pult plants for pool slot machine
+		else if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_SLOT_MACHINE_2 && (aSeedType == SeedType::SEED_FLOWERPOT ||
+			aSeedType == SeedType::SEED_CABBAGEPULT || aSeedType == SeedType::SEED_KERNELPULT))
+			aWeight = 0;
+		// no lilypads and pea family plants for roof slot machine
+		else if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_SLOT_MACHINE_3 && (aSeedType == SeedType::SEED_LILYPAD ||
+			aSeedType == SeedType::SEED_PEASHOOTER || aSeedType == SeedType::SEED_SNOWPEA))
+			aWeight = 0;
 
 		if (mIndex == 2 && aSeedType != SeedType::SEED_SLOT_MACHINE_DIAMOND)
 		{
@@ -652,7 +673,8 @@ void SeedPacket::Draw(Graphics* g)
 		}
 
 		bool aDrawCost = true;
-		if (mBoard->HasConveyorBeltSeedBank() || mApp->IsSlotMachineLevel())
+		if (mBoard->HasConveyorBeltSeedBank() ||
+			mApp->IsSlotMachineLevel() || mApp->IsSlotMachinePoolLevel() || mApp->IsSlotMachineRoofLevel())
 		{
 			aDrawCost = false;
 		}
@@ -764,7 +786,7 @@ bool SeedPacket::CanPickUp()
 		aUseSeedType = mImitaterType;
 	}
 
-	if (mApp->IsSlotMachineLevel())
+	if (mApp->IsSlotMachineLevel() || mApp->IsSlotMachinePoolLevel() || mApp->IsSlotMachineRoofLevel())
 	{
 		return false;
 	}
@@ -799,7 +821,7 @@ void SeedPacket::MouseDown(int x, int y, int theClickCount)
 		return;
 	}
 
-	if (mApp->IsSlotMachineLevel())
+	if (mApp->IsSlotMachineLevel() || mApp->IsSlotMachinePoolLevel() || mApp->IsSlotMachineRoofLevel())
 	{
 		if (!mBoard->mAdvice->IsBeingDisplayed())
 		{
@@ -953,7 +975,7 @@ void SeedPacket::WasPlanted()
 	{
 		mBoard->mSeedBank->RemoveSeed(mIndex);
 	}
-	else if (mApp->IsSlotMachineLevel())
+	else if (mApp->IsSlotMachineLevel() || mApp->IsSlotMachinePoolLevel() || mApp->IsSlotMachineRoofLevel())
 	{
 		Deactivate();
 	}
@@ -1018,7 +1040,7 @@ void SeedBank::Draw(Graphics* g)
 		g->mTransY -= mBoard->mY;
 	}
 
-	if (mApp->IsSlotMachineLevel())
+	if (mApp->IsSlotMachineLevel() || mApp->IsSlotMachinePoolLevel() || mApp->IsSlotMachineRoofLevel())
 	{
 		g->DrawImage(IMAGE_SUNBANK, 0, 0);
 	}
@@ -1047,7 +1069,8 @@ void SeedBank::Draw(Graphics* g)
 	}
 
 	g->ClearClipRect();
-	if (mApp->IsSlotMachineLevel() && mY > -IMAGE_SEEDBANK->GetHeight())
+	if ((mApp->IsSlotMachineLevel() || mApp->IsSlotMachinePoolLevel() || mApp->IsSlotMachineRoofLevel()) &&
+		mY > -IMAGE_SEEDBANK->GetHeight())
 	{
 		g->DrawImage(IMAGE_SLOTMACHINE_OVERLAY, 189, -2);
 	}

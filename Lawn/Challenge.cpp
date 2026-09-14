@@ -444,7 +444,10 @@ Challenge::Challenge()
 	for (int i = 0; i < (int)BeghouledUpgrade::NUM_BEGHOULED_UPGRADES; i++)
 		mBeghouledPurcasedUpgrade[i] = false;
 
-	if (mApp->mBoard && mApp->mGameMode == GAMEMODE_CHALLENGE_SLOT_MACHINE)
+	if (mApp->mBoard && mApp->mGameMode == GAMEMODE_CHALLENGE_SLOT_MACHINE ||
+		mApp->mBoard && mApp->mGameMode == GAMEMODE_CHALLENGE_SLOT_MACHINE_2 ||
+		mApp->mBoard && mApp->mGameMode == GAMEMODE_CHALLENGE_SLOT_MACHINE_3 ||
+		mApp->mBoard && mApp->mGameMode == GAMEMODE_CHALLENGE_SLOT_MACHINE_4)
 	{
 		Rect aHandleRect = SlotMachineGetHandleRect();
 		ReanimatorEnsureDefinitionLoaded(REANIM_SLOT_MACHINE_HANDLE, true);
@@ -615,7 +618,7 @@ void Challenge::StartLevel()
 	{
 		mBoard->DisplayAdvice(_S("[ADVICE_FILL_IN_STARFRUIT]"), MESSAGE_STYLE_HINT_FAST, ADVICE_NONE);
 	}
-	if (mApp->IsSlotMachineLevel())
+	if (mApp->IsSlotMachineLevel() || mApp->IsSlotMachinePoolLevel() || mApp->IsSlotMachineRoofLevel())
 	{
 		mBoard->SetTutorialState(TUTORIAL_SLOT_MACHINE_PULL);
 	}
@@ -1334,7 +1337,7 @@ bool Challenge::MouseMove(int x, int y)
 //0x4219B0
 bool Challenge::UpdateToolTip(int theX, int theY)
 {
-	if (!mApp->IsSlotMachineLevel())
+	if (!mApp->IsSlotMachineLevel() && !mApp->IsSlotMachinePoolLevel() && !mApp->IsSlotMachineRoofLevel())
 		return false;
 	
 	HitResult aHitResult;
@@ -1466,7 +1469,8 @@ bool Challenge::MouseDown(int x, int y, int theClickCount, HitResult* theHitResu
 		BeghouledTwistMouseDown(x, y);
 	}
 
-	if (mApp->IsSlotMachineLevel() && theHitResult->mObjectType == OBJECT_TYPE_SLOT_MACHINE_HANDLE &&
+	if ((mApp->IsSlotMachineLevel() || mApp->IsSlotMachinePoolLevel() || mApp->IsSlotMachineRoofLevel()) &&
+		theHitResult->mObjectType == OBJECT_TYPE_SLOT_MACHINE_HANDLE &&
 		mBoard->mCursorObject->mCursorType == CURSOR_TYPE_NORMAL && mChallengeState == STATECHALLENGE_NORMAL)
 	{
 		if (mBoard->TakeSunMoney(25))
@@ -2518,7 +2522,7 @@ void Challenge::Update()
 	{
 		IZombieUpdate();
 	}
-	if (mApp->IsSlotMachineLevel())
+	if (mApp->IsSlotMachineLevel() || mApp->IsSlotMachinePoolLevel() || mApp->IsSlotMachineRoofLevel())
 	{
 		UpdateSlotMachine();
 	}
@@ -2781,7 +2785,8 @@ void Challenge::DrawBackdrop(Graphics* g)
 	}
 #endif
 
-	if (aGameMode == GAMEMODE_CHALLENGE_SLOT_MACHINE)
+	if (aGameMode == GAMEMODE_CHALLENGE_SLOT_MACHINE || aGameMode == GAMEMODE_CHALLENGE_SLOT_MACHINE_2 ||
+		aGameMode == GAMEMODE_CHALLENGE_SLOT_MACHINE_3 || aGameMode == GAMEMODE_CHALLENGE_SLOT_MACHINE_4)
 	{
 		DrawSlotMachine(g);
 	}
@@ -3060,6 +3065,28 @@ void Challenge::InitZombieWaves()
 		aList[ZOMBIE_BOBSLED] = true;
 		aList[ZOMBIE_ZAMBONI] = true;
 		aList[ZOMBIE_CATAPULT] = true;
+	}
+	else if (aGameMode == GAMEMODE_CHALLENGE_SLOT_MACHINE_2)
+	{
+		aList[ZOMBIE_NORMAL] = true;
+		aList[ZOMBIE_TRAFFIC_CONE] = true;
+		aList[ZOMBIE_PAIL] = true;
+		aList[ZOMBIE_SNORKEL] = true;
+		aList[ZOMBIE_DOLPHIN_RIDER] = true;
+	}
+	else if (aGameMode == GAMEMODE_CHALLENGE_SLOT_MACHINE_3)
+	{
+		aList[ZOMBIE_NORMAL] = true;
+		aList[ZOMBIE_TRAFFIC_CONE] = true;
+		aList[ZOMBIE_PAIL] = true;
+		aList[ZOMBIE_BUNGEE] = true;
+	}
+	else if (aGameMode == GAMEMODE_CHALLENGE_SLOT_MACHINE_4)
+	{
+		aList[ZOMBIE_NORMAL] = true;
+		aList[ZOMBIE_TRAFFIC_CONE] = true;
+		aList[ZOMBIE_PAIL] = true;
+		aList[ZOMBIE_BUNGEE_PAIL] = true;
 	}
 	else if (aGameMode == GAMEMODE_CHALLENGE_AIR_RAID)
 	{

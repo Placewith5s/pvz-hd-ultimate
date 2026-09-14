@@ -667,6 +667,10 @@ void Challenge::StartLevel()
 	{
 		mBoard->mZombieCountDown = 7750;
 	}
+	if (aGameMode == GAMEMODE_CHALLENGE_ZOMBIE_PARTY)
+	{
+		mBoard->mZombieCountDown = 11000;
+	}
 	if (aGameMode == GAMEMODE_CHALLENGE_ZOMBIQUARIUM)
 	{
 		mBoard->DisplayAdvice(_S("[ADVICE_ZOMBIQUARIUM_CLICK_TO_FEED]"), MESSAGE_STYLE_HINT_TALL_FAST, ADVICE_ZOMBIQUARIUM_CLICK_TO_FEED);
@@ -3065,6 +3069,14 @@ void Challenge::InitZombieWaves()
 		aList[ZOMBIE_BOBSLED] = true;
 		aList[ZOMBIE_ZAMBONI] = true;
 		aList[ZOMBIE_CATAPULT] = true;
+	}
+	else if (aGameMode == GAMEMODE_CHALLENGE_ZOMBIE_PARTY)
+	{
+		aList[ZOMBIE_BOBSLED] = true;
+		aList[ZOMBIE_ZAMBONI] = true;
+		aList[ZOMBIE_POGO] = true;
+		aList[ZOMBIE_CATAPULT] = true;
+		aList[ZOMBIE_POGO_PAIL] = true;
 	}
 	else if (aGameMode == GAMEMODE_CHALLENGE_SLOT_MACHINE_2)
 	{

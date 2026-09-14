@@ -139,6 +139,7 @@ ChallengeDefinition gChallengeDefs[NUM_CHALLENGE_MODES] = {
 	{ GameMode::GAMEMODE_CHALLENGE_SLOT_MACHINE_2,               2,   ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE,   3,  0,  _S("[SLOT_MACHINE_2]") },
 	{ GameMode::GAMEMODE_CHALLENGE_SLOT_MACHINE_3,               2,   ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE,   3,  1,  _S("[SLOT_MACHINE_3]") },
 	{ GameMode::GAMEMODE_CHALLENGE_SLOT_MACHINE_4,               2,   ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE,   3,  2,  _S("[SLOT_MACHINE_4]") },
+	{ GameMode::GAMEMODE_CHALLENGE_ZOMBIE_PARTY,               17,   ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE,   3,  3,  _S("[ZOMBIE_PARTY]") },
 };
 
 //0x42DAE0
@@ -552,7 +553,6 @@ int ChallengeScreen::AccomplishmentsNeeded(int theChallengeIndex)
 	GameMode aGameMode = GetChallengeDefinition(theChallengeIndex).mChallengeMode;
 	if (mApp->IsSurvivalEndless(aGameMode) && aTrophiesNeeded <= 3 && mApp->GetNumTrophies(CHALLENGE_PAGE_SURVIVAL) < 10 &&
 		mApp->GetNumTrophies(CHALLENGE_PAGE_LAST_STAND) < 6 &&
-		mApp->GetNumTrophies(CHALLENGE_PAGE_CUSTOM_CHALLENGE) < 18 &&
 		mApp->HasFinishedAdventure() && !mApp->IsTrialStageLocked()) aTrophiesNeeded = 1;
 	return mCheatEnableChallenges ? 0 : aTrophiesNeeded;
 }
@@ -832,7 +832,7 @@ void ChallengeScreen::Draw(Graphics* g)
 	TodDrawString(g, aTitleString, 400, 58, Sexy::FONT_HOUSEOFTERROR28, Color(220, 220, 220), DS_ALIGN_CENTER);
 
 	int aTrophiesGot = mApp->GetNumTrophies(mPageIndex);
-	int aTrophiesTotal = mPageIndex == CHALLENGE_PAGE_SURVIVAL ? 10 : mPageIndex == CHALLENGE_PAGE_CHALLENGE ? 20 : mPageIndex == CHALLENGE_PAGE_CUSTOM_CHALLENGE ? 18 : mPageIndex == CHALLENGE_PAGE_PUZZLE ? 18 : mPageIndex == CHALLENGE_PAGE_LAST_STAND ? 6 : 0;
+	int aTrophiesTotal = mPageIndex == CHALLENGE_PAGE_SURVIVAL ? 10 : mPageIndex == CHALLENGE_PAGE_CHALLENGE ? 20 : mPageIndex == CHALLENGE_PAGE_CUSTOM_CHALLENGE ? 19 : mPageIndex == CHALLENGE_PAGE_PUZZLE ? 18 : mPageIndex == CHALLENGE_PAGE_LAST_STAND ? 6 : 0;
 	if (aTrophiesTotal > 0)
 	{
 		SexyString aTrophyString = StrFormat(_S("%d/%d"), aTrophiesGot, aTrophiesTotal);

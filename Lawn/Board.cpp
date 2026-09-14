@@ -1220,6 +1220,7 @@ void Board::PickBackground()
 	case GameMode::GAMEMODE_CHALLENGE_POGO_PARTY_3:
 	case GameMode::GAMEMODE_LAST_STAND_STAGE_6:
 	case GameMode::GAMEMODE_LAST_STAND_ENDLESS_STAGE_6:
+	case GameMode::GAMEMODE_CHALLENGE_ZOMBIE_PARTY:
 		mBackground = BackgroundType::BACKGROUND_6_BOSS;
 		break;
 
@@ -1742,6 +1743,10 @@ void Board::InitLevel()
 	{
 		mSunMoney = 0;
 	}
+	else if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_ZOMBIE_PARTY)
+	{
+		mSunMoney = 500;
+	}
 	else if (mApp->mGameMode == GameMode::GAMEMODE_LAST_STAND_STAGE_1 || mApp->mGameMode == GameMode::GAMEMODE_LAST_STAND_STAGE_2)
 	{
 		mSunMoney = 3000;
@@ -2062,7 +2067,7 @@ void Board::PlaceRake()
 	{
 		if (!StageHasZombieWalkInFromRight() || mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_BEGHOULED ||
 			mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_BEGHOULED_TWIST || mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_BOBSLED_BONANZA ||
-			mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_VEHICLE_PARTY)
+			mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_VEHICLE_PARTY || mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_ZOMBIE_PARTY)
 			return;
 	}
 
@@ -3044,6 +3049,7 @@ ZombieType Board::PickZombieType(int theZombiePoints, int theWaveIndex, ZombiePi
 		// 僵尸最早出现的波数的限制（出怪限制）
 		else if (aGameMode != GameMode::GAMEMODE_CHALLENGE_POGO_PARTY && aGameMode != GameMode::GAMEMODE_CHALLENGE_POGO_PARTY_2 && aGameMode != GameMode::GAMEMODE_CHALLENGE_POGO_PARTY_3 &&
 			aGameMode != GameMode::GAMEMODE_CHALLENGE_BOBSLED_BONANZA && aGameMode != GameMode::GAMEMODE_CHALLENGE_VEHICLE_PARTY &&
+			aGameMode != GameMode::GAMEMODE_CHALLENGE_ZOMBIE_PARTY &&
 			aGameMode != GameMode::GAMEMODE_CHALLENGE_AIR_RAID
 #ifdef _MOBILE_MINIGAMES
 			&& aGameMode != GameMode::GAMEMODE_CHALLENGE_HEAT_WAVE

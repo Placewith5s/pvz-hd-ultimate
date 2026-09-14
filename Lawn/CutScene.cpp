@@ -566,7 +566,8 @@ void CutScene::PlaceStreetZombies()
 				continue;
 			}
 			if (aZombieType == ZombieType::ZOMBIE_BOBSLED &&
-				(mApp->mGameMode != GameMode::GAMEMODE_CHALLENGE_BOBSLED_BONANZA && mApp->mGameMode != GameMode::GAMEMODE_CHALLENGE_VEHICLE_PARTY))
+				(mApp->mGameMode != GameMode::GAMEMODE_CHALLENGE_BOBSLED_BONANZA && mApp->mGameMode != GameMode::GAMEMODE_CHALLENGE_VEHICLE_PARTY &&
+					mApp->mGameMode != GameMode::GAMEMODE_CHALLENGE_ZOMBIE_PARTY))
 			{
 				continue;
 			}

@@ -1221,6 +1221,7 @@ void Board::PickBackground()
 	case GameMode::GAMEMODE_LAST_STAND_STAGE_6:
 	case GameMode::GAMEMODE_LAST_STAND_ENDLESS_STAGE_6:
 	case GameMode::GAMEMODE_CHALLENGE_ZOMBIE_PARTY:
+	case GameMode::GAMEMODE_CHALLENGE_NIGHT_ROOF_MINIGAME:
 		mBackground = BackgroundType::BACKGROUND_6_BOSS;
 		break;
 

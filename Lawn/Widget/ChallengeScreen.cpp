@@ -141,6 +141,7 @@ ChallengeDefinition gChallengeDefs[NUM_CHALLENGE_MODES] = {
 	{ GameMode::GAMEMODE_CHALLENGE_SLOT_MACHINE_4,               2,   ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE,   3,  2,  _S("[SLOT_MACHINE_4]") },
 	{ GameMode::GAMEMODE_CHALLENGE_ZOMBIE_PARTY,               17,   ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE,   3,  3,  _S("[ZOMBIE_PARTY]") },
 	{ GameMode::GAMEMODE_CHALLENGE_WALLNUT_BOWLING_3,          6,   ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE,   3,  4,  _S("[WALL_NUT_BOWLING_3]") },
+	{ GameMode::GAMEMODE_CHALLENGE_NIGHT_ROOF_MINIGAME,               10,   ChallengePage::CHALLENGE_PAGE_LIMBO_CHALLENGE,       4,  4,  _S("[NIGHT_ROOF_MINIGAME]") },
 };
 
 //0x42DAE0

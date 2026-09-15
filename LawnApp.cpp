@@ -3385,7 +3385,9 @@ bool LawnApp::IsWallnutBowlingLevel()
 	if (mBoard == nullptr)
 		return false;
 
-	if (mGameMode == GameMode::GAMEMODE_CHALLENGE_WALLNUT_BOWLING || mGameMode == GameMode::GAMEMODE_CHALLENGE_WALLNUT_BOWLING_2)
+	if (mGameMode == GameMode::GAMEMODE_CHALLENGE_WALLNUT_BOWLING ||
+		mGameMode == GameMode::GAMEMODE_CHALLENGE_WALLNUT_BOWLING_2 ||
+		mGameMode == GameMode::GAMEMODE_CHALLENGE_WALLNUT_BOWLING_3)
 		return true;
 
 	return IsAdventureMode() && mPlayerInfo->mLevel == 5;
@@ -4600,9 +4602,9 @@ int LawnApp::GetNumTrophies(ChallengePage thePage)
 int LawnApp::TrophiesNeedForGoldSunflower()
 {
 	// previously 48
-	// 19 minigames
+	// 20 minigames
 	// 6 last stand puzzles
-	return 73 - GetNumTrophies(CHALLENGE_PAGE_SURVIVAL) - GetNumTrophies(CHALLENGE_PAGE_CHALLENGE) - GetNumTrophies(CHALLENGE_PAGE_CUSTOM_CHALLENGE) - GetNumTrophies(CHALLENGE_PAGE_PUZZLE) - GetNumTrophies(CHALLENGE_PAGE_LAST_STAND);
+	return 74 - GetNumTrophies(CHALLENGE_PAGE_SURVIVAL) - GetNumTrophies(CHALLENGE_PAGE_CHALLENGE) - GetNumTrophies(CHALLENGE_PAGE_CUSTOM_CHALLENGE) - GetNumTrophies(CHALLENGE_PAGE_PUZZLE) - GetNumTrophies(CHALLENGE_PAGE_LAST_STAND);
 }
 
 //0x455C50

@@ -2001,7 +2001,7 @@ void Challenge::UpdateConveyorBelt()
 		aSeedPickArray[0].mItem = SEED_PEASHOOTER;
 		aSeedPickArray[0].mWeight = 100;
 	}
-	else if (mApp->mGameMode == GAMEMODE_CHALLENGE_WALLNUT_BOWLING_2)
+	else if (mApp->mGameMode == GAMEMODE_CHALLENGE_WALLNUT_BOWLING_2 || mApp->mGameMode == GAMEMODE_CHALLENGE_WALLNUT_BOWLING_3)
 	{
 		aSeedPickCount = 3;
 		aSeedPickArray[0].mItem = SEED_WALLNUT;
@@ -3278,6 +3278,16 @@ void Challenge::InitZombieWaves()
 			aList[ZOMBIE_NEWSPAPER] = true;
 			aList[ZOMBIE_DANCER] = true;
 			aList[ZOMBIE_DOOR] = true;
+		}
+		else if (aGameMode == GAMEMODE_CHALLENGE_WALLNUT_BOWLING_3)
+		{
+			aList[ZOMBIE_NORMAL] = true;
+			aList[ZOMBIE_TRAFFIC_CONE] = true;
+			aList[ZOMBIE_PAIL] = true;
+			aList[ZOMBIE_POLEVAULTER] = true;
+			aList[ZOMBIE_NEWSPAPER] = true;
+			aList[ZOMBIE_DANCER_COOL] = true;
+			aList[ZOMBIE_GARGANTUAR] = true;
 		}
 	}
 	else if (mApp->IsStormyNightLevel())

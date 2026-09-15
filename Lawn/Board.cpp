@@ -750,7 +750,6 @@ void Board::PickZombieWaves()
 #endif
 			)
 			mNumWaves = 30;
-		// zombotany 4 and pogo party extreme are here
 		else
 			mNumWaves = 40;
 	}
@@ -1117,6 +1116,7 @@ void Board::PickBackground()
 	case GameMode::GAMEMODE_CHALLENGE_SQUIRREL:
 	case GameMode::GAMEMODE_LAST_STAND_STAGE_1:
 	case GameMode::GAMEMODE_LAST_STAND_ENDLESS_STAGE_1:
+	case GameMode::GAMEMODE_CHALLENGE_WALLNUT_BOWLING_3:
 #ifdef _DS_MINIGAMES
 	case GameMode::GAMEMODE_CHALLENGE_BOMB_ALL_TOGETHER:
 #endif

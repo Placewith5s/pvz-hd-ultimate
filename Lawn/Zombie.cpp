@@ -3831,14 +3831,14 @@ void Zombie::SummonBackupDancersForCool()
             case 1:     aRow = mRow + 1;    aPosX = mPosX;          break;
             case 2:     aRow = mRow;        aPosX = mPosX - 100;    break;
             case 3:     aRow = mRow;        aPosX = mPosX + 100;    break;
-            case 4:     aRow = mRow - 2;    aPosX = mPosX;          break;
-            case 5:     aRow = mRow + 2;    aPosX = mPosX;          break;
-            case 6:     aRow = mRow;        aPosX = mPosX - 200;    break;
-            case 7:     aRow = mRow;        aPosX = mPosX + 200;    break;
-            case 8:     aRow = mRow - 3;    aPosX = mPosX;          break;
-            case 9:     aRow = mRow + 3;    aPosX = mPosX;          break;
-            case 10:     aRow = mRow;        aPosX = mPosX - 300;    break;
-            case 11:     aRow = mRow;        aPosX = mPosX + 300;    break;
+            case 4:     aRow = mRow - 1;    aPosX = mPosX;          break;
+            case 5:     aRow = mRow + 1;    aPosX = mPosX;          break;
+            case 6:     aRow = mRow;        aPosX = mPosX - 125;    break;
+            case 7:     aRow = mRow;        aPosX = mPosX + 125;    break;
+            case 8:     aRow = mRow - 1;    aPosX = mPosX;          break;
+            case 9:     aRow = mRow + 1;    aPosX = mPosX;          break;
+            case 10:     aRow = mRow;        aPosX = mPosX - 150;    break;
+            case 11:     aRow = mRow;        aPosX = mPosX + 150;    break;
             default:    TOD_ASSERT();                               break;
             }
 

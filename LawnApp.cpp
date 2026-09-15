@@ -3477,8 +3477,8 @@ bool LawnApp::IsNightRoofMiniGameLevel()
 	if (mBoard == nullptr)
 		return false;
 
-	//if (mGameMode == GameMode::GAMEMODE_CHALLENGE_NIGHT_ROOF_MINIGAME)
-		//return true;
+	if (mGameMode == GameMode::GAMEMODE_CHALLENGE_NIGHT_ROOF_MINIGAME)
+		return true;
 
 	return IsAdventureMode() && mPlayerInfo->mLevel == 55;
 }

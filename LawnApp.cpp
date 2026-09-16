@@ -4888,7 +4888,8 @@ bool LawnApp::IsLastStand() {
 bool LawnApp::IsLastStandEndless(GameMode theGameMode)
 {
 	int aLevel = theGameMode - GameMode::GAMEMODE_LAST_STAND_ENDLESS_STAGE_1;
-	return aLevel >= 0 && aLevel <= 4;
+	int aLevel5 = theGameMode - GameMode::GAMEMODE_LAST_STAND_ENDLESS_STAGE_6;
+	return aLevel >= 0 && aLevel <= 4 || aLevel5 == 0;
 }
 
 void LawnApp::ShowParticleEditor()

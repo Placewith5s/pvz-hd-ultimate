@@ -108,9 +108,7 @@ struct BungeeDropGrid
 
 class Board : public Widget, public ButtonListener
 {
-	enum SpeedMod {
-		SPEED_SLOWMO,  
-		SPEED_SLOW,       
+	enum SpeedMod {    
 		SPEED_NORMAL,     
 		SPEED_FAST,      
 		SPEED_VERY_FAST,  

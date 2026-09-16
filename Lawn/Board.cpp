@@ -6958,7 +6958,7 @@ void Board::Update()
 
 	UpdateLayers();
 	
-	int aUpdateCount = 1;
+	float aUpdateCount = 1.0f;
 
 #ifdef _REPLANTED_SPEED_CONTROL
 	if (mQECounter > 0)
@@ -6970,36 +6970,20 @@ void Board::Update()
 	{
 		switch (mSpeedMod)
 		{
-		case SpeedMod::SPEED_SLOWMO:
-			++mSlowMoCounter;
-			if (mSlowMoCounter < 4)
-				aUpdateCount = 0;
-			else
-				mSlowMoCounter = 0;
-			break;
-
-		case SpeedMod::SPEED_SLOW:
-			++mSlowMoCounter;
-			if (mSlowMoCounter < 2)
-				aUpdateCount = 0;
-			else
-				mSlowMoCounter = 0;
-			break;
-
 		case SpeedMod::SPEED_NORMAL:
-			aUpdateCount = 1;
+			aUpdateCount = 1.0f;
 			break;
 
 		case SpeedMod::SPEED_FAST:
-			aUpdateCount = 1; // 1.5x
+			aUpdateCount = 1.5f;
 			break;
 
 		case SpeedMod::SPEED_VERY_FAST:
-			aUpdateCount = 2; // 2.0x
+			aUpdateCount = 2.0f;
 			break;
 
 		case SpeedMod::SPEED_SONIC:
-			aUpdateCount = 2; // 2.5x
+			aUpdateCount = 2.5f;
 			break;
 		}
 
@@ -7009,6 +6993,10 @@ void Board::Update()
 		}
 	}
 #endif
+
+	if (gSexyAppBase->mIsHalfspeed)
+		aUpdateCount *= 0.53f;
+	printf("aUpdateCount = %.2f", aUpdateCount);
 
 	for (int i = 0; i < aUpdateCount; i++)
 	{
@@ -8072,15 +8060,17 @@ void Board::DrawLevel(Graphics* g)
 #ifdef _REPLANTED_SPEED_CONTROL
 float Board::GetSpeedValue(SpeedMod theMod)
 {
+	float result = 1.0f;
+
 	switch (theMod)
 	{
-	case SpeedMod::SPEED_SLOWMO:    return 0.25f;
-	case SpeedMod::SPEED_SLOW:      return 0.5f;
-	case SpeedMod::SPEED_FAST:      return 1.5f;
-	case SpeedMod::SPEED_VERY_FAST: return 2.0f;
-	case SpeedMod::SPEED_SONIC:     return 2.5f;
-	default:              return 1.0f;
+		case SpeedMod::SPEED_FAST:      result = 1.5f; break;
+		case SpeedMod::SPEED_VERY_FAST: result = 2.0f; break;
+		case SpeedMod::SPEED_SONIC:     result = 2.5f; break;
+		default:              result = 1.0f; break;
 	}
+
+	return gSexyAppBase->mIsHalfspeed ? result * 0.53f : result;
 }
 
 SexyString Board::GetSpeedString()
@@ -8150,7 +8140,6 @@ void Board::DrawSpeed(Graphics* g)
 	gSpeedupButton.mTransX += TodAnimateCurve(12, 0, mShakeCounter, 0, mShakeAmountX, TodCurves::CURVE_BOUNCE);
 	gSpeedupButton.mTransY += TodAnimateCurve(12, 0, mShakeCounter, 0, mShakeAmountY, TodCurves::CURVE_BOUNCE);
 
-	mSpeedMod == SpeedMod::SPEED_SLOWMO
 #ifndef _DEBUG
 		|| mSpeedMod <= SpeedMod::SPEED_NORMAL
 #endif
@@ -9942,8 +9931,6 @@ void Board::KeyChar(SexyChar theChar)
 		if (theChar == 'q')
 		{
 			mPrevSpeedMod = mSpeedMod;
-			if (mSpeedMod > SpeedMod::SPEED_SLOWMO)
-				mSpeedMod = static_cast<SpeedMod>(mSpeedMod - 1);
 
 			if (mPrevSpeedMod != mSpeedMod)
 			{
@@ -9962,7 +9949,6 @@ void Board::KeyChar(SexyChar theChar)
 				mApp->PlayFoley(FoleyType::FOLEY_WAKEUP);
 				mQECounter = 35;
 			}
-			// both 0.25x and 0.5x are excluded
 			else if (is_reverse && mSpeedMod != SPEED_NORMAL)
 			{
 				mSpeedMod = static_cast<SpeedMod>(mSpeedMod - 1);
@@ -12329,8 +12315,6 @@ void Board::AddedToManager(WidgetManager* theWidgetManager)
 {
 	Widget::AddedToManager(theWidgetManager);
 #ifdef _REPLANTED_SPEED_CONTROL
-	//theWidgetManager->AddWidget(mSlowdownButton);
-	//theWidgetManager->AddWidget(mPauseButton);
 	theWidgetManager->AddWidget(mSpeedupButton);
 #endif
 }
@@ -12339,8 +12323,6 @@ void Board::RemovedFromManager(WidgetManager* theWidgetManager)
 {
 	Widget::RemovedFromManager(theWidgetManager);
 #ifdef _REPLANTED_SPEED_CONTROL
-	//theWidgetManager->RemoveWidget(mSlowdownButton);
-	//theWidgetManager->RemoveWidget(mPauseButton);
 	theWidgetManager->RemoveWidget(mSpeedupButton);
 #endif
 }
@@ -12348,24 +12330,6 @@ void Board::RemovedFromManager(WidgetManager* theWidgetManager)
 void Board::ButtonDepress(int theId)
 {
 #ifdef _REPLANTED_SPEED_CONTROL
-	//if (theId == Board::SLOWDOWN)
-	//{
-	//	mPrevSpeedMod = mSpeedMod;
-	//	if (mSpeedMod > SpeedMod::SPEED_SLOWMO)
-	//		mSpeedMod = static_cast<SpeedMod>(mSpeedMod - 1);
-
-	//	if (mPrevSpeedMod != mSpeedMod)
-	//	{
-	//		mApp->PlayFoley(FoleyType::FOLEY_REVERSE_WAKEUP);
-	//		mQECounter = 35;
-	//	}
-	//}
-	//else if (theId == Board::PAUSE)
-	//{
-	//	mPauseButton->mButtonImage = Sexy::IMAGE_PAUSE_BUTTON_PRESSED;
-	//	mApp->PlaySample(Sexy::SOUND_PAUSE);
-	//	mApp->DoPauseDialog();
-	//}
 	if (theId == Board::SPEEDUP)
 	{
 		//mPrevSpeedMod = mSpeedMod;
@@ -12377,7 +12341,6 @@ void Board::ButtonDepress(int theId)
 			mApp->PlayFoley(FoleyType::FOLEY_WAKEUP);
 			mQECounter = 35;
 		}
-		// both 0.25x and 0.5x are excluded
 		else if (is_reverse && mSpeedMod != SPEED_NORMAL)
 		{
 			mSpeedMod = static_cast<SpeedMod>(mSpeedMod - 1);

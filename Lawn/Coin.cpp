@@ -831,7 +831,7 @@ Color Coin::GetColor()
 //0x4317D0
 SeedType Coin::GetFinalSeedPacketType()
 {
-    if (mApp->IsFirstTimeAdventureMode() && mBoard && mBoard->mLevel <= 50)
+    if (mApp->IsFirstTimeAdventureMode() && mBoard && mBoard->mLevel <= 48)
     {
         return mApp->GetAwardSeedForLevel(mBoard->mLevel);
     }

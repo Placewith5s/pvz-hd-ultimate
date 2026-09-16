@@ -29,7 +29,8 @@ protected:
 		NewOptionsDialog_HardwareAcceleration,
 		NewOptionsDialog_VideoGraphics,
 		NewOptionsDialog_SoundSystem,
-		NewOptionsDialog_Language
+		NewOptionsDialog_Language,
+		NewOptionsDialog_Halfspeed,
 	};
 
 public:

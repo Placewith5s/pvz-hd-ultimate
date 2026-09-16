@@ -60,7 +60,7 @@ NewOptionsDialog::NewOptionsDialog(LawnApp* theApp, bool theFromGameSelector) :
 
     mFullscreenCheckbox = MakeNewCheckbox(NewOptionsDialog::NewOptionsDialog_Fullscreen, this, !theApp->mIsWindowed);
     mHardwareAccelerationCheckbox = MakeNewCheckbox(NewOptionsDialog::NewOptionsDialog_HardwareAcceleration, this, theApp->mEnableVsync);
-    mHalfspeedCheckbox = MakeNewCheckbox(NewOptionsDialog::NewOptionsDialog_Fullscreen, this, theApp->mIsHalfspeed);
+    mHalfspeedCheckbox = MakeNewCheckbox(NewOptionsDialog::NewOptionsDialog_Halfspeed, this, theApp->mIsHalfspeed);
 
     if (mFromGameSelector)
     {

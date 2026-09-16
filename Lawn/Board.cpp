@@ -8140,10 +8140,6 @@ void Board::DrawSpeed(Graphics* g)
 	gSpeedupButton.mTransX += TodAnimateCurve(12, 0, mShakeCounter, 0, mShakeAmountX, TodCurves::CURVE_BOUNCE);
 	gSpeedupButton.mTransY += TodAnimateCurve(12, 0, mShakeCounter, 0, mShakeAmountY, TodCurves::CURVE_BOUNCE);
 
-#ifndef _DEBUG
-		|| mSpeedMod <= SpeedMod::SPEED_NORMAL
-#endif
-	;
 	//mSpeedupButton->SetDisabled(mSpeedMod == SpeedMod::SPEED_SONIC);
 
 	//if (!mSlowdownButton->mDisabled)

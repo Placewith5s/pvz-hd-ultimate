@@ -391,7 +391,7 @@ void CutScene::PreloadResources()
 		}
 	}
 
-	if (mApp->IsFirstTimeAdventureMode() && mBoard->mLevel <= 50)
+	if (mApp->IsFirstTimeAdventureMode() && mBoard->mLevel <= 48)
 	{
 		Plant::PreloadPlantResources(mApp->GetAwardSeedForLevel(mBoard->mLevel));
 	}

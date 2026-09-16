@@ -60,6 +60,7 @@ NewOptionsDialog::NewOptionsDialog(LawnApp* theApp, bool theFromGameSelector) :
 
     mFullscreenCheckbox = MakeNewCheckbox(NewOptionsDialog::NewOptionsDialog_Fullscreen, this, !theApp->mIsWindowed);
     mHardwareAccelerationCheckbox = MakeNewCheckbox(NewOptionsDialog::NewOptionsDialog_HardwareAcceleration, this, theApp->mEnableVsync);
+    mHalfspeedCheckbox = MakeNewCheckbox(NewOptionsDialog::NewOptionsDialog_Fullscreen, this, theApp->mIsHalfspeed);
 
     if (mFromGameSelector)
     {
@@ -116,6 +117,7 @@ NewOptionsDialog::~NewOptionsDialog()
     delete mSfxVolumeSlider;
     delete mFullscreenCheckbox;
     delete mHardwareAccelerationCheckbox;
+    delete mHalfspeedCheckbox;
     delete mAlmanacButton;
     delete mRestartButton;
     delete mBackToMainButton;
@@ -145,6 +147,7 @@ void NewOptionsDialog::AddedToManager(Sexy::WidgetManager* theWidgetManager)
     AddWidget(mSfxVolumeSlider);
     AddWidget(mHardwareAccelerationCheckbox);
     AddWidget(mFullscreenCheckbox);
+    AddWidget(mHalfspeedCheckbox);
     AddWidget(mBackToGameButton);
 }
 
@@ -162,6 +165,7 @@ void NewOptionsDialog::RemovedFromManager(Sexy::WidgetManager* theWidgetManager)
     RemoveWidget(mSfxVolumeSlider);
     RemoveWidget(mHardwareAccelerationCheckbox);
     RemoveWidget(mFullscreenCheckbox);
+    RemoveWidget(mHalfspeedCheckbox);
     RemoveWidget(mBackToGameButton);
 }
 
@@ -173,6 +177,7 @@ void NewOptionsDialog::Resize(int theX, int theY, int theWidth, int theHeight)
     mSfxVolumeSlider->Resize(199, 143, 135, 40);
     mHardwareAccelerationCheckbox->Resize(283, 175, 46, 45);
     mFullscreenCheckbox->Resize(284, 206, 46, 45);
+    mHalfspeedCheckbox->Resize(284, 238, 46, 45);
     mAlmanacButton->Resize(107, 241, 209, 46);
     mRestartButton->Resize(mAlmanacButton->mX, mAlmanacButton->mY + 43, 209, 46);
     mBackToMainButton->Resize(mRestartButton->mX, mRestartButton->mY + 43, 209, 46);
@@ -188,6 +193,7 @@ void NewOptionsDialog::Resize(int theX, int theY, int theWidth, int theHeight)
         mSfxVolumeSlider->mY += 10;
         mHardwareAccelerationCheckbox->mY += 15;
         mFullscreenCheckbox->mY += 20;
+        mHalfspeedCheckbox->mY += 25;
 
         /*mGameplayButton->mY += 69;
         mControllerButton->mY += 69;

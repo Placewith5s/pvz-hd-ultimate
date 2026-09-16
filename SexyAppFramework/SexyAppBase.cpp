@@ -326,6 +326,7 @@ SexyAppBase::SexyAppBase()
 	mIsTouch = false;
 	mResolutionMode = 0;
 	mEnableVsync = true;
+	mIsHalfspeed = false;
 
 	int i;
 

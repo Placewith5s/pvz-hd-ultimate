@@ -119,8 +119,11 @@ Here is a quick look at it:
 
 #ifdef _DEBUG
 #define _SHOW_OUTPUT_CONSOLE
-#define _SHOW_LIMBO_PAGE
 #endif
+
+// unused const
+// #define _SHOW_LIMBO_PAGE
+#define _SHOW_LIMBO_PAGE
 
 // Resources
 #define _ALLOW_RESOURCE_PACKS
@@ -132,18 +135,18 @@ Here is a quick look at it:
 
 //Ported from other editions
 #define _MOBILE_MINIGAMES
-//#define _DS_MINIGAMES
+#define _DS_MINIGAMES
 //#define _CONSOLE_MINIGAMES
-//#define _REPLANTED_SPEED_CONTROL
-//#define _HAS_NEW_GIGA_ZOMBIES
+#define _REPLANTED_SPEED_CONTROL
+#define _HAS_NEW_GIGA_ZOMBIES
 #define _HAS_SCORE_SYSTEM
 
 // Quality Of Life
-//#define _HAS_HEALTHBAR_TOGGLE
+#define _HAS_HEALTHBAR_TOGGLE
 //#define _ALLOW_SWIPE
-//#define _HAS_GAMESELECTOR_SPOTLIGHT
-//#define _HAS_ANIMATED_WOOD_SIGN
-//#define _HAS_KERNELPULT_BUTTER_IDLE
+#define _HAS_GAMESELECTOR_SPOTLIGHT
+#define _HAS_ANIMATED_WOOD_SIGN
+#define _HAS_KERNELPULT_BUTTER_IDLE
 
 // Quirky stuff
 //#define _HAS_ROOF_SLOPE_ANGLE

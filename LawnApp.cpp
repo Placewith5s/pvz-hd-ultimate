@@ -3498,6 +3498,17 @@ bool LawnApp::IsGreenHouseMiniGameLevel()
 	return false;
 }
 
+bool LawnApp::IsMushroomGardenMiniGameLevel()
+{
+	if (mBoard == nullptr)
+		return false;
+
+	if (mGameMode == GameMode::GAMEMODE_CHALLENGE_WORLD_8_5)
+		return true;
+
+	return false;
+}
+
 //0x453980
 bool LawnApp::IsMiniBossLevel()
 {
@@ -3518,7 +3529,8 @@ bool LawnApp::IsFinalBossLevel()
 	if (mBoard == nullptr)
 		return false;
 
-	if (mGameMode == GameMode::GAMEMODE_CHALLENGE_FINAL_BOSS || mGameMode == GameMode::GAMEMODE_CHALLENGE_WORLD_7_10)
+	if (mGameMode == GameMode::GAMEMODE_CHALLENGE_FINAL_BOSS ||
+		mGameMode == GameMode::GAMEMODE_CHALLENGE_WORLD_7_10 || mGameMode == GameMode::GAMEMODE_CHALLENGE_WORLD_8_10)
 		return true;
 
 	return IsAdventureMode() && mPlayerInfo->mLevel == 60;
@@ -4606,9 +4618,9 @@ int LawnApp::GetNumTrophies(ChallengePage thePage)
 int LawnApp::TrophiesNeedForGoldSunflower()
 {
 	// previously 48
-	// 20 minigames
+	// 30 minigames
 	// 6 last stand puzzles
-	return 74 - GetNumTrophies(CHALLENGE_PAGE_SURVIVAL) - GetNumTrophies(CHALLENGE_PAGE_CHALLENGE) - GetNumTrophies(CHALLENGE_PAGE_CUSTOM_CHALLENGE) - GetNumTrophies(CHALLENGE_PAGE_PUZZLE) - GetNumTrophies(CHALLENGE_PAGE_LAST_STAND);
+	return 84 - GetNumTrophies(CHALLENGE_PAGE_SURVIVAL) - GetNumTrophies(CHALLENGE_PAGE_CHALLENGE) - GetNumTrophies(CHALLENGE_PAGE_CUSTOM_CHALLENGE) - GetNumTrophies(CHALLENGE_PAGE_CUSTOM_CHALLENGE_2) - GetNumTrophies(CHALLENGE_PAGE_PUZZLE) - GetNumTrophies(CHALLENGE_PAGE_LAST_STAND);
 }
 
 //0x455C50

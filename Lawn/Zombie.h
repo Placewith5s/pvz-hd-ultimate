@@ -307,6 +307,7 @@ public:
     void                            ZombieCatapultFire(Plant* thePlant);
     void                            UpdateClimbingLadder();
     void                            UpdateZombieGargantuar();
+    void                            UpdateZombieSmashGargantuar();
     int                             GetBodyDamageIndex();
     void                            ApplyBurn();
     void                            UpdateBurn();

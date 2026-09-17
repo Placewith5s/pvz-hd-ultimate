@@ -293,6 +293,7 @@ public:
 	/*inline*/ bool					IsBungeeBlitzLevel();
 	/*inline*/ bool					IsNightRoofMiniGameLevel();
 	/*inline*/ bool					IsGreenHouseMiniGameLevel();
+	/*inline*/ bool					IsMushroomGardenMiniGameLevel();
 	static /*inline*/ SeedType		GetAwardSeedForLevel(int theLevel);
 	SexyString						GetCrazyDaveText(int theMessageIndex);
 	/*inline*/ bool					CanShowAlmanac();

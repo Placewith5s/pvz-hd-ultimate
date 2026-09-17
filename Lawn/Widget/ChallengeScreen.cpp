@@ -128,8 +128,8 @@ ChallengeDefinition gChallengeDefs[NUM_CHALLENGE_MODES] = {
 	{ GameMode::GAMEMODE_CHALLENGE_WORLD_7_10,             19,   ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE,   1,  4,  _S("[7_10]") },
 	{ GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_3,             0,   ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE,   2,  0,  _S("[WAR_AND_PEAS_3]") },
 	{ GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_4,             0,   ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE,   2,  1,  _S("[WAR_AND_PEAS_4]") },
-	{ GameMode::GAMEMODE_CHALLENGE_POGO_PARTY_2,             10,   ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE,   2,  2,  _S("[POGO_PARTY_2]") },
-	{ GameMode::GAMEMODE_CHALLENGE_POGO_PARTY_3,             10,   ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE,   2,  3,  _S("[POGO_PARTY_EXTREME]") },
+	{ GameMode::GAMEMODE_CHALLENGE_POGO_PARTY_2,             14,   ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE,   2,  2,  _S("[POGO_PARTY_2]") },
+	{ GameMode::GAMEMODE_CHALLENGE_POGO_PARTY_3,             14,   ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE,   2,  3,  _S("[POGO_PARTY_EXTREME]") },
 	{ GameMode::GAMEMODE_LAST_STAND_STAGE_6,                   10,  ChallengePage::CHALLENGE_PAGE_LAST_STAND,   1,  0,  _S("[LAST_STAND_NIGHT_ROOF]") },
 	{ GameMode::GAMEMODE_LAST_STAND_ENDLESS_STAGE_6,           10,  ChallengePage::CHALLENGE_PAGE_LAST_STAND,   3,  0,  _S("[LAST_STAND_NIGHT_ROOF_ENDLESS]") },
 	{ GameMode::GAMEMODE_SURVIVAL_NORMAL_STAGE_7,				10,   ChallengePage::CHALLENGE_PAGE_LIMBO_SURVIVAL,		 0,  2,  _S("[SURVIVAL_GREENHOUSE_NORMAL]") },
@@ -142,6 +142,16 @@ ChallengeDefinition gChallengeDefs[NUM_CHALLENGE_MODES] = {
 	{ GameMode::GAMEMODE_CHALLENGE_ZOMBIE_PARTY,               17,   ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE,   3,  3,  _S("[ZOMBIE_PARTY]") },
 	{ GameMode::GAMEMODE_CHALLENGE_WALLNUT_BOWLING_3,          6,   ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE,   3,  4,  _S("[WALL_NUT_BOWLING_3]") },
 	{ GameMode::GAMEMODE_CHALLENGE_NIGHT_ROOF_MINIGAME,               10,   ChallengePage::CHALLENGE_PAGE_LIMBO_CHALLENGE,       4,  4,  _S("[NIGHT_ROOF_MINIGAME]") },
+	{ GameMode::GAMEMODE_CHALLENGE_WORLD_8_1,             10,   ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE_2,   0,  0,  _S("[8_1]") },
+	{ GameMode::GAMEMODE_CHALLENGE_WORLD_8_2,             10,   ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE_2,   0,  1,  _S("[8_2]") },
+	{ GameMode::GAMEMODE_CHALLENGE_WORLD_8_3,             10,   ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE_2,   0,  2,  _S("[8_3]") },
+	{ GameMode::GAMEMODE_CHALLENGE_WORLD_8_4,             10,   ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE_2,   0,  3,  _S("[8_4]") },
+	{ GameMode::GAMEMODE_CHALLENGE_WORLD_8_5,             10,   ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE_2,   0,  4,  _S("[8_5]") },
+	{ GameMode::GAMEMODE_CHALLENGE_WORLD_8_6,             10,   ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE_2,   1,  0,  _S("[8_6]") },
+	{ GameMode::GAMEMODE_CHALLENGE_WORLD_8_7,             10,   ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE_2,   1,  1,  _S("[8_7]") },
+	{ GameMode::GAMEMODE_CHALLENGE_WORLD_8_8,             10,   ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE_2,   1,  2,  _S("[8_8]") },
+	{ GameMode::GAMEMODE_CHALLENGE_WORLD_8_9,             10,   ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE_2,   1,  3,  _S("[8_9]") },
+	{ GameMode::GAMEMODE_CHALLENGE_WORLD_8_10,             19,   ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE_2,   1,  4,  _S("[8_10]") },
 };
 
 //0x42DAE0
@@ -183,6 +193,8 @@ ChallengeScreen::ChallengeScreen(LawnApp* theApp, ChallengePage thePage)
 			aPageButton->mLabel = TodStringTranslate(_S("[LAST_STAND_PAGE]"));
 		else if (aPageIdx == CHALLENGE_PAGE_CUSTOM_CHALLENGE)
 			aPageButton->mLabel = TodStringTranslate(_S("[CUSTOM_PAGE]"));
+		else if (aPageIdx == CHALLENGE_PAGE_CUSTOM_CHALLENGE_2)
+			aPageButton->mLabel = TodStringTranslate(_S("[CUSTOM_2_PAGE]"));
 		else
 			aPageButton->mLabel = TodReplaceNumberString(_S("[PAGE_X]"), _S("{PAGE}"), aPageIdx);
 		aPageButton->mButtonImage = Sexy::IMAGE_BLANK;
@@ -199,6 +211,8 @@ ChallengeScreen::ChallengeScreen(LawnApp* theApp, ChallengePage thePage)
 			pageOffset += 4;
 		if (thePage == ChallengePage::CHALLENGE_PAGE_CHALLENGE && (aPageIdx == ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE || aPageIdx == ChallengePage::CHALLENGE_PAGE_CHALLENGE))
 			pageOffset += 3;
+		if (thePage == ChallengePage::CHALLENGE_PAGE_CHALLENGE && (aPageIdx == ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE_2 || aPageIdx == ChallengePage::CHALLENGE_PAGE_CHALLENGE))
+			pageOffset += 2;
 		aPageButton->Resize(200 + 100 * (aPageIdx - pageOffset), 540, 100, 75);
 
 		//if (!ShowPageButtons() || aPageIdx == CHALLENGE_PAGE_SURVIVAL || aPageIdx == CHALLENGE_PAGE_PUZZLE)
@@ -213,6 +227,9 @@ ChallengeScreen::ChallengeScreen(LawnApp* theApp, ChallengePage thePage)
 		/*}*/
 
 		if (thePage == ChallengePage::CHALLENGE_PAGE_CHALLENGE && (aPageIdx == ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE || aPageIdx == ChallengePage::CHALLENGE_PAGE_CHALLENGE))
+			aPageButton->mVisible = true;
+
+		if (thePage == ChallengePage::CHALLENGE_PAGE_CHALLENGE && (aPageIdx == ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE_2 || aPageIdx == ChallengePage::CHALLENGE_PAGE_CHALLENGE))
 			aPageButton->mVisible = true;
 
 #ifdef _HAS_EXTENDED_MINIGAMES
@@ -245,6 +262,7 @@ ChallengeScreen::ChallengeScreen(LawnApp* theApp, ChallengePage thePage)
 
 		if (aChlDef.mPage == CHALLENGE_PAGE_CHALLENGE ||
 			aChlDef.mPage == CHALLENGE_PAGE_LIMBO_CHALLENGE || aChlDef.mPage == CHALLENGE_PAGE_CUSTOM_CHALLENGE ||
+			aChlDef.mPage == CHALLENGE_PAGE_CUSTOM_CHALLENGE_2 ||
 			aChlDef.mPage == CHALLENGE_PAGE_PUZZLE)
 			aChallengeButton->Resize(38 + aColumn * 155, 93 + aRow * 119, 104, 115);
 		else
@@ -449,7 +467,8 @@ int ChallengeScreen::MoreTrophiesNeeded(int theChallengeIndex)
 	{
 		int aIdxInPage = aDef.mRow * 5 + aDef.mCol;
 		if ((aDef.mPage == CHALLENGE_PAGE_CHALLENGE ||
-			aDef.mPage == CHALLENGE_PAGE_SURVIVAL || aDef.mPage == CHALLENGE_PAGE_LAST_STAND || aDef.mPage == CHALLENGE_PAGE_CUSTOM_CHALLENGE) &&
+			aDef.mPage == CHALLENGE_PAGE_SURVIVAL || aDef.mPage == CHALLENGE_PAGE_LAST_STAND ||
+			aDef.mPage == CHALLENGE_PAGE_CUSTOM_CHALLENGE || aDef.mPage == CHALLENGE_PAGE_CUSTOM_CHALLENGE_2) &&
 			!mApp->HasFinishedAdventure())
 		{
 			return aIdxInPage < 3 ? 0 : aIdxInPage == 3 ? 1 : 2;
@@ -470,7 +489,8 @@ int ChallengeScreen::MoreTrophiesNeeded(int theChallengeIndex)
 				return 6 - aNumTrophies;
 			}
 			if (aDef.mPage == CHALLENGE_PAGE_SURVIVAL || aDef.mPage == CHALLENGE_PAGE_CHALLENGE ||
-				aDef.mPage == CHALLENGE_PAGE_LAST_STAND || aDef.mPage == CHALLENGE_PAGE_CUSTOM_CHALLENGE)
+				aDef.mPage == CHALLENGE_PAGE_LAST_STAND || aDef.mPage == CHALLENGE_PAGE_CUSTOM_CHALLENGE ||
+				aDef.mPage == CHALLENGE_PAGE_CUSTOM_CHALLENGE_2)
 			{
 				aNumTrophies += 3;
 			}
@@ -828,13 +848,16 @@ void ChallengeScreen::Draw(Graphics* g)
 		case ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE:
 			aTitleString = _S("[CUSTOM]");
 			break;
+		case ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE_2:
+			aTitleString = _S("[CUSTOM_2]");
+			break;
 		default:
 			break;
 	}
 	TodDrawString(g, aTitleString, 400, 58, Sexy::FONT_HOUSEOFTERROR28, Color(220, 220, 220), DS_ALIGN_CENTER);
 
 	int aTrophiesGot = mApp->GetNumTrophies(mPageIndex);
-	int aTrophiesTotal = mPageIndex == CHALLENGE_PAGE_SURVIVAL ? 10 : mPageIndex == CHALLENGE_PAGE_CHALLENGE ? 20 : mPageIndex == CHALLENGE_PAGE_CUSTOM_CHALLENGE ? 20 : mPageIndex == CHALLENGE_PAGE_PUZZLE ? 18 : mPageIndex == CHALLENGE_PAGE_LAST_STAND ? 6 : 0;
+	int aTrophiesTotal = mPageIndex == CHALLENGE_PAGE_SURVIVAL ? 10 : mPageIndex == CHALLENGE_PAGE_CHALLENGE ? 20 : mPageIndex == CHALLENGE_PAGE_CUSTOM_CHALLENGE ? 20 : mPageIndex == CHALLENGE_PAGE_CUSTOM_CHALLENGE_2 ? 10 : mPageIndex == CHALLENGE_PAGE_PUZZLE ? 18 : mPageIndex == CHALLENGE_PAGE_LAST_STAND ? 6 : 0;
 	if (aTrophiesTotal > 0)
 	{
 		SexyString aTrophyString = StrFormat(_S("%d/%d"), aTrophiesGot, aTrophiesTotal);
@@ -1033,7 +1056,8 @@ void ChallengeScreen::UpdateToolTip()
 				{
 					aLabel = _S("[ONE_MORE_SURVIVAL_TOOLTIP]");
 				}
-				else if (mPageIndex == CHALLENGE_PAGE_CHALLENGE || mPageIndex == CHALLENGE_PAGE_CUSTOM_CHALLENGE)
+				else if (mPageIndex == CHALLENGE_PAGE_CHALLENGE ||
+					mPageIndex == CHALLENGE_PAGE_CUSTOM_CHALLENGE || mPageIndex == CHALLENGE_PAGE_CUSTOM_CHALLENGE_2)
 				{
 					aLabel = _S("[ONE_MORE_CHALLENGE_TOOLTIP]");
 				}

@@ -791,7 +791,7 @@ void Music::StartGameMusic()
 	else if (mApp->IsWallnutBowlingLevel() || mApp->IsWhackAZombieLevel() ||
 		mApp->IsLittleTroubleLevel() || mApp->IsBungeeBlitzLevel() ||
 		mApp->IsNightRoofMiniGameLevel() ||
-		mApp->IsGreenHouseMiniGameLevel() ||
+		mApp->IsGreenHouseMiniGameLevel() || mApp->IsMushroomGardenMiniGameLevel() ||
 		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_SPEED 
 #ifdef _DS_MINIGAMES
 		|| mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_HEAT_WAVE

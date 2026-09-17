@@ -344,6 +344,10 @@ ZombieAllowedLevels gZombieAllowedLevels[NUM_ZOMBIE_TYPES] = {  //0x6A35B0
 	{ ZOMBIE_POGO_PAIL, {0} },
 	{ ZOMBIE_JACK_IN_THE_BOX_CRAZY, {0} },
 	{ ZOMBIE_DANCER_COOL, {0} },
+	{ ZOMBIE_NORMAL_VERY_HUNGRY, {0} },
+	{ ZOMBIE_TRAFFIC_CONE_VERY_HUNGRY, {0} },
+	{ ZOMBIE_PAIL_VERY_HUNGRY, {0} },
+	{ ZOMBIE_SMASH_GARGANTUAR, {0} },
 	{ ZOMBIE_REDEYE_GARGANTUAR,
 		{
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -587,7 +591,9 @@ void Challenge::StartLevel()
 		ScaryPotterStart();
 	}
 	if (mApp->IsLittleTroubleLevel() || mApp->IsStormyNightLevel() || mApp->IsBungeeBlitzLevel() ||
-		mApp->IsNightRoofMiniGameLevel() || mApp->IsGreenHouseMiniGameLevel() ||
+		mApp->IsNightRoofMiniGameLevel() ||
+		mApp->IsGreenHouseMiniGameLevel() ||
+		mApp->IsMushroomGardenMiniGameLevel() ||
 		aGameMode == GAMEMODE_CHALLENGE_INVISIGHOUL)
 	{
 		mBoard->mZombieCountDown = 200;
@@ -2081,6 +2087,12 @@ void Challenge::UpdateConveyorBelt()
 		aSeedPickArray[2].mItem = SEED_KERNELPULT;
 		aSeedPickArray[2].mWeight = 10;
 	}
+	else if (mApp->IsMushroomGardenMiniGameLevel())
+	{
+		aSeedPickCount = 1;
+		aSeedPickArray[0].mItem = SEED_DOOMSHROOM;
+		aSeedPickArray[0].mWeight = 100;
+	}
 	else if (mApp->mGameMode == GAMEMODE_CHALLENGE_PORTAL_COMBAT)
 	{
 		aSeedPickCount = 6;
@@ -3002,6 +3014,16 @@ void Challenge::InitZombieWaves()
 		aList[ZOMBIE_GARGANTUAR] = true;
 		aList[ZOMBIE_REDEYE_GARGANTUAR] = true;
 	}
+	else if (mApp->IsMushroomGardenMiniGameLevel())
+	{
+		aList[ZOMBIE_NORMAL] = true;
+		aList[ZOMBIE_PAIL] = true;
+		aList[ZOMBIE_DOOR] = true;
+		aList[ZOMBIE_FOOTBALL] = true;
+		aList[ZOMBIE_DOOR_PAIL] = true;
+		aList[ZOMBIE_BLACK_FOOTBALL] = true;
+		aList[ZOMBIE_POGO_PAIL] = true;
+	}
 	else if (aGameMode == GAMEMODE_CHALLENGE_SUNNY_DAY)
 	{
 		aList[ZOMBIE_NORMAL] = true;
@@ -3253,6 +3275,82 @@ void Challenge::InitZombieWaves()
 		aList[ZOMBIE_POGO_PAIL] = true;
 		aList[ZOMBIE_JACK_IN_THE_BOX_CRAZY] = true;
 		aList[ZOMBIE_DANCER_COOL] = true;
+	}
+	else if (aGameMode == GAMEMODE_CHALLENGE_WORLD_8_1)
+	{
+		aList[ZOMBIE_NORMAL_VERY_HUNGRY] = true;
+		aList[ZOMBIE_TRAFFIC_CONE] = true;
+		aList[ZOMBIE_GARGANTUAR] = true;
+		aList[ZOMBIE_NORMAL] = true;
+	}
+	else if (aGameMode == GAMEMODE_CHALLENGE_WORLD_8_2)
+	{
+		aList[ZOMBIE_NORMAL_VERY_HUNGRY] = true;
+		aList[ZOMBIE_TRAFFIC_CONE] = true;
+		aList[ZOMBIE_PAIL] = true;
+		aList[ZOMBIE_BALLOON] = true;
+		aList[ZOMBIE_NORMAL] = true;
+	}
+	else if (aGameMode == GAMEMODE_CHALLENGE_WORLD_8_3)
+	{
+		aList[ZOMBIE_TRAFFIC_CONE_VERY_HUNGRY] = true;
+		aList[ZOMBIE_NORMAL_VERY_HUNGRY] = true;
+		aList[ZOMBIE_GARGANTUAR] = true;
+		aList[ZOMBIE_NORMAL] = true;
+	}
+	else if (aGameMode == GAMEMODE_CHALLENGE_WORLD_8_4)
+	{
+		aList[ZOMBIE_TRAFFIC_CONE_VERY_HUNGRY] = true;
+		aList[ZOMBIE_NORMAL_VERY_HUNGRY] = true;
+		aList[ZOMBIE_PAIL] = true;
+		aList[ZOMBIE_FOOTBALL] = true;
+		aList[ZOMBIE_NORMAL] = true;
+	}
+	else if (aGameMode == GAMEMODE_CHALLENGE_WORLD_8_6)
+	{
+		aList[ZOMBIE_NORMAL_VERY_HUNGRY] = true;
+		aList[ZOMBIE_TRAFFIC_CONE_VERY_HUNGRY] = true;
+		aList[ZOMBIE_PAIL_VERY_HUNGRY] = true;
+		aList[ZOMBIE_GARGANTUAR] = true;
+		aList[ZOMBIE_NORMAL] = true;
+	}
+	else if (aGameMode == GAMEMODE_CHALLENGE_WORLD_8_7)
+	{
+		aList[ZOMBIE_NORMAL_VERY_HUNGRY] = true;
+		aList[ZOMBIE_TRAFFIC_CONE_VERY_HUNGRY] = true;
+		aList[ZOMBIE_PAIL_VERY_HUNGRY] = true;
+		aList[ZOMBIE_LADDER] = true;
+		aList[ZOMBIE_NORMAL] = true;
+	}
+	else if (aGameMode == GAMEMODE_CHALLENGE_WORLD_8_8)
+	{
+		aList[ZOMBIE_SMASH_GARGANTUAR] = true;
+		aList[ZOMBIE_TRAFFIC_CONE_VERY_HUNGRY] = true;
+		aList[ZOMBIE_NORMAL_VERY_HUNGRY] = true;
+		aList[ZOMBIE_GARGANTUAR] = true;
+		aList[ZOMBIE_NORMAL] = true;
+	}
+	else if (aGameMode == GAMEMODE_CHALLENGE_WORLD_8_9)
+	{
+		aList[ZOMBIE_NORMAL] = true;
+		aList[ZOMBIE_TRAFFIC_CONE] = true;
+		aList[ZOMBIE_PAIL] = true;
+
+		aList[ZOMBIE_TRASHCAN] = true;
+		aList[ZOMBIE_DOOR_TRAFFIC_CONE] = true;
+		aList[ZOMBIE_DOOR_PAIL] = true;
+		aList[ZOMBIE_BLACK_FOOTBALL] = true;
+		aList[ZOMBIE_REDEYE_GARGANTUAR] = true;
+
+		aList[ZOMBIE_BUNGEE_PAIL] = true;
+		aList[ZOMBIE_POGO_PAIL] = true;
+		aList[ZOMBIE_JACK_IN_THE_BOX_CRAZY] = true;
+		aList[ZOMBIE_DANCER_COOL] = true;
+
+		aList[ZOMBIE_NORMAL_VERY_HUNGRY] = true;
+		aList[ZOMBIE_TRAFFIC_CONE_VERY_HUNGRY] = true;
+		aList[ZOMBIE_PAIL_VERY_HUNGRY] = true;
+		aList[ZOMBIE_SMASH_GARGANTUAR] = true;
 	}
 	else if (mApp->IsShovelLevel())
 	{

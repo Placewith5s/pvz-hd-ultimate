@@ -718,7 +718,7 @@ void Board::PickZombieWaves()
 			mNumWaves = GetNumWavesPerSurvivalStage();
 		else if (aGameMode == GameMode::GAMEMODE_CHALLENGE_ZEN_GARDEN || aGameMode == GameMode::GAMEMODE_TREE_OF_WISDOM || mApp->IsSquirrelLevel())
 			mNumWaves = 0;
-		else if (aGameMode == GameMode::GAMEMODE_CHALLENGE_WORLD_7_1)
+		else if (aGameMode == GameMode::GAMEMODE_CHALLENGE_WORLD_7_1 || aGameMode == GameMode::GAMEMODE_CHALLENGE_WORLD_8_1)
 			mNumWaves = 10;
 		else if (aGameMode == GameMode::GAMEMODE_CHALLENGE_WHACK_A_ZOMBIE)
 			mNumWaves = 12;
@@ -733,7 +733,9 @@ void Board::PickZombieWaves()
 
 				|| aGameMode == GameMode::GAMEMODE_CHALLENGE_HEAT_WAVE ||
 			aGameMode == GameMode::GAMEMODE_CHALLENGE_WORLD_7_2 || aGameMode == GameMode::GAMEMODE_CHALLENGE_WORLD_7_3 ||
-			aGameMode == GameMode::GAMEMODE_CHALLENGE_WORLD_7_6 || aGameMode == GameMode::GAMEMODE_CHALLENGE_WORLD_7_8
+			aGameMode == GameMode::GAMEMODE_CHALLENGE_WORLD_7_6 || aGameMode == GameMode::GAMEMODE_CHALLENGE_WORLD_7_8 ||
+			aGameMode == GameMode::GAMEMODE_CHALLENGE_WORLD_8_2 || aGameMode == GameMode::GAMEMODE_CHALLENGE_WORLD_8_3 ||
+			aGameMode == GameMode::GAMEMODE_CHALLENGE_WORLD_8_6 || aGameMode == GameMode::GAMEMODE_CHALLENGE_WORLD_8_8
 #endif
 			)
 			mNumWaves = 20;
@@ -743,7 +745,8 @@ void Board::PickZombieWaves()
 				 aGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_3 ||
 				 aGameMode == GameMode::GAMEMODE_CHALLENGE_WALLNUT_BOWLING_2 || aGameMode == GameMode::GAMEMODE_CHALLENGE_POGO_PARTY ||
 				 aGameMode == GameMode::GAMEMODE_CHALLENGE_POGO_PARTY_2 ||
-			aGameMode == GameMode::GAMEMODE_CHALLENGE_WORLD_7_4 || aGameMode == GameMode::GAMEMODE_CHALLENGE_WORLD_7_7 || aGameMode == GameMode::GAMEMODE_CHALLENGE_WORLD_7_9
+			aGameMode == GameMode::GAMEMODE_CHALLENGE_WORLD_7_4 || aGameMode == GameMode::GAMEMODE_CHALLENGE_WORLD_7_7 || aGameMode == GameMode::GAMEMODE_CHALLENGE_WORLD_7_9 ||
+			aGameMode == GameMode::GAMEMODE_CHALLENGE_WORLD_8_4 || aGameMode == GameMode::GAMEMODE_CHALLENGE_WORLD_8_7 || aGameMode == GameMode::GAMEMODE_CHALLENGE_WORLD_8_9
 #ifdef _DS_MINIGAMES
 
 			|| aGameMode == GameMode::GAMEMODE_CHALLENGE_BOMB_ALL_TOGETHER
@@ -1260,6 +1263,19 @@ void Board::PickBackground()
 		mBackground = BackgroundType::BACKGROUND_GREENHOUSE;
 		break;
 
+	case GameMode::GAMEMODE_CHALLENGE_WORLD_8_1:
+	case GameMode::GAMEMODE_CHALLENGE_WORLD_8_2:
+	case GameMode::GAMEMODE_CHALLENGE_WORLD_8_3:
+	case GameMode::GAMEMODE_CHALLENGE_WORLD_8_4:
+	case GameMode::GAMEMODE_CHALLENGE_WORLD_8_5:
+	case GameMode::GAMEMODE_CHALLENGE_WORLD_8_6:
+	case GameMode::GAMEMODE_CHALLENGE_WORLD_8_7:
+	case GameMode::GAMEMODE_CHALLENGE_WORLD_8_8:
+	case GameMode::GAMEMODE_CHALLENGE_WORLD_8_9:
+	case GameMode::GAMEMODE_CHALLENGE_WORLD_8_10:
+		mBackground = BackgroundType::BACKGROUND_MUSHROOM_GARDEN;
+		break;
+
 	default:
 		TOD_ASSERT();
 		break;
@@ -1267,7 +1283,9 @@ void Board::PickBackground()
 
 	LoadBackgroundImages();
 
-	if (mBackground == BackgroundType::BACKGROUND_1_DAY || mBackground == BackgroundType::BACKGROUND_GREENHOUSE || mBackground == BackgroundType::BACKGROUND_TREEOFWISDOM)
+	if (mBackground == BackgroundType::BACKGROUND_1_DAY || mBackground == BackgroundType::BACKGROUND_GREENHOUSE ||
+		mBackground == BackgroundType::BACKGROUND_MUSHROOM_GARDEN ||
+		mBackground == BackgroundType::BACKGROUND_TREEOFWISDOM)
 	{
 		mPlantRow[0] = PlantRowType::PLANTROW_NORMAL;
 		mPlantRow[1] = PlantRowType::PLANTROW_NORMAL;
@@ -10898,6 +10916,7 @@ bool Board::HasConveyorBeltSeedBank()
 		mApp->IsBungeeBlitzLevel() || 
 		mApp->IsNightRoofMiniGameLevel() ||
 		mApp->IsGreenHouseMiniGameLevel() ||
+		mApp->IsMushroomGardenMiniGameLevel() ||
 		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_PORTAL_COMBAT || 
 		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_COLUMN || 
 		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_INVISIGHOUL

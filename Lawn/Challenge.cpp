@@ -594,7 +594,8 @@ void Challenge::StartLevel()
 		mApp->IsNightRoofMiniGameLevel() ||
 		mApp->IsGreenHouseMiniGameLevel() ||
 		mApp->IsMushroomGardenMiniGameLevel() ||
-		aGameMode == GAMEMODE_CHALLENGE_INVISIGHOUL)
+		aGameMode == GAMEMODE_CHALLENGE_INVISIGHOUL ||
+		aGameMode == GAMEMODE_CHALLENGE_TRANSPARENT)
 	{
 		mBoard->mZombieCountDown = 200;
 		mBoard->mZombieCountDownStart = mBoard->mZombieCountDown;
@@ -1847,7 +1848,11 @@ void Challenge::UpdateConveyorBelt()
 		return;
 
 	float aConveyorSpeedMultiplier = 1;
-	if (mApp->IsFinalBossLevel())
+	if (mApp->mGameMode == GAMEMODE_CHALLENGE_TRANSPARENT)
+	{
+		aConveyorSpeedMultiplier = 0.25f;
+	}
+	else if (mApp->IsFinalBossLevel())
 	{
 		aConveyorSpeedMultiplier = 0.875f;
 	}
@@ -2140,6 +2145,14 @@ void Challenge::UpdateConveyorBelt()
 		aSeedPickArray[4].mWeight = 30;
 		aSeedPickArray[5].mItem = SEED_ICESHROOM;
 		aSeedPickArray[5].mWeight = 10;
+	}
+	else if (mApp->mGameMode == GAMEMODE_CHALLENGE_TRANSPARENT)
+	{
+		aSeedPickCount = 2;
+		aSeedPickArray[0].mItem = SEED_THREEPEATER;
+		aSeedPickArray[0].mWeight = 20;
+		aSeedPickArray[1].mItem = SEED_SPLITPEA;
+		aSeedPickArray[1].mWeight = 80;
 	}
 #ifdef _DS_MINIGAMES
 	else if (mApp->mGameMode == GAMEMODE_CHALLENGE_BOMB_ALL_TOGETHER)
@@ -3166,6 +3179,13 @@ void Challenge::InitZombieWaves()
 		aList[ZOMBIE_ZAMBONI] = true;
 		aList[ZOMBIE_JACK_IN_THE_BOX] = true;
 	}
+	else if (aGameMode == GAMEMODE_CHALLENGE_TRANSPARENT)
+	{
+		aList[ZOMBIE_NORMAL] = true;
+		aList[ZOMBIE_PAIL] = true;
+		aList[ZOMBIE_POLEVAULTER] = true;
+		aList[ZOMBIE_SMASH_GARGANTUAR] = true;
+	}
 	else if (aGameMode == GAMEMODE_CHALLENGE_WAR_AND_PEAS)
 	{
 		aList[ZOMBIE_PEA_HEAD] = true;
@@ -3532,6 +3552,10 @@ void Challenge::InitZombieWaves()
 			aList[ZOMBIE_POGO_PAIL] = true;
 			aList[ZOMBIE_JACK_IN_THE_BOX_CRAZY] = true;
 			aList[ZOMBIE_DANCER_COOL] = true;
+			aList[ZOMBIE_NORMAL_VERY_HUNGRY] = true;
+			aList[ZOMBIE_TRAFFIC_CONE_VERY_HUNGRY] = true;
+			aList[ZOMBIE_PAIL_VERY_HUNGRY] = true;
+			aList[ZOMBIE_SMASH_GARGANTUAR] = true;
 			//aList[ZOMBIE_PROPELLER] = true;
 			//aList[ZOMBIE_DOG_WALKER] = true;
 		}

@@ -7495,10 +7495,14 @@ void Zombie::DrawReanim(Graphics* g, const ZombieDrawPosition& theDrawPos, int t
     }
 
     int aFadeAlpha = 255;
+
     if (mZombieFade >= 0)
     {
         aFadeAlpha = ClampInt(255 * mZombieFade / 10, 0, 255);
     }
+
+    if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_TRANSPARENT)
+        aFadeAlpha /= 20;
 
     Color aColorOverride(255, 255, 255, aFadeAlpha);
     Color aExtraAdditiveColor = Color::Black;

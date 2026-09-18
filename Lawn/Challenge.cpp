@@ -517,6 +517,12 @@ void Challenge::InitLevel()
 		mBoard->mSeedBank->AddSeed(SEED_ICESHROOM);
 		mConveyorBeltCounter = 1000;
 	}
+	if (mApp->mGameMode == GAMEMODE_CHALLENGE_TRANSPARENT)
+	{
+		mBoard->mSeedBank->AddSeed(SEED_THREEPEATER);
+		mBoard->mSeedBank->AddSeed(SEED_THREEPEATER);
+		mConveyorBeltCounter = 1000;
+	}
 	if (mApp->IsIZombieLevel())
 	{
 		IZombieInitLevel();
@@ -594,8 +600,7 @@ void Challenge::StartLevel()
 		mApp->IsNightRoofMiniGameLevel() ||
 		mApp->IsGreenHouseMiniGameLevel() ||
 		mApp->IsMushroomGardenMiniGameLevel() ||
-		aGameMode == GAMEMODE_CHALLENGE_INVISIGHOUL ||
-		aGameMode == GAMEMODE_CHALLENGE_TRANSPARENT)
+		aGameMode == GAMEMODE_CHALLENGE_INVISIGHOUL)
 	{
 		mBoard->mZombieCountDown = 200;
 		mBoard->mZombieCountDownStart = mBoard->mZombieCountDown;
@@ -1848,11 +1853,7 @@ void Challenge::UpdateConveyorBelt()
 		return;
 
 	float aConveyorSpeedMultiplier = 1;
-	if (mApp->mGameMode == GAMEMODE_CHALLENGE_TRANSPARENT)
-	{
-		aConveyorSpeedMultiplier = 0.25f;
-	}
-	else if (mApp->IsFinalBossLevel())
+	if (mApp->IsFinalBossLevel())
 	{
 		aConveyorSpeedMultiplier = 0.875f;
 	}
@@ -2148,11 +2149,9 @@ void Challenge::UpdateConveyorBelt()
 	}
 	else if (mApp->mGameMode == GAMEMODE_CHALLENGE_TRANSPARENT)
 	{
-		aSeedPickCount = 2;
-		aSeedPickArray[0].mItem = SEED_THREEPEATER;
-		aSeedPickArray[0].mWeight = 20;
-		aSeedPickArray[1].mItem = SEED_SPLITPEA;
-		aSeedPickArray[1].mWeight = 80;
+		aSeedPickCount = 1;
+		aSeedPickArray[0].mItem = SEED_SPLITPEA;
+		aSeedPickArray[0].mWeight = 100;
 	}
 #ifdef _DS_MINIGAMES
 	else if (mApp->mGameMode == GAMEMODE_CHALLENGE_BOMB_ALL_TOGETHER)

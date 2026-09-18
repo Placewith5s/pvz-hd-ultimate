@@ -746,7 +746,8 @@ void Board::PickZombieWaves()
 				 aGameMode == GameMode::GAMEMODE_CHALLENGE_WALLNUT_BOWLING_2 || aGameMode == GameMode::GAMEMODE_CHALLENGE_POGO_PARTY ||
 				 aGameMode == GameMode::GAMEMODE_CHALLENGE_POGO_PARTY_2 ||
 			aGameMode == GameMode::GAMEMODE_CHALLENGE_WORLD_7_4 || aGameMode == GameMode::GAMEMODE_CHALLENGE_WORLD_7_7 || aGameMode == GameMode::GAMEMODE_CHALLENGE_WORLD_7_9 ||
-			aGameMode == GameMode::GAMEMODE_CHALLENGE_WORLD_8_4 || aGameMode == GameMode::GAMEMODE_CHALLENGE_WORLD_8_7 || aGameMode == GameMode::GAMEMODE_CHALLENGE_WORLD_8_9
+			aGameMode == GameMode::GAMEMODE_CHALLENGE_WORLD_8_4 || aGameMode == GameMode::GAMEMODE_CHALLENGE_WORLD_8_7 || aGameMode == GameMode::GAMEMODE_CHALLENGE_WORLD_8_9 ||
+			aGameMode == GameMode::GAMEMODE_CHALLENGE_TRANSPARENT
 #ifdef _DS_MINIGAMES
 
 			|| aGameMode == GameMode::GAMEMODE_CHALLENGE_BOMB_ALL_TOGETHER
@@ -854,7 +855,9 @@ void Board::PickZombieWaves()
 		{
 			aZombiePoints *= 3;
 		}
-		else if (mApp->IsShovelLevel() || mApp->IsBungeeBlitzLevel() || mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_PORTAL_COMBAT || mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_INVISIGHOUL)
+		else if (mApp->IsShovelLevel() || mApp->IsBungeeBlitzLevel() || mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_PORTAL_COMBAT ||
+			mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_INVISIGHOUL ||
+			mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_TRANSPARENT)
 		{
 			aZombiePoints *= 2;
 		}
@@ -1273,6 +1276,7 @@ void Board::PickBackground()
 	case GameMode::GAMEMODE_CHALLENGE_WORLD_8_8:
 	case GameMode::GAMEMODE_CHALLENGE_WORLD_8_9:
 	case GameMode::GAMEMODE_CHALLENGE_WORLD_8_10:
+	case GameMode::GAMEMODE_CHALLENGE_TRANSPARENT:
 		mBackground = BackgroundType::BACKGROUND_MUSHROOM_GARDEN;
 		break;
 
@@ -5932,6 +5936,8 @@ void Board::SpawnZombieWave()
 			}
 
 			if (aZombie && mApp->mGameMode != GameMode::GAMEMODE_CHALLENGE_INVISIGHOUL)
+				// already no bush animation in greenhouse and mushroom garden
+				//mApp->mGameMode != GameMode::GAMEMODE_CHALLENGE_TRANSPARENT)
 			{
 				bool isAllowedToAnimate = true;
 
@@ -10919,7 +10925,8 @@ bool Board::HasConveyorBeltSeedBank()
 		mApp->IsMushroomGardenMiniGameLevel() ||
 		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_PORTAL_COMBAT || 
 		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_COLUMN || 
-		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_INVISIGHOUL
+		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_INVISIGHOUL ||
+		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_TRANSPARENT
 #ifdef _DS_MINIGAMES
 		|| mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_BOMB_ALL_TOGETHER
 #endif

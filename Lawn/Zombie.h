@@ -93,7 +93,6 @@ public:
     };
 
 public:
-    Zombie* aZombie;
 	ZombieType			            mZombieType;                                //+0x24
 	ZombiePhase			            mZombiePhase;                               //+0x28
 	float				            mPosX;                                      //+0x2C

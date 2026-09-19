@@ -819,7 +819,9 @@ void Board::PickZombieWaves()
 			aZombiePoints *= 2.5f;
 
 			if (mApp->mGameMode != GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS && mApp->mGameMode != GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_2 &&
-				mApp->mGameMode != GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_3 && mApp->mGameMode != GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_4)
+				mApp->mGameMode != GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_3 && mApp->mGameMode != GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_4 &&
+				mApp->mGameMode != GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_NIGHTMARE &&
+				mApp->mGameMode != GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_EXTREME_NIGHTMARE)
 			{
 				//if (mZombieAllowed[ZombieType::ZOMBIE_NORMAL])
 				{
@@ -1178,6 +1180,8 @@ void Board::PickBackground()
 	case GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_2:
 	case GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_3:
 	case GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_4:
+	case GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_NIGHTMARE:
+	case GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_EXTREME_NIGHTMARE:
 	case GameMode::GAMEMODE_CHALLENGE_VEHICLE_PARTY:
 	case GameMode::GAMEMODE_CHALLENGE_SLOT_MACHINE_2:
 	case GameMode::GAMEMODE_UPSELL:
@@ -5826,7 +5830,9 @@ void Board::SpawnZombiesFromSky()
 void Board::SpawnZombiesFromGraves()
 {
 	if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS || mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_2 ||
-		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_3 || mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_4)
+		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_3 || mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_4 ||
+		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_NIGHTMARE ||
+		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_EXTREME_NIGHTMARE)
 		return;
 
 	if (StageHasRoof())
@@ -10388,7 +10394,9 @@ void Board::KeyChar(SexyChar theChar)
 	}
 
 	if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS || mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_2 ||
-		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_3 || mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_4)
+		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_3 || mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_4 ||
+		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_NIGHTMARE ||
+		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_EXTREME_NIGHTMARE)
 	{
 		if (theChar == _S('w'))
 		{

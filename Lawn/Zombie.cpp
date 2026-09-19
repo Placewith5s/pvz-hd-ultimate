@@ -71,6 +71,26 @@ ZombieDefinition gZombieDefs[NUM_ZOMBIE_TYPES] = {  //0x69DA80
     { ZOMBIE_TRAFFIC_CONE_VERY_HUNGRY,      REANIM_ZOMBIE,              2,      60,      1,      4000,   _S("CONEHEAD_VERY_HUNGRY_ZOMBIE") },
     { ZOMBIE_PAIL_VERY_HUNGRY,              REANIM_ZOMBIE,              4,      60,      1,      3000,   _S("BUCKETHEAD_VERY_HUNGRY_ZOMBIE") },
     { ZOMBIE_SMASH_GARGANTUAR,        REANIM_GARGANTUAR,          10,     60,     15,     1500,   _S("SMASH_GARGANTUAR") },
+    { ZOMBIE_NIGHTMARE_PEA_HEAD,          REANIM_ZOMBIE,              1,      48,     1,      4000,   _S("ZOMBIE") },
+    { ZOMBIE_NIGHTMARE_WALLNUT_HEAD,      REANIM_ZOMBIE_ZOMBOTANY,              4,      48,     1,      3000,   _S("ZOMBIE") },
+    { ZOMBIE_NIGHTMARE_JALAPENO_HEAD,     REANIM_ZOMBIE_ZOMBOTANY,              3,      48,     10,     1000,   _S("ZOMBIE") },
+    { ZOMBIE_NIGHTMARE_GATLING_HEAD,      REANIM_ZOMBIE,              3,      48,     10,     2000,   _S("ZOMBIE") },
+    { ZOMBIE_NIGHTMARE_SQUASH_HEAD,       REANIM_ZOMBIE,              3,      48,     10,     2000,   _S("ZOMBIE") },
+    { ZOMBIE_NIGHTMARE_TALLNUT_HEAD,      REANIM_ZOMBIE_ZOMBOTANY,              4,      48,     10,     2000,   _S("ZOMBIE") },
+    { ZOMBIE_NIGHTMARE_REPEATER_HEAD,      REANIM_ZOMBIE,              3,      48,     1,     3000,   _S("ZOMBIE") },
+    { ZOMBIE_NIGHTMARE_POTATOMINE_HEAD,          REANIM_ZOMBIE_ZOMBOTANY,              1,      48,     1,      4000,   _S("ZOMBIE") },
+    { ZOMBIE_NIGHTMARE_PUMPKIN_HEAD,      REANIM_ZOMBIE_ZOMBOTANY,              4,      48,     1,      3000,   _S("ZOMBIE") },
+    { ZOMBIE_NIGHTMARE_CABBAGEPULT_HEAD,      REANIM_ZOMBIE_ZOMBOTANY,              1,      48,     1,     4000,   _S("ZOMBIE") },
+    { ZOMBIE_EXTREME_NIGHTMARE_PEA_HEAD,          REANIM_ZOMBIE,              1,      48,     1,      4000,   _S("ZOMBIE") },
+    { ZOMBIE_EXTREME_NIGHTMARE_WALLNUT_HEAD,      REANIM_ZOMBIE_ZOMBOTANY,              4,      48,     1,      3000,   _S("ZOMBIE") },
+    { ZOMBIE_EXTREME_NIGHTMARE_JALAPENO_HEAD,     REANIM_ZOMBIE_ZOMBOTANY,              3,      48,     10,     1000,   _S("ZOMBIE") },
+    { ZOMBIE_EXTREME_NIGHTMARE_GATLING_HEAD,      REANIM_ZOMBIE,              3,      48,     10,     2000,   _S("ZOMBIE") },
+    { ZOMBIE_EXTREME_NIGHTMARE_SQUASH_HEAD,       REANIM_ZOMBIE,              3,      48,     10,     2000,   _S("ZOMBIE") },
+    { ZOMBIE_EXTREME_NIGHTMARE_TALLNUT_HEAD,      REANIM_ZOMBIE_ZOMBOTANY,              4,      48,     10,     2000,   _S("ZOMBIE") },
+    { ZOMBIE_EXTREME_NIGHTMARE_REPEATER_HEAD,      REANIM_ZOMBIE,              3,      48,     1,     3000,   _S("ZOMBIE") },
+    { ZOMBIE_EXTREME_NIGHTMARE_POTATOMINE_HEAD,          REANIM_ZOMBIE_ZOMBOTANY,              1,      48,     1,      4000,   _S("ZOMBIE") },
+    { ZOMBIE_EXTREME_NIGHTMARE_PUMPKIN_HEAD,      REANIM_ZOMBIE_ZOMBOTANY,              4,      48,     1,      3000,   _S("ZOMBIE") },
+    { ZOMBIE_EXTREME_NIGHTMARE_CABBAGEPULT_HEAD,      REANIM_ZOMBIE_ZOMBOTANY,              1,      48,     1,     4000,   _S("ZOMBIE") },
     { ZOMBIE_REDEYE_GARGANTUAR, REANIM_GARGANTUAR,          10,     48,     15,     6000,   _S("REDEYED_GARGANTUAR") },
 #ifdef _HAS_NEW_GIGA_ZOMBIES
     { ZOMBIE_BLACK_FOOTBALL,    REANIM_ZOMBIE_BLACKFOOTBALL,7,      16,     5,      2000,   _S("BLACK_FOOTBALL_ZOMBIE") },
@@ -912,6 +932,8 @@ void Zombie::ZombieInitialize(int theRow, ZombieType theType, bool theVariant, Z
 #endif
 
     case ZombieType::ZOMBIE_PEA_HEAD:  //0x52369B
+    case ZombieType::ZOMBIE_NIGHTMARE_PEA_HEAD:
+    case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_PEA_HEAD:
     {
         LoadPlainZombieReanim();
         ReanimShowPrefix("anim_hair", RENDER_GROUP_HIDDEN);
@@ -934,10 +956,27 @@ void Zombie::ZombieInitialize(int theRow, ZombieType theType, bool theVariant, Z
 
         mPhaseCounter = 150;
         mVariant = false;
+
+        if (mZombieType == ZombieType::ZOMBIE_NIGHTMARE_PEA_HEAD ||
+            mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_PEA_HEAD)
+        {
+            mHelmType = HelmType::HELMTYPE_BUCKET;
+            mHelmHealth = 1100;
+            AttachHelmet();
+        }
+
+        if (mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_PEA_HEAD)
+        {
+            mShieldType = ShieldType::SHIELDTYPE_DOOR;
+            mShieldHealth = 1100;
+            AttachShield();
+        }
         break;
     }
     
     case ZombieType::ZOMBIE_WALLNUT_HEAD:  //0x523719
+    case ZombieType::ZOMBIE_NIGHTMARE_WALLNUT_HEAD:
+    case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_WALLNUT_HEAD:
     {
         LoadPlainZombieReanim();
         ReanimShowPrefix("anim_hair", RENDER_GROUP_HIDDEN);
@@ -958,10 +997,26 @@ void Zombie::ZombieInitialize(int theRow, ZombieType theType, bool theVariant, Z
         mHelmType = HelmType::HELMTYPE_WALLNUT;
         mHelmHealth = 1100;
         mVariant = false;
+
+        if (mZombieType == ZombieType::ZOMBIE_NIGHTMARE_WALLNUT_HEAD ||
+            mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_WALLNUT_HEAD)
+        {
+            // no buckethead, helm health is buckethead + wallnut
+            mHelmHealth = 2200;
+        }
+
+        if (mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_WALLNUT_HEAD)
+        {
+            mShieldType = ShieldType::SHIELDTYPE_DOOR;
+            mShieldHealth = 1100;
+            AttachShield();
+        }
         break;
     }
 
     case ZombieType::ZOMBIE_TALLNUT_HEAD:  //0x523842
+    case ZombieType::ZOMBIE_NIGHTMARE_TALLNUT_HEAD:
+    case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_TALLNUT_HEAD:
     {
         LoadPlainZombieReanim();
         ReanimShowPrefix("anim_hair", RENDER_GROUP_HIDDEN);
@@ -983,10 +1038,26 @@ void Zombie::ZombieInitialize(int theRow, ZombieType theType, bool theVariant, Z
         mHelmHealth = 2200;
         mVariant = false;
         mPosX += 30.0f;
+
+        if (mZombieType == ZombieType::ZOMBIE_NIGHTMARE_TALLNUT_HEAD ||
+            mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_TALLNUT_HEAD)
+        {
+            // no buckethead, helm health is buckethead + tallnut
+            mHelmHealth = 3300;
+        }
+
+        if (mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_TALLNUT_HEAD)
+        {
+            mShieldType = ShieldType::SHIELDTYPE_DOOR;
+            mShieldHealth = 1100;
+            AttachShield();
+        }
         break;
     }
 
     case ZombieType::ZOMBIE_JALAPENO_HEAD:  //0x523977
+    case ZombieType::ZOMBIE_NIGHTMARE_JALAPENO_HEAD:
+    case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_JALAPENO_HEAD:
     {
         LoadPlainZombieReanim();
         ReanimShowPrefix("anim_hair", RENDER_GROUP_HIDDEN);
@@ -1007,10 +1078,27 @@ void Zombie::ZombieInitialize(int theRow, ZombieType theType, bool theVariant, Z
         mBodyHealth = 500;
         int aDistance = 275 + Rand(175);
         mPhaseCounter = (int)(aDistance / mVelX) * ZOMBIE_LIMP_SPEED_FACTOR;
+
+        if (mZombieType == ZombieType::ZOMBIE_NIGHTMARE_JALAPENO_HEAD ||
+            mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_JALAPENO_HEAD)
+        {
+            mHelmType = HelmType::HELMTYPE_BUCKET;
+            mHelmHealth = 1100;
+            AttachHelmet();
+        }
+
+        if (mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_JALAPENO_HEAD)
+        {
+            mShieldType = ShieldType::SHIELDTYPE_DOOR;
+            mShieldHealth = 1100;
+            AttachShield();
+        }
         break;
     }
 
     case ZombieType::ZOMBIE_GATLING_HEAD:  //0x523ABA
+    case ZombieType::ZOMBIE_NIGHTMARE_GATLING_HEAD:
+    case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_GATLING_HEAD:
     {
         LoadPlainZombieReanim();
         ReanimShowPrefix("anim_hair", RENDER_GROUP_HIDDEN);
@@ -1033,10 +1121,27 @@ void Zombie::ZombieInitialize(int theRow, ZombieType theType, bool theVariant, Z
 
         mPhaseCounter = 150;
         mVariant = false;
+
+        if (mZombieType == ZombieType::ZOMBIE_NIGHTMARE_GATLING_HEAD ||
+            mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_GATLING_HEAD)
+        {
+            mHelmType = HelmType::HELMTYPE_BUCKET;
+            mHelmHealth = 1100;
+            AttachHelmet();
+        }
+
+        if (mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_GATLING_HEAD)
+        {
+            mShieldType = ShieldType::SHIELDTYPE_DOOR;
+            mShieldHealth = 1100;
+            AttachShield();
+        }
         break;
     }
 
     case ZombieType::ZOMBIE_SQUASH_HEAD:  //0x523BE7
+    case ZombieType::ZOMBIE_NIGHTMARE_SQUASH_HEAD:
+    case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_SQUASH_HEAD:
     {
         LoadPlainZombieReanim();
         ReanimShowPrefix("anim_hair", RENDER_GROUP_HIDDEN);
@@ -1059,10 +1164,27 @@ void Zombie::ZombieInitialize(int theRow, ZombieType theType, bool theVariant, Z
 
         mZombiePhase = ZombiePhase::PHASE_SQUASH_PRE_LAUNCH;
         mVariant = false;
+
+        if (mZombieType == ZombieType::ZOMBIE_NIGHTMARE_SQUASH_HEAD ||
+            mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_SQUASH_HEAD)
+        {
+            mHelmType = HelmType::HELMTYPE_BUCKET;
+            mHelmHealth = 1100;
+            AttachHelmet();
+        }
+
+        if (mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_SQUASH_HEAD)
+        {
+            mShieldType = ShieldType::SHIELDTYPE_DOOR;
+            mShieldHealth = 1100;
+            AttachShield();
+        }
         break;
     }
 
     case ZombieType::ZOMBIE_REPEATER_HEAD:  // repeater zombie
+    case ZombieType::ZOMBIE_NIGHTMARE_REPEATER_HEAD:
+    case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_REPEATER_HEAD:
     {
         LoadPlainZombieReanim();
         ReanimShowPrefix("anim_hair", RENDER_GROUP_HIDDEN);
@@ -1085,10 +1207,27 @@ void Zombie::ZombieInitialize(int theRow, ZombieType theType, bool theVariant, Z
 
         mPhaseCounter = 150;
         mVariant = false;
+
+        if (mZombieType == ZombieType::ZOMBIE_NIGHTMARE_REPEATER_HEAD ||
+            mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_REPEATER_HEAD)
+        {
+            mHelmType = HelmType::HELMTYPE_BUCKET;
+            mHelmHealth = 1100;
+            AttachHelmet();
+        }
+
+        if (mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_REPEATER_HEAD)
+        {
+            mShieldType = ShieldType::SHIELDTYPE_DOOR;
+            mShieldHealth = 1100;
+            AttachShield();
+        }
         break;
     }
 
     case ZombieType::ZOMBIE_POTATOMINE_HEAD:  // potato mine zombie
+    case ZombieType::ZOMBIE_NIGHTMARE_POTATOMINE_HEAD:
+    case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_POTATOMINE_HEAD:
     {
         LoadPlainZombieReanim();
         ReanimShowPrefix("anim_hair", RENDER_GROUP_HIDDEN);
@@ -1108,10 +1247,27 @@ void Zombie::ZombieInitialize(int theRow, ZombieType theType, bool theVariant, Z
         mVariant = false;
         int aDistance = 275 + Rand(175);
         mPhaseCounter = (int)(aDistance / mVelX) * ZOMBIE_LIMP_SPEED_FACTOR;
+
+        if (mZombieType == ZombieType::ZOMBIE_NIGHTMARE_POTATOMINE_HEAD ||
+            mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_POTATOMINE_HEAD)
+        {
+            mHelmType = HelmType::HELMTYPE_BUCKET;
+            mHelmHealth = 1100;
+            AttachHelmet();
+        }
+
+        if (mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_POTATOMINE_HEAD)
+        {
+            mShieldType = ShieldType::SHIELDTYPE_DOOR;
+            mShieldHealth = 1100;
+            AttachShield();
+        }
         break;
     }
 
     case ZombieType::ZOMBIE_PUMPKIN_HEAD:  // pumpkin zombie
+    case ZombieType::ZOMBIE_NIGHTMARE_PUMPKIN_HEAD:
+    case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_PUMPKIN_HEAD:
     {
         LoadPlainZombieReanim();
         ReanimShowPrefix("anim_hair", RENDER_GROUP_HIDDEN);
@@ -1132,10 +1288,26 @@ void Zombie::ZombieInitialize(int theRow, ZombieType theType, bool theVariant, Z
         mHelmType = HelmType::HELMTYPE_PUMPKIN;
         mHelmHealth = 1100;
         mVariant = false;
+
+        if (mZombieType == ZombieType::ZOMBIE_NIGHTMARE_PUMPKIN_HEAD ||
+            mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_PUMPKIN_HEAD)
+        {
+            // no buckethead, helm health is buckethead + pumpkin
+            mHelmHealth = 2200;
+        }
+
+        if (mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_PUMPKIN_HEAD)
+        {
+            mShieldType = ShieldType::SHIELDTYPE_DOOR;
+            mShieldHealth = 1100;
+            AttachShield();
+        }
         break;
     }
 
     case ZombieType::ZOMBIE_CABBAGEPULT_HEAD:  // cabbage-pult zombie
+    case ZombieType::ZOMBIE_NIGHTMARE_CABBAGEPULT_HEAD:
+    case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_CABBAGEPULT_HEAD:
     {
         LoadPlainZombieReanim();
         ReanimShowPrefix("anim_hair", RENDER_GROUP_HIDDEN);
@@ -1162,6 +1334,21 @@ void Zombie::ZombieInitialize(int theRow, ZombieType theType, bool theVariant, Z
 
         mPhaseCounter = 300;
         mVariant = false;
+
+        if (mZombieType == ZombieType::ZOMBIE_NIGHTMARE_CABBAGEPULT_HEAD ||
+            mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_CABBAGEPULT_HEAD)
+        {
+            mHelmType = HelmType::HELMTYPE_BUCKET;
+            mHelmHealth = 1100;
+            AttachHelmet();
+        }
+
+        if (mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_CABBAGEPULT_HEAD)
+        {
+            mShieldType = ShieldType::SHIELDTYPE_DOOR;
+            mShieldHealth = 1100;
+            AttachShield();
+        }
         break;
     }
     }
@@ -1257,7 +1444,13 @@ void Zombie::SetupReanimLayers(Reanimation* aReanim, ZombieType theZombieType)
     aReanim->AssignRenderGroupToPrefix("Zombie_mustache", RENDER_GROUP_HIDDEN);
     aReanim->AssignRenderGroupToPrefix("Zombie_zombotany_tie", RENDER_GROUP_HIDDEN);
     if (theZombieType == ZombieType::ZOMBIE_WALLNUT_HEAD || theZombieType == ZombieType::ZOMBIE_TALLNUT_HEAD || theZombieType == ZombieType::ZOMBIE_JALAPENO_HEAD ||
-        theZombieType == ZombieType::ZOMBIE_POTATOMINE_HEAD || theZombieType == ZombieType::ZOMBIE_PUMPKIN_HEAD)
+        theZombieType == ZombieType::ZOMBIE_POTATOMINE_HEAD || theZombieType == ZombieType::ZOMBIE_PUMPKIN_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_NIGHTMARE_WALLNUT_HEAD || theZombieType == ZombieType::ZOMBIE_NIGHTMARE_TALLNUT_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_NIGHTMARE_JALAPENO_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_NIGHTMARE_POTATOMINE_HEAD || theZombieType == ZombieType::ZOMBIE_NIGHTMARE_PUMPKIN_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_WALLNUT_HEAD || theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_TALLNUT_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_JALAPENO_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_POTATOMINE_HEAD || theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_PUMPKIN_HEAD)
     {
         ReanimatorTrackInstance* aTrackInstance = aReanim->GetTrackInstanceByName("Zombie_zombotany_body");
         if (aTrackInstance)
@@ -1267,16 +1460,34 @@ void Zombie::SetupReanimLayers(Reanimation* aReanim, ZombieType theZombieType)
     }
     SetupDoorArms(aReanim, false);
 
-    if (theZombieType == ZombieType::ZOMBIE_TRAFFIC_CONE || theZombieType == ZombieType::ZOMBIE_TRAFFIC_CONE_VERY_HUNGRY)
+    if (theZombieType == ZombieType::ZOMBIE_TRAFFIC_CONE || theZombieType == ZombieType::ZOMBIE_TRAFFIC_CONE_VERY_HUNGRY ||
+        theZombieType == ZombieType::ZOMBIE_DOOR_TRAFFIC_CONE)
     {
         aReanim->AssignRenderGroupToPrefix("anim_cone", RENDER_GROUP_NORMAL);
         aReanim->AssignRenderGroupToPrefix("anim_hair", RENDER_GROUP_HIDDEN);
     }
-    else if (theZombieType == ZombieType::ZOMBIE_PAIL || theZombieType == ZombieType::ZOMBIE_PAIL_VERY_HUNGRY)
+    else if (theZombieType == ZombieType::ZOMBIE_PAIL || theZombieType == ZombieType::ZOMBIE_PAIL_VERY_HUNGRY ||
+        theZombieType == ZombieType::ZOMBIE_DOOR_PAIL || theZombieType == ZombieType::ZOMBIE_BUNGEE_PAIL ||
+        theZombieType == ZombieType::ZOMBIE_POGO_PAIL)
     {
         aReanim->AssignRenderGroupToPrefix("anim_bucket", RENDER_GROUP_NORMAL);
         aReanim->AssignRenderGroupToPrefix("anim_hair", RENDER_GROUP_HIDDEN);
     }
+    else if (theZombieType == ZombieType::ZOMBIE_NIGHTMARE_PEA_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_NIGHTMARE_JALAPENO_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_NIGHTMARE_GATLING_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_NIGHTMARE_SQUASH_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_NIGHTMARE_REPEATER_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_NIGHTMARE_POTATOMINE_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_NIGHTMARE_CABBAGEPULT_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_PEA_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_JALAPENO_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_GATLING_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_SQUASH_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_REPEATER_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_POTATOMINE_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_CABBAGEPULT_HEAD)
+        aReanim->AssignRenderGroupToPrefix("anim_bucket", RENDER_GROUP_NORMAL);
     else if (theZombieType == ZombieType::ZOMBIE_DOOR ||
         theZombieType == ZombieType::ZOMBIE_DOOR_TRAFFIC_CONE ||
         theZombieType == ZombieType::ZOMBIE_DOOR_PAIL
@@ -1627,7 +1838,9 @@ void Zombie::PickRandomSpeed()
     else if (mZombieType == ZombieType::ZOMBIE_JACK_IN_THE_BOX_CRAZY) {
         mVelX = RandRangeFloat(1.32f, 1.36f);
     }
-    else if (mZombiePhase == ZombiePhase::PHASE_LADDER_CARRYING || mZombieType == ZombieType::ZOMBIE_SQUASH_HEAD)
+    else if (mZombiePhase == ZombiePhase::PHASE_LADDER_CARRYING ||
+        mZombieType == ZombieType::ZOMBIE_SQUASH_HEAD || mZombieType == ZombieType::ZOMBIE_NIGHTMARE_SQUASH_HEAD ||
+        mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_SQUASH_HEAD)
     {
         mVelX = RandRangeFloat(0.79f, 0.81f);
     }
@@ -6090,31 +6303,38 @@ void Zombie::UpdateActions()
     {
         UpdateZombieImp();
     }
-    if (mZombieType == ZombieType::ZOMBIE_PEA_HEAD)
+    if (mZombieType == ZombieType::ZOMBIE_PEA_HEAD || mZombieType == ZombieType::ZOMBIE_NIGHTMARE_PEA_HEAD ||
+        mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_PEA_HEAD)
     {
         UpdateZombiePeaHead();
     }
-    if (mZombieType == ZombieType::ZOMBIE_JALAPENO_HEAD)
+    if (mZombieType == ZombieType::ZOMBIE_JALAPENO_HEAD || mZombieType == ZombieType::ZOMBIE_NIGHTMARE_JALAPENO_HEAD ||
+        mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_JALAPENO_HEAD)
     {
         UpdateZombieJalapenoHead();
     }
-    if (mZombieType == ZombieType::ZOMBIE_GATLING_HEAD)
+    if (mZombieType == ZombieType::ZOMBIE_GATLING_HEAD || mZombieType == ZombieType::ZOMBIE_NIGHTMARE_GATLING_HEAD ||
+        mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_GATLING_HEAD)
     {
         UpdateZombieGatlingHead();
     }
-    if (mZombieType == ZombieType::ZOMBIE_SQUASH_HEAD)
+    if (mZombieType == ZombieType::ZOMBIE_SQUASH_HEAD || mZombieType == ZombieType::ZOMBIE_NIGHTMARE_SQUASH_HEAD ||
+        mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_SQUASH_HEAD)
     {
         UpdateZombieSquashHead();
     }
-    if (mZombieType == ZombieType::ZOMBIE_REPEATER_HEAD)
+    if (mZombieType == ZombieType::ZOMBIE_REPEATER_HEAD || mZombieType == ZombieType::ZOMBIE_NIGHTMARE_REPEATER_HEAD ||
+        mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_REPEATER_HEAD)
     {
         UpdateZombieRepeaterHead();
     }
-    if (mZombieType == ZombieType::ZOMBIE_POTATOMINE_HEAD)
+    if (mZombieType == ZombieType::ZOMBIE_POTATOMINE_HEAD || mZombieType == ZombieType::ZOMBIE_NIGHTMARE_POTATOMINE_HEAD ||
+        mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_POTATOMINE_HEAD)
     {
         UpdateZombiePotatomineHead();
     }
-    if (mZombieType == ZombieType::ZOMBIE_CABBAGEPULT_HEAD)
+    if (mZombieType == ZombieType::ZOMBIE_CABBAGEPULT_HEAD || mZombieType == ZombieType::ZOMBIE_NIGHTMARE_CABBAGEPULT_HEAD ||
+        mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_CABBAGEPULT_HEAD)
     {
         UpdateZombieCabbagepultHead();
     }
@@ -8255,15 +8475,23 @@ void Zombie::DrawButter(Graphics* g, const ZombieDrawPosition& theDrawPos)
         aScale = 1.2f;
         break;
     case ZombieType::ZOMBIE_SQUASH_HEAD:
+    case ZombieType::ZOMBIE_NIGHTMARE_SQUASH_HEAD:
+    case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_SQUASH_HEAD:
         aOffsetX += 6.0f;
         aOffsetY -= 9.0f;
         break;
     case ZombieType::ZOMBIE_WALLNUT_HEAD:
     case ZombieType::ZOMBIE_PUMPKIN_HEAD:
+    case ZombieType::ZOMBIE_NIGHTMARE_WALLNUT_HEAD:
+    case ZombieType::ZOMBIE_NIGHTMARE_PUMPKIN_HEAD:
+    case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_WALLNUT_HEAD:
+    case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_PUMPKIN_HEAD:
         aOffsetX -= 6.0f;
         aOffsetY -= 1.0f;
         break;
     case ZombieType::ZOMBIE_TALLNUT_HEAD:
+    case ZombieType::ZOMBIE_NIGHTMARE_TALLNUT_HEAD:
+    case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_TALLNUT_HEAD:
         aOffsetX -= 24.0f;
         aOffsetY -= 39.0f;
         break;
@@ -9009,7 +9237,15 @@ void Zombie::StartWalkAnim(int theBlendTime)
         if (mZombieType == ZombieType::ZOMBIE_PEA_HEAD ||
             mZombieType == ZombieType::ZOMBIE_REPEATER_HEAD ||
             mZombieType == ZombieType::ZOMBIE_GATLING_HEAD ||
-            mZombieType == ZombieType::ZOMBIE_CABBAGEPULT_HEAD)
+            mZombieType == ZombieType::ZOMBIE_CABBAGEPULT_HEAD ||
+            mZombieType == ZombieType::ZOMBIE_NIGHTMARE_PEA_HEAD ||
+            mZombieType == ZombieType::ZOMBIE_NIGHTMARE_REPEATER_HEAD ||
+            mZombieType == ZombieType::ZOMBIE_NIGHTMARE_GATLING_HEAD ||
+            mZombieType == ZombieType::ZOMBIE_NIGHTMARE_CABBAGEPULT_HEAD ||
+            mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_PEA_HEAD ||
+            mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_REPEATER_HEAD ||
+            mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_GATLING_HEAD ||
+            mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_CABBAGEPULT_HEAD)
         {
             aWalkAnimVariant = 0;
         }
@@ -11035,7 +11271,27 @@ bool Zombie::IsZombotany(ZombieType theZombieType)
         theZombieType == ZombieType::ZOMBIE_REPEATER_HEAD ||
         theZombieType == ZombieType::ZOMBIE_POTATOMINE_HEAD ||
         theZombieType == ZombieType::ZOMBIE_PUMPKIN_HEAD ||
-        theZombieType == ZombieType::ZOMBIE_CABBAGEPULT_HEAD;
+        theZombieType == ZombieType::ZOMBIE_CABBAGEPULT_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_NIGHTMARE_PEA_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_NIGHTMARE_WALLNUT_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_NIGHTMARE_TALLNUT_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_NIGHTMARE_JALAPENO_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_NIGHTMARE_GATLING_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_NIGHTMARE_SQUASH_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_NIGHTMARE_REPEATER_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_NIGHTMARE_POTATOMINE_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_NIGHTMARE_PUMPKIN_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_NIGHTMARE_CABBAGEPULT_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_PEA_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_WALLNUT_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_TALLNUT_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_JALAPENO_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_GATLING_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_SQUASH_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_REPEATER_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_POTATOMINE_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_PUMPKIN_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_CABBAGEPULT_HEAD;
 }
 
 //0x5320B0
@@ -11060,6 +11316,24 @@ bool Zombie::ZombieTypeCanGoInPool(ZombieType theZombieType)
         theZombieType == ZombieType::ZOMBIE_POTATOMINE_HEAD ||
         theZombieType == ZombieType::ZOMBIE_PUMPKIN_HEAD ||
         theZombieType == ZombieType::ZOMBIE_CABBAGEPULT_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_NIGHTMARE_PEA_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_NIGHTMARE_WALLNUT_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_NIGHTMARE_JALAPENO_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_NIGHTMARE_GATLING_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_NIGHTMARE_TALLNUT_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_NIGHTMARE_REPEATER_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_NIGHTMARE_POTATOMINE_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_NIGHTMARE_PUMPKIN_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_NIGHTMARE_CABBAGEPULT_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_PEA_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_WALLNUT_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_JALAPENO_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_GATLING_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_TALLNUT_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_REPEATER_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_POTATOMINE_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_PUMPKIN_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_CABBAGEPULT_HEAD ||
         theZombieType == ZombieType::ZOMBIE_BALLOON
 #ifdef _HAS_BLOOM_AND_DOOM_CONTENTS
         || theZombieType == ZombieType::ZOMBIE_PROPELLER
@@ -11289,20 +11563,27 @@ void Zombie::RemoveButter()
         Reanimation* aHeadReanim = mApp->ReanimationTryToGet(mSpecialHeadReanimID);
         if (aHeadReanim)
         {
-            if (mZombieType == ZombieType::ZOMBIE_PEA_HEAD &&
+            if ((mZombieType == ZombieType::ZOMBIE_PEA_HEAD || mZombieType == ZombieType::ZOMBIE_NIGHTMARE_PEA_HEAD ||
+                mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_PEA_HEAD) &&
                 aHeadReanim->IsAnimPlaying("anim_shooting"))
             {
                 aHeadReanim->mAnimRate = 35.0f;
             }
-            else if (mZombieType == ZombieType::ZOMBIE_REPEATER_HEAD && aHeadReanim->IsAnimPlaying("anim_shooting"))
+            else if ((mZombieType == ZombieType::ZOMBIE_REPEATER_HEAD || mZombieType == ZombieType::ZOMBIE_NIGHTMARE_REPEATER_HEAD ||
+                mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_REPEATER_HEAD) &&
+                aHeadReanim->IsAnimPlaying("anim_shooting"))
             {
                 aHeadReanim->mAnimRate = 45.0f;
             }
-            else if (mZombieType == ZombieType::ZOMBIE_GATLING_HEAD && aHeadReanim->IsAnimPlaying("anim_shooting"))
+            else if ((mZombieType == ZombieType::ZOMBIE_GATLING_HEAD || mZombieType == ZombieType::ZOMBIE_NIGHTMARE_GATLING_HEAD ||
+                mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_GATLING_HEAD) &&
+                aHeadReanim->IsAnimPlaying("anim_shooting"))
             {
                 aHeadReanim->mAnimRate = 38.0f;
             }
-            else if (mZombieType == ZombieType::ZOMBIE_CABBAGEPULT_HEAD && aHeadReanim->IsAnimPlaying("anim_shooting"))
+            else if ((mZombieType == ZombieType::ZOMBIE_CABBAGEPULT_HEAD || mZombieType == ZombieType::ZOMBIE_NIGHTMARE_CABBAGEPULT_HEAD ||
+                mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_CABBAGEPULT_HEAD) &&
+                aHeadReanim->IsAnimPlaying("anim_shooting"))
             {
                 aHeadReanim->mAnimRate = 17.5f;
             }
@@ -11483,13 +11764,19 @@ void Zombie::ApplyBurn()
 
     int currentHealth = mBodyHealth + mHelmHealth + mShieldHealth + mFlyingHealth;
 
-    if (currentHealth >= 1800 && mZombieType != ZombieType::ZOMBIE_TALLNUT_HEAD || mZombieType == ZombieType::ZOMBIE_BOSS)
+    if ((currentHealth >= 1800 && mZombieType != ZombieType::ZOMBIE_TALLNUT_HEAD &&
+        mZombieType != ZombieType::ZOMBIE_NIGHTMARE_TALLNUT_HEAD &&
+        mZombieType != ZombieType::ZOMBIE_EXTREME_NIGHTMARE_TALLNUT_HEAD) ||
+        mZombieType == ZombieType::ZOMBIE_BOSS)
     {
         TakeDamage(1800, 18U);
         return;
     }
 
-    if (mZombieType == ZombieType::ZOMBIE_SQUASH_HEAD && !mHasHead)
+    if ((mZombieType == ZombieType::ZOMBIE_SQUASH_HEAD ||
+        mZombieType == ZombieType::ZOMBIE_NIGHTMARE_SQUASH_HEAD ||
+        mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_SQUASH_HEAD)
+        && !mHasHead)
     {
         mApp->RemoveReanimation(mSpecialHeadReanimID);
         mSpecialHeadReanimID = ReanimationID::REANIMATIONID_NULL;
@@ -11856,7 +12143,8 @@ void Zombie::PlayDeathAnim(unsigned int theDamageFlags)
         theBlendTime = 0;
     }
 
-    if (mZombieType == ZombieType::ZOMBIE_SQUASH_HEAD)
+    if (mZombieType == ZombieType::ZOMBIE_SQUASH_HEAD || mZombieType == ZombieType::ZOMBIE_NIGHTMARE_SQUASH_HEAD ||
+        mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_SQUASH_HEAD)
     {
         mApp->RemoveReanimation(mSpecialHeadReanimID);
     }
@@ -12106,6 +12394,26 @@ void Zombie::UpdateDeath()
         case ZombieType::ZOMBIE_POTATOMINE_HEAD:
         case ZombieType::ZOMBIE_PUMPKIN_HEAD:
         case ZombieType::ZOMBIE_CABBAGEPULT_HEAD:
+        case ZombieType::ZOMBIE_NIGHTMARE_PEA_HEAD:
+        case ZombieType::ZOMBIE_NIGHTMARE_WALLNUT_HEAD:
+        case ZombieType::ZOMBIE_NIGHTMARE_TALLNUT_HEAD:
+        case ZombieType::ZOMBIE_NIGHTMARE_JALAPENO_HEAD:
+        case ZombieType::ZOMBIE_NIGHTMARE_GATLING_HEAD:
+        case ZombieType::ZOMBIE_NIGHTMARE_SQUASH_HEAD:
+        case ZombieType::ZOMBIE_NIGHTMARE_REPEATER_HEAD:
+        case ZombieType::ZOMBIE_NIGHTMARE_POTATOMINE_HEAD:
+        case ZombieType::ZOMBIE_NIGHTMARE_PUMPKIN_HEAD:
+        case ZombieType::ZOMBIE_NIGHTMARE_CABBAGEPULT_HEAD:
+        case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_PEA_HEAD:
+        case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_WALLNUT_HEAD:
+        case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_TALLNUT_HEAD:
+        case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_JALAPENO_HEAD:
+        case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_GATLING_HEAD:
+        case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_SQUASH_HEAD:
+        case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_REPEATER_HEAD:
+        case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_POTATOMINE_HEAD:
+        case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_PUMPKIN_HEAD:
+        case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_CABBAGEPULT_HEAD:
         case ZombieType::ZOMBIE_DUCKY_TUBE:
             if (aBodyReanim->IsAnimPlaying("anim_superlongdeath"))
             {
@@ -14003,7 +14311,15 @@ void Zombie::EnableDance(bool theEnableDance)
             if (mZombieType == ZombieType::ZOMBIE_PEA_HEAD ||
                 mZombieType == ZombieType::ZOMBIE_REPEATER_HEAD ||
                 mZombieType == ZombieType::ZOMBIE_GATLING_HEAD ||
-                mZombieType == ZombieType::ZOMBIE_CABBAGEPULT_HEAD)
+                mZombieType == ZombieType::ZOMBIE_CABBAGEPULT_HEAD ||
+                mZombieType == ZombieType::ZOMBIE_NIGHTMARE_PEA_HEAD ||
+                mZombieType == ZombieType::ZOMBIE_NIGHTMARE_REPEATER_HEAD ||
+                mZombieType == ZombieType::ZOMBIE_NIGHTMARE_GATLING_HEAD ||
+                mZombieType == ZombieType::ZOMBIE_NIGHTMARE_CABBAGEPULT_HEAD ||
+                mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_PEA_HEAD ||
+                mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_REPEATER_HEAD ||
+                mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_GATLING_HEAD ||
+                mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_CABBAGEPULT_HEAD)
             {
                 aWalkAnimVariant = 0;
             }

@@ -118,6 +118,20 @@ void CutScene::PlaceAZombie(ZombieType theZombieType, int theGridX, int theGridY
 		aPutOnDuckyTube = true;
 	}
 
+	if (theZombieType == ZombieType::ZOMBIE_DUCKY_TUBE &&
+		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_NIGHTMARE)
+	{
+		theZombieType = ZombieType::ZOMBIE_NIGHTMARE_PEA_HEAD;
+		aPutOnDuckyTube = true;
+	}
+
+	if (theZombieType == ZombieType::ZOMBIE_DUCKY_TUBE &&
+		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_EXTREME_NIGHTMARE)
+	{
+		theZombieType = ZombieType::ZOMBIE_EXTREME_NIGHTMARE_PEA_HEAD;
+		aPutOnDuckyTube = true;
+	}
+
 	Zombie* aZombie = mBoard->AddZombieInRow(theZombieType, theGridY, -2);
 	TOD_ASSERT(aZombie);
 	bool aStageHasRoof = mBoard->StageHasRoof();
@@ -596,7 +610,9 @@ void CutScene::PlaceStreetZombies()
 			}
 		}
 	}
-	if (mBoard->StageHasPool() && (aZombieTypeCount[(int)ZombieType::ZOMBIE_NORMAL] > 0 || aZombieTypeCount[(int)ZombieType::ZOMBIE_PEA_HEAD] > 0 || aZombieTypeCount[(int)ZombieType::ZOMBIE_PAIL] > 0))
+	if (mBoard->StageHasPool() && (aZombieTypeCount[(int)ZombieType::ZOMBIE_NORMAL] > 0 || aZombieTypeCount[(int)ZombieType::ZOMBIE_PEA_HEAD] > 0 ||
+		aZombieTypeCount[(int)ZombieType::ZOMBIE_NIGHTMARE_PEA_HEAD] > 0 || aZombieTypeCount[(int)ZombieType::ZOMBIE_EXTREME_NIGHTMARE_PEA_HEAD] > 0
+		|| aZombieTypeCount[(int)ZombieType::ZOMBIE_PAIL] > 0))
 	{
 		aZombieTypeCount[(int)ZombieType::ZOMBIE_DUCKY_TUBE] = 1;  // 泳池关卡，必定出现鸭子僵尸预览
 	}

@@ -153,6 +153,8 @@ ChallengeDefinition gChallengeDefs[NUM_CHALLENGE_MODES] = {
 	{ GameMode::GAMEMODE_CHALLENGE_WORLD_8_9,             10,   ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE_2,   1,  3,  _S("[8_9]") },
 	{ GameMode::GAMEMODE_CHALLENGE_WORLD_8_10,             19,   ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE_2,   1,  4,  _S("[8_10]") },
 	{ GameMode::GAMEMODE_CHALLENGE_TRANSPARENT,             10,   ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE_2,   2,  0,  _S("[TRANSPARENT]") },
+	{ GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_NIGHTMARE,             0,   ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE_2,   2,  1,  _S("[WAR_AND_PEAS_NIGHTMARE]") },
+	{ GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_EXTREME_NIGHTMARE,             0,   ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE_2,   2,  2,  _S("[WAR_AND_PEAS_EXTREME_NIGHTMARE]") },
 };
 
 //0x42DAE0
@@ -858,7 +860,7 @@ void ChallengeScreen::Draw(Graphics* g)
 	TodDrawString(g, aTitleString, 400, 58, Sexy::FONT_HOUSEOFTERROR28, Color(220, 220, 220), DS_ALIGN_CENTER);
 
 	int aTrophiesGot = mApp->GetNumTrophies(mPageIndex);
-	int aTrophiesTotal = mPageIndex == CHALLENGE_PAGE_SURVIVAL ? 10 : mPageIndex == CHALLENGE_PAGE_CHALLENGE ? 20 : mPageIndex == CHALLENGE_PAGE_CUSTOM_CHALLENGE ? 20 : mPageIndex == CHALLENGE_PAGE_CUSTOM_CHALLENGE_2 ? 11 : mPageIndex == CHALLENGE_PAGE_PUZZLE ? 18 : mPageIndex == CHALLENGE_PAGE_LAST_STAND ? 6 : 0;
+	int aTrophiesTotal = mPageIndex == CHALLENGE_PAGE_SURVIVAL ? 10 : mPageIndex == CHALLENGE_PAGE_CHALLENGE ? 20 : mPageIndex == CHALLENGE_PAGE_CUSTOM_CHALLENGE ? 20 : mPageIndex == CHALLENGE_PAGE_CUSTOM_CHALLENGE_2 ? 12 : mPageIndex == CHALLENGE_PAGE_PUZZLE ? 18 : mPageIndex == CHALLENGE_PAGE_LAST_STAND ? 6 : 0;
 	if (aTrophiesTotal > 0)
 	{
 		SexyString aTrophyString = StrFormat(_S("%d/%d"), aTrophiesGot, aTrophiesTotal);

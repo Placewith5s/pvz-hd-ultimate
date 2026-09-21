@@ -39,12 +39,10 @@ body:
   validations:
     required: true
 
-- type: dropdown
+- type: input
   id: mod-version
   attributes:
     label: Mod Version
-    options:
-    - v2.0.0-beta
-    - Other
+    placeholder: "v2.0.0-beta"
   validations:
     required: true

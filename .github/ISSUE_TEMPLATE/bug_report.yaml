@@ -20,26 +20,22 @@ body:
   attributes:
     label: Behaviors
     description: "Expected and actual."
-    value: "placeholder"
+    value: "Expected: . Actual: ."
   validations:
     required: true
 
 - type: textarea
   attributes:
     label: Workaround
-    value: "placeholder"
+    value: "None"
   validations:
     required: false
 
-- type: dropdown
-  id: device
+- type: input
+  id: os
   attributes:
-    label: Device
-    options:
-    - Windows 11
-    - Windows 10
-    - Windows 7
-    - Other
+    label: OS
+    placeholder: "Windows 11 Pro 24H2"
   validations:
     required: true
 

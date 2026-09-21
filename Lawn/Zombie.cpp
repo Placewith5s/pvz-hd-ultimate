@@ -67,10 +67,10 @@ ZombieDefinition gZombieDefs[NUM_ZOMBIE_TYPES] = {  //0x69DA80
     { ZOMBIE_POGO_PAIL,              REANIM_POGO,                4,      60,     10,     2000,   _S("POGO_BUCKETHEAD_ZOMBIE") },
     { ZOMBIE_JACK_IN_THE_BOX_CRAZY,   REANIM_JACKINTHEBOX,        3,      60,     10,     2000,   _S("JACK_IN_THE_BOX_CRAZY_ZOMBIE") },
     { ZOMBIE_DANCER_COOL,            REANIM_DANCER,              5,      60,     5,      2000,   _S("DANCING_COOL_ZOMBIE") },
-    { ZOMBIE_NORMAL_VERY_HUNGRY,            REANIM_ZOMBIE,              1,      60,      1,      4000,   _S("VERY_HUNGRY_ZOMBIE") },
-    { ZOMBIE_TRAFFIC_CONE_VERY_HUNGRY,      REANIM_ZOMBIE,              2,      60,      1,      4000,   _S("CONEHEAD_VERY_HUNGRY_ZOMBIE") },
-    { ZOMBIE_PAIL_VERY_HUNGRY,              REANIM_ZOMBIE,              4,      60,      1,      3000,   _S("BUCKETHEAD_VERY_HUNGRY_ZOMBIE") },
-    { ZOMBIE_SMASH_GARGANTUAR,        REANIM_GARGANTUAR,          10,     60,     15,     1500,   _S("SMASH_GARGANTUAR") },
+    { ZOMBIE_NORMAL_VERY_HUNGRY,            REANIM_ZOMBIE,              1,      60,      1,      8000,   _S("VERY_HUNGRY_ZOMBIE") },
+    { ZOMBIE_TRAFFIC_CONE_VERY_HUNGRY,      REANIM_ZOMBIE,              2,      60,      1,      8000,   _S("CONEHEAD_VERY_HUNGRY_ZOMBIE") },
+    { ZOMBIE_PAIL_VERY_HUNGRY,              REANIM_ZOMBIE,              4,      60,      1,      6000,   _S("BUCKETHEAD_VERY_HUNGRY_ZOMBIE") },
+    { ZOMBIE_SMASH_GARGANTUAR,        REANIM_GARGANTUAR,          10,     60,     15,     3000,   _S("SMASH_GARGANTUAR") },
     { ZOMBIE_NIGHTMARE_PEA_HEAD,          REANIM_ZOMBIE,              1,      48,     1,      4000,   _S("ZOMBIE") },
     { ZOMBIE_NIGHTMARE_WALLNUT_HEAD,      REANIM_ZOMBIE_ZOMBOTANY,              4,      48,     1,      3000,   _S("ZOMBIE") },
     { ZOMBIE_NIGHTMARE_JALAPENO_HEAD,     REANIM_ZOMBIE_ZOMBOTANY,              3,      48,     10,     1000,   _S("ZOMBIE") },
@@ -124,8 +124,8 @@ ZombieDefinition& GetZombieDefinition(ZombieType theZombieType)
 {
     TOD_ASSERT(theZombieType >= 0 && theZombieType < NUM_ZOMBIE_TYPES);
 
-    printf("mZombieType = %d\n", gZombieDefs[theZombieType].mZombieType);
-    printf("expected = %d\n", theZombieType);
+    //printf("mZombieType = %d\n", gZombieDefs[theZombieType].mZombieType);
+    //printf("expected = %d\n", theZombieType);
 
     TOD_ASSERT(gZombieDefs[theZombieType].mZombieType == theZombieType);
 

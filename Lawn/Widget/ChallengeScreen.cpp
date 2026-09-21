@@ -155,6 +155,9 @@ ChallengeDefinition gChallengeDefs[NUM_CHALLENGE_MODES] = {
 	{ GameMode::GAMEMODE_CHALLENGE_TRANSPARENT,             10,   ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE_2,   2,  0,  _S("[TRANSPARENT]") },
 	{ GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_NIGHTMARE,             0,   ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE_2,   2,  1,  _S("[WAR_AND_PEAS_NIGHTMARE]") },
 	{ GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_EXTREME_NIGHTMARE,             0,   ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE_2,   2,  2,  _S("[WAR_AND_PEAS_EXTREME_NIGHTMARE]") },
+	{ GameMode::GAMEMODE_SURVIVAL_NORMAL_STAGE_8,				10,   ChallengePage::CHALLENGE_PAGE_LIMBO_SURVIVAL,		 0,  3,  _S("[SURVIVAL_MUSHROOM_GARDEN_NORMAL]") },
+	{ GameMode::GAMEMODE_SURVIVAL_HARD_STAGE_8,					10,   ChallengePage::CHALLENGE_PAGE_LIMBO_SURVIVAL,		 1,  3,  _S("[SURVIVAL_MUSHROOM_GARDEN_HARD]") },
+	{ GameMode::GAMEMODE_SURVIVAL_ENDLESS_STAGE_8,			   10,   ChallengePage::CHALLENGE_PAGE_LIMBO_SURVIVAL,		 2,  3,  _S("[SURVIVAL_MUSHROOM_GARDEN_ENDLESS]") },
 };
 
 //0x42DAE0
@@ -860,7 +863,7 @@ void ChallengeScreen::Draw(Graphics* g)
 	TodDrawString(g, aTitleString, 400, 58, Sexy::FONT_HOUSEOFTERROR28, Color(220, 220, 220), DS_ALIGN_CENTER);
 
 	int aTrophiesGot = mApp->GetNumTrophies(mPageIndex);
-	int aTrophiesTotal = mPageIndex == CHALLENGE_PAGE_SURVIVAL ? 10 : mPageIndex == CHALLENGE_PAGE_CHALLENGE ? 20 : mPageIndex == CHALLENGE_PAGE_CUSTOM_CHALLENGE ? 20 : mPageIndex == CHALLENGE_PAGE_CUSTOM_CHALLENGE_2 ? 12 : mPageIndex == CHALLENGE_PAGE_PUZZLE ? 18 : mPageIndex == CHALLENGE_PAGE_LAST_STAND ? 6 : 0;
+	int aTrophiesTotal = mPageIndex == CHALLENGE_PAGE_SURVIVAL ? 10 : mPageIndex == CHALLENGE_PAGE_CHALLENGE ? 20 : mPageIndex == CHALLENGE_PAGE_CUSTOM_CHALLENGE ? 20 : mPageIndex == CHALLENGE_PAGE_CUSTOM_CHALLENGE_2 ? 13 : mPageIndex == CHALLENGE_PAGE_PUZZLE ? 18 : mPageIndex == CHALLENGE_PAGE_LAST_STAND ? 6 : 0;
 	if (aTrophiesTotal > 0)
 	{
 		SexyString aTrophyString = StrFormat(_S("%d/%d"), aTrophiesGot, aTrophiesTotal);

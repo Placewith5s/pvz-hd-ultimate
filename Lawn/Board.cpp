@@ -3060,6 +3060,8 @@ ZombieType Board::PickZombieType(int theZombiePoints, int theWaveIndex, ZombiePi
 		if (!mZombieAllowed[aZombieType])
 			continue;
 
+		//printf("Allowed zombie types: = %d\n", aZombieType);
+
 		const ZombieDefinition& aZombieDef = GetZombieDefinition((ZombieType)aZombieType);
 
 		// ================================================================================================
@@ -7029,7 +7031,7 @@ void Board::Update()
 
 	if (gSexyAppBase->mIsHalfspeed)
 		aUpdateCount *= 0.53f;
-	printf("aUpdateCount = %.2f", aUpdateCount);
+	//printf("aUpdateCount = %.2f", aUpdateCount);
 
 	for (int i = 0; i < aUpdateCount; i++)
 	{

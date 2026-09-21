@@ -20,14 +20,14 @@ body:
   attributes:
     label: Behaviors
     description: "Expected and actual."
-    value: ""
+    value: "placeholder"
     validations:
       required: true
 
 - type: textarea
   attributes:
     label: Workaround
-    value: ""
+    value: "placeholder"
     validations:
       required: false
 

@@ -16,6 +16,7 @@ body:
     validations:
       required: true
 
+body:
 - type: textarea
   attributes:
     label: Behaviors
@@ -25,6 +26,7 @@ body:
     validations:
       required: true
 
+body:
 - type: textarea
   attributes:
     label: Workaround
@@ -33,6 +35,7 @@ body:
     validations:
       required: true
 
+body:
 - type: dropdown
   id: device
   attributes:
@@ -44,6 +47,7 @@ body:
     validations:
       required: true
 
+body:
   - type: dropdown
   id: mod-version
   attributes:

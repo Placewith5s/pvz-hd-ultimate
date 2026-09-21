@@ -43,7 +43,7 @@ body:
     validations:
       required: true
 
-  - type: dropdown
+- type: dropdown
   id: mod-version
   attributes:
     label: Mod Version

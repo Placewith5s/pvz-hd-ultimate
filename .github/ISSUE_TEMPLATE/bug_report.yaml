@@ -13,23 +13,23 @@ body:
       3.
       ...
     render: bash
-    validations:
-      required: true
+  validations:
+    required: true
 
 - type: textarea
   attributes:
     label: Behaviors
     description: "Expected and actual."
     value: "placeholder"
-    validations:
-      required: true
+  validations:
+    required: true
 
 - type: textarea
   attributes:
     label: Workaround
     value: "placeholder"
-    validations:
-      required: false
+  validations:
+    required: false
 
 - type: dropdown
   id: device
@@ -40,8 +40,8 @@ body:
     - Windows 10
     - Windows 7
     - Other
-    validations:
-      required: true
+  validations:
+    required: true
 
 - type: dropdown
   id: mod-version
@@ -50,5 +50,5 @@ body:
     options:
     - v2.0.0-beta
     - Other
-    validations:
-      required: true
+  validations:
+    required: true

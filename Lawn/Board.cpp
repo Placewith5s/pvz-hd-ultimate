@@ -9961,39 +9961,37 @@ void Board::KeyChar(SexyChar theChar)
 	{
 		if (theChar == 'q')
 		{
-			mPrevSpeedMod = mSpeedMod;
-
-			if (mPrevSpeedMod != mSpeedMod)
-			{
-				mApp->PlayFoley(FoleyType::FOLEY_REVERSE_WAKEUP);
-				mQECounter = 35;
-			}
-		}
-		if (theChar == 'e')
-		{
 			//mPrevSpeedMod = mSpeedMod;
-			static bool is_reverse = false;
 
-			if (!is_reverse && mSpeedMod < SpeedMod::SPEED_SONIC)
-			{
-				mSpeedMod = static_cast<SpeedMod>(mSpeedMod + 1);
-				mApp->PlayFoley(FoleyType::FOLEY_WAKEUP);
-				mQECounter = 35;
-			}
-			else if (is_reverse && mSpeedMod != SPEED_NORMAL)
+			if (mSpeedMod <= SpeedMod::SPEED_SONIC &&
+				mSpeedMod >= SpeedMod::SPEED_NORMAL)
 			{
 				mSpeedMod = static_cast<SpeedMod>(mSpeedMod - 1);
 				mApp->PlayFoley(FoleyType::FOLEY_REVERSE_WAKEUP);
 				mQECounter = 35;
 			}
 
-			if (!is_reverse && mSpeedMod == SpeedMod::SPEED_SONIC)
+			//if (mPrevSpeedMod != mSpeedMod)
+			//{
+			//	mApp->PlayFoley(FoleyType::FOLEY_REVERSE_WAKEUP);
+			//	mQECounter = 35;
+			//}
+		}
+		if (theChar == 'e')
+		{
+			//mPrevSpeedMod = mSpeedMod;
+
+			if (mSpeedMod < SpeedMod::SPEED_SONIC)
 			{
-				is_reverse = true;
+				mSpeedMod = static_cast<SpeedMod>(mSpeedMod + 1);
+				mApp->PlayFoley(FoleyType::FOLEY_WAKEUP);
+				mQECounter = 35;
 			}
-			else if (is_reverse && mSpeedMod == SPEED_NORMAL)
+			else if (mSpeedMod == SpeedMod::SPEED_SONIC)
 			{
-				is_reverse = false;
+				mSpeedMod = static_cast<SpeedMod>(SPEED_NORMAL);
+				mApp->PlayFoley(FoleyType::FOLEY_REVERSE_WAKEUP);
+				mQECounter = 35;
 			}
 
 			//if (mPrevSpeedMod != mSpeedMod)	
@@ -12368,29 +12366,42 @@ void Board::ButtonDepress(int theId)
 	if (theId == Board::SPEEDUP)
 	{
 		//mPrevSpeedMod = mSpeedMod;
-		static bool is_reverse = false;
+		//static bool is_reverse = false;
 
-		if (!is_reverse && mSpeedMod < SpeedMod::SPEED_SONIC)
+		if (mSpeedMod < SpeedMod::SPEED_SONIC)
 		{
 			mSpeedMod = static_cast<SpeedMod>(mSpeedMod + 1);
 			mApp->PlayFoley(FoleyType::FOLEY_WAKEUP);
 			mQECounter = 35;
 		}
-		else if (is_reverse && mSpeedMod != SPEED_NORMAL)
+		else if (mSpeedMod == SpeedMod::SPEED_SONIC)
 		{
-			mSpeedMod = static_cast<SpeedMod>(mSpeedMod - 1);
+			mSpeedMod = static_cast<SpeedMod>(SPEED_NORMAL);
 			mApp->PlayFoley(FoleyType::FOLEY_REVERSE_WAKEUP);
 			mQECounter = 35;
 		}
 
-		if (!is_reverse && mSpeedMod == SpeedMod::SPEED_SONIC)
-		{
-			is_reverse = true;
-		}
-		else if (is_reverse && mSpeedMod == SPEED_NORMAL)
-		{
-			is_reverse = false;
-		}
+		//if (!is_reverse && mSpeedMod < SpeedMod::SPEED_SONIC)
+		//{
+		//	mSpeedMod = static_cast<SpeedMod>(mSpeedMod + 1);
+		//	mApp->PlayFoley(FoleyType::FOLEY_WAKEUP);
+		//	mQECounter = 35;
+		//}
+		//else if (is_reverse && mSpeedMod != SPEED_NORMAL)
+		//{
+		//	mSpeedMod = static_cast<SpeedMod>(mSpeedMod - 1);
+		//	mApp->PlayFoley(FoleyType::FOLEY_REVERSE_WAKEUP);
+		//	mQECounter = 35;
+		//}
+
+		//if (!is_reverse && mSpeedMod == SpeedMod::SPEED_SONIC)
+		//{
+		//	is_reverse = true;
+		//}
+		//else if (is_reverse && mSpeedMod == SPEED_NORMAL)
+		//{
+		//	is_reverse = false;
+		//}
 
 		//if (mPrevSpeedMod != mSpeedMod)
 		//{

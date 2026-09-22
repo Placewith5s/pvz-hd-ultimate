@@ -1125,6 +1125,7 @@ void Board::PickBackground()
 	case GameMode::GAMEMODE_LAST_STAND_STAGE_1:
 	case GameMode::GAMEMODE_LAST_STAND_ENDLESS_STAGE_1:
 	case GameMode::GAMEMODE_CHALLENGE_WALLNUT_BOWLING_3:
+	case GameMode::GAMEMODE_CHALLENGE_LEVEL_EDITOR:
 #ifdef _DS_MINIGAMES
 	case GameMode::GAMEMODE_CHALLENGE_BOMB_ALL_TOGETHER:
 #endif
@@ -9956,6 +9957,45 @@ static void TodCrash()
 //0x41B950（原版中废弃）
 void Board::KeyChar(SexyChar theChar)
 {
+	if (!mApp->mDebugKeysEnabled && mApp->mGameScene == GameScenes::SCENE_LEVEL_INTRO)
+	{
+		if (mApp->mGameMode == GAMEMODE_CHALLENGE_LEVEL_EDITOR)
+		{
+			if (theChar == 'a')
+			{
+				BackgroundType next_bg = BACKGROUND_1_DAY;
+
+				next_bg = static_cast<BackgroundType>(
+					static_cast<int>(mBackground + 1)
+					);
+
+				if (next_bg > BACKGROUND_GREENHOUSE)
+				{
+					next_bg = BACKGROUND_1_DAY;
+				}
+
+				mBackground = next_bg;
+				LoadBackgroundImages();
+			}
+
+			switch (theChar)
+			{
+				case '1':
+					mNumWaves = 10;
+					break;
+				case '2':
+					mNumWaves = 20;
+					break;
+				case '3':
+					mNumWaves = 30;
+					break;
+				case '4':
+					mNumWaves = 40;
+					break;
+			}
+		}
+	}
+
 #ifdef _REPLANTED_SPEED_CONTROL
 	if (!mApp->mDebugKeysEnabled && mAllowSpeedMod && !mLevelAwardSpawned && mApp->mGameScene == GameScenes::SCENE_PLAYING)
 	{

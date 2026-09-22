@@ -3417,6 +3417,12 @@ void Challenge::InitZombieWaves()
 		aList[ZOMBIE_PAIL_VERY_HUNGRY] = true;
 		aList[ZOMBIE_SMASH_GARGANTUAR] = true;
 	}
+	else if (aGameMode == GAMEMODE_CHALLENGE_LEVEL_EDITOR)
+	{
+		aList[ZOMBIE_NORMAL] = true;
+		aList[ZOMBIE_TRAFFIC_CONE] = true;
+		aList[ZOMBIE_PAIL] = true;
+	}
 	else if (mApp->IsShovelLevel())
 	{
 		aList[ZOMBIE_NORMAL] = true;

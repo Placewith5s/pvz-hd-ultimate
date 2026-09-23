@@ -3417,11 +3417,24 @@ void Challenge::InitZombieWaves()
 		aList[ZOMBIE_PAIL_VERY_HUNGRY] = true;
 		aList[ZOMBIE_SMASH_GARGANTUAR] = true;
 	}
+
 	else if (aGameMode == GAMEMODE_CHALLENGE_LEVEL_EDITOR)
 	{
-		aList[ZOMBIE_NORMAL] = true;
-		aList[ZOMBIE_TRAFFIC_CONE] = true;
-		aList[ZOMBIE_PAIL] = true;
+		//printf("Level editor? = %d\n", aGameMode == GAMEMODE_CHALLENGE_LEVEL_EDITOR);
+		Zombie* aZombie = nullptr;
+
+		while (mBoard->IterateZombies(aZombie))
+		{
+			TodLogString("Iterating zombies in level editor...");
+
+			for (ZombieType aZombieType = ZombieType::ZOMBIE_NORMAL; aZombieType < aZombie->mCurrentEditorZombieCount; aZombieType = (ZombieType)((int)aZombieType + 1))
+			{
+				printf("Current editor zombie count: = %d\n", aZombie->mCurrentEditorZombieCount);
+				aList[aZombieType] = true;
+			}
+		}
+
+		TodLogString("Out of zombies in level editor");
 	}
 	else if (mApp->IsShovelLevel())
 	{
@@ -5992,6 +6005,30 @@ void Challenge::IZombieSquishBrain(GridItem* theBrain)
 	theBrain->mApp->PlayFoley(FOLEY_SQUISH);
 	IZombieScoreBrain(theBrain);
 }
+
+//void Challenge::ZombieSeedToZombie(SeedType theSeedType)
+//{
+//	bool* aList = mBoard->mZombieAllowed;
+//
+//	switch (theSeedType)
+//	{
+//		case SEED_ZOMBIE_NORMAL:		aList[ZOMBIE_NORMAL] = true;
+//		case SEED_ZOMBIE_TRAFFIC_CONE:	aList[ZOMBIE_TRAFFIC_CONE] = true;
+//		case SEED_ZOMBIE_POLEVAULTER:	aList[ZOMBIE_POLEVAULTER] = true;
+//		case SEED_ZOMBIE_PAIL:			aList[ZOMBIE_PAIL] = true;
+//		case SEED_ZOMBIE_LADDER:		aList[ZOMBIE_LADDER] = true;
+//		case SEED_ZOMBIE_DIGGER:		aList[ZOMBIE_DIGGER] = true;
+//		case SEED_ZOMBIE_BUNGEE:		aList[ZOMBIE_BUNGEE] = true;
+//		case SEED_ZOMBIE_FOOTBALL:		aList[ZOMBIE_FOOTBALL] = true;
+//		case SEED_ZOMBIE_BALLOON:		aList[ZOMBIE_BALLOON] = true;
+//		case SEED_ZOMBIE_SCREEN_DOOR:	aList[ZOMBIE_DOOR] = true;
+//		case SEED_ZOMBONI:				aList[ZOMBIE_ZAMBONI] = true;
+//		case SEED_ZOMBIE_POGO:			aList[ZOMBIE_POGO] = true;
+//		case SEED_ZOMBIE_DANCER:		aList[ZOMBIE_DANCER] = true;
+//		case SEED_ZOMBIE_GARGANTUAR:	aList[ZOMBIE_GARGANTUAR] = true;
+//		case SEED_ZOMBIE_IMP:			aList[ZOMBIE_IMP] = true;
+//	}
+//}
 
 //0x42BAC0
 int Challenge::SquirrelCountUncaught()

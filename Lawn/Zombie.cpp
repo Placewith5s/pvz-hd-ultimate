@@ -242,6 +242,8 @@ void Zombie::ZombieInitialize(int theRow, ZombieType theType, bool theVariant, Z
     mZombatarHatID = ReanimationID::REANIMATIONID_NULL;
     mZombatarHatLineID = ReanimationID::REANIMATIONID_NULL;
 
+    mCurrentEditorZombieCount = 4;
+
     const ZombieDefinition& aZombieDef = GetZombieDefinition(mZombieType);
     RenderLayer aRenderLayer = RenderLayer::RENDER_LAYER_ZOMBIE;
     int aRenderOffset = 4;

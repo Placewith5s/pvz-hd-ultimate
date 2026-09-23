@@ -162,7 +162,7 @@ public:
 	bool							mRIPMode;
 
 	int								mPlayerLevelRef;
-	bool                            mEnableFPS;
+	//bool                            mEnableFPS;
 
 public:
 	LawnApp();

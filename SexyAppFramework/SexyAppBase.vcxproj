@@ -224,6 +224,7 @@ EXIT /B 0</Command>
       <AdditionalIncludeDirectories>
       </AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <WarningLevel>Level1</WarningLevel>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -310,6 +311,8 @@ EXIT /B 0</Command>
       <AdditionalIncludeDirectories>
       </AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>Default</LanguageStandard_C>
+      <WarningLevel>Level1</WarningLevel>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -401,6 +404,7 @@ EXIT /B 0</Command>
       </AdditionalUsingDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <WarningLevel>Level1</WarningLevel>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -490,6 +494,7 @@ EXIT /B 0</Command>
       </AdditionalUsingDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <WarningLevel>Level1</WarningLevel>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -561,7 +566,9 @@ EXIT /B 0</Command>
     <ClCompile Include="..\Lawn\Widget\NewUserDialog.cpp" />
     <ClCompile Include="..\Lawn\Widget\Scrollbar.cpp" />
     <ClCompile Include="..\Lawn\Widget\ScrollbarWidget.cpp" />
-    <ClCompile Include="..\Lawn\Widget\TitleScreen.cpp" />
+    <ClCompile Include="..\Lawn\Widget\TitleScreen.cpp">
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='DebugGOTY|x64'">stdcpp23</LanguageStandard>
+    </ClCompile>
     <ClCompile Include="..\Lawn\Widget\UserDialog.cpp" />
     <ClCompile Include="..\Lawn\Widget\ZombatarScreen.cpp" />
     <ClCompile Include="..\Lawn\Widget\ZombatarTOS.cpp" />

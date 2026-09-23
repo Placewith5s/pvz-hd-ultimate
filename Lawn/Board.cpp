@@ -8834,6 +8834,12 @@ void Board::DrawTopRightUI(Graphics* g)
 		g->PopState();
 		g->SetColorizeImages(false);
 	}
+
+	//if (mApp->mGameScene == GameScenes::SCENE_LEVEL_INTRO &&
+	//	mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_LEVEL_EDITOR)
+	//{
+	//	
+	//}
 }
 
 //0x41A0A0
@@ -9992,6 +9998,28 @@ void Board::KeyChar(SexyChar theChar)
 				case '4':
 					mNumWaves = 40;
 					break;
+			}
+
+			ZombieType current_zombie = ZOMBIE_PAIL;
+			Zombie* aZombie = nullptr;
+
+			while (IterateZombies(aZombie))
+			{
+				if (theChar == 'y')
+				{
+					mZombieAllowed[current_zombie] = true;
+					aZombie->mCurrentEditorZombieCount++;
+					// ! resets background
+					mApp->EndLevel();
+				}
+
+				if (theChar == 'n')
+				{
+					mZombieAllowed[current_zombie] = false;
+					aZombie->mCurrentEditorZombieCount--;
+					// ! resets background
+					mApp->EndLevel();
+				}
 			}
 		}
 	}

@@ -187,6 +187,7 @@ public:
     ReanimationID                   mZombatarAccessoryID;
     ReanimationID                   mZombatarHatID;
     ReanimationID                   mZombatarHatLineID;
+    int                             mCurrentEditorZombieCount;
 
 public:
     Zombie();

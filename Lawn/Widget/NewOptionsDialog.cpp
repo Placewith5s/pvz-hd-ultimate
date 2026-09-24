@@ -42,7 +42,7 @@ NewOptionsDialog::NewOptionsDialog(LawnApp* theApp, bool theFromGameSelector) :
     mBackToGameButton->mTranslateX = 0;
     mBackToGameButton->mTranslateY = 0;
     mBackToGameButton->mTextOffsetX = -2;
-    mBackToGameButton->mTextOffsetY = -5;
+    mBackToGameButton->mTextOffsetY = -6;
     mBackToGameButton->mTextDownOffsetX = 0;
     mBackToGameButton->mTextDownOffsetY = 1;
     mBackToGameButton->SetFont(FONT_DWARVENTODCRAFT36GREENINSET);
@@ -173,15 +173,15 @@ void NewOptionsDialog::RemovedFromManager(Sexy::WidgetManager* theWidgetManager)
 void NewOptionsDialog::Resize(int theX, int theY, int theWidth, int theHeight)
 {
     Dialog::Resize(theX, theY, theWidth, theHeight);
-    mMusicVolumeSlider->Resize(199, 116, 135, 40);
-    mSfxVolumeSlider->Resize(199, 143, 135, 40);
-    mHardwareAccelerationCheckbox->Resize(283, 175, 46, 45);
-    mFullscreenCheckbox->Resize(284, 206, 46, 45);
-    mHalfspeedCheckbox->Resize(284, 238, 46, 45);
-    mAlmanacButton->Resize(107, 241, 209, 46);
-    mRestartButton->Resize(mAlmanacButton->mX, mAlmanacButton->mY + 43, 209, 46);
-    mBackToMainButton->Resize(mRestartButton->mX, mRestartButton->mY + 43, 209, 46);
-    mBackToGameButton->Resize(30, 381, mBackToGameButton->mWidth, mBackToGameButton->mHeight);
+    mMusicVolumeSlider->Resize(246, 143, 135, 40);
+    mSfxVolumeSlider->Resize(246, 177, 135, 40);
+    mHardwareAccelerationCheckbox->Resize(350, 216, 46, 45);
+    mFullscreenCheckbox->Resize(351, 255, 46, 45);
+    mHalfspeedCheckbox->Resize(351, 294, 46, 45);
+    mAlmanacButton->Resize(132, 339, 209, 46);
+    mRestartButton->Resize(mAlmanacButton->mX, mAlmanacButton->mY + 53, 209, 46);
+    mBackToMainButton->Resize(mRestartButton->mX, mRestartButton->mY + 53, 209, 46);
+    mBackToGameButton->Resize(37, 471, mBackToGameButton->mWidth, mBackToGameButton->mHeight);
 
     /*mGameplayButton->Resize(mAlmanacButton->mX, 116, 209, 46);
     mControllerButton->Resize(mAlmanacButton->mX, mGameplayButton->mY + 43, 209, 46);
@@ -189,11 +189,11 @@ void NewOptionsDialog::Resize(int theX, int theY, int theWidth, int theHeight)
 
     if (mFromGameSelector)
     {
-        mMusicVolumeSlider->mY += 5;
-        mSfxVolumeSlider->mY += 10;
-        mHardwareAccelerationCheckbox->mY += 15;
-        mFullscreenCheckbox->mY += 20;
-        mHalfspeedCheckbox->mY += 25;
+        mMusicVolumeSlider->mY += 6;
+        mSfxVolumeSlider->mY += 12;
+        mHardwareAccelerationCheckbox->mY += 19;
+        mFullscreenCheckbox->mY += 25;
+        mHalfspeedCheckbox->mY += 31;
 
         /*mGameplayButton->mY += 69;
         mControllerButton->mY += 69;
@@ -203,7 +203,7 @@ void NewOptionsDialog::Resize(int theX, int theY, int theWidth, int theHeight)
 
     if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_ZEN_GARDEN || mApp->mGameMode == GameMode::GAMEMODE_TREE_OF_WISDOM || mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_ICE)
     {
-        mAlmanacButton->mY += 43;
+        mAlmanacButton->mY += 53;
     }
 }
 
@@ -216,12 +216,14 @@ void NewOptionsDialog::Draw(Sexy::Graphics* g)
     int aSfxOffset = 0;
     int a3DAccelOffset = 0;
     int aFullScreenOffset = 0;
+    int aHalfSpeedOffset = 0;
     if (mFromGameSelector)
     {
-        aMusicOffset = 5;
-        aSfxOffset = 10;
-        a3DAccelOffset = 15;
-        aFullScreenOffset = 20;
+        aMusicOffset = 6;
+        aSfxOffset = 12;
+        a3DAccelOffset = 19;
+        aFullScreenOffset = 25;
+        aHalfSpeedOffset = 31;
     }
     Sexy::Color aTextColor(107, 109, 145);
 
@@ -236,10 +238,11 @@ void NewOptionsDialog::Draw(Sexy::Graphics* g)
     }
     else*/
     {
-        TodDrawString(g, TodStringTranslate(_S("[MUSIC_LABEL]")), 186, 140 + aMusicOffset, FONT_DWARVENTODCRAFT18, aTextColor, DrawStringJustification::DS_ALIGN_RIGHT);
-        TodDrawString(g, TodStringTranslate(_S("[SOUND_LABEL]")), 186, 167 + aSfxOffset, FONT_DWARVENTODCRAFT18, aTextColor, DrawStringJustification::DS_ALIGN_RIGHT);
-        TodDrawString(g, TodStringTranslate(_S("Vertical-Sync")), 274, 197 + a3DAccelOffset, FONT_DWARVENTODCRAFT18, aTextColor, DrawStringJustification::DS_ALIGN_RIGHT);
-        TodDrawString(g, TodStringTranslate(_S("[FULLSCREEN_LABEL]")), 274, 229 + aFullScreenOffset, FONT_DWARVENTODCRAFT18, aTextColor, DrawStringJustification::DS_ALIGN_RIGHT);
+        TodDrawString(g, TodStringTranslate(_S("[MUSIC_LABEL]")), 230, 173 + aMusicOffset, FONT_DWARVENTODCRAFT18, aTextColor, DrawStringJustification::DS_ALIGN_RIGHT);
+        TodDrawString(g, TodStringTranslate(_S("[SOUND_LABEL]")), 230, 207 + aSfxOffset, FONT_DWARVENTODCRAFT18, aTextColor, DrawStringJustification::DS_ALIGN_RIGHT);
+        TodDrawString(g, TodStringTranslate(_S("Vertical-Sync")), 339, 244 + a3DAccelOffset, FONT_DWARVENTODCRAFT18, aTextColor, DrawStringJustification::DS_ALIGN_RIGHT);
+        TodDrawString(g, TodStringTranslate(_S("[FULLSCREEN_LABEL]")), 339, 283 + aFullScreenOffset, FONT_DWARVENTODCRAFT18, aTextColor, DrawStringJustification::DS_ALIGN_RIGHT);
+        TodDrawString(g, TodStringTranslate(_S("[HALF_SPEED_LABEL]")), 339, 323 + aHalfSpeedOffset, FONT_DWARVENTODCRAFT18, aTextColor, DrawStringJustification::DS_ALIGN_RIGHT);
     }
 }
 

@@ -23,8 +23,8 @@ const int           SEED_BANK_OFFSET_X_END = 10;
 const int           SEED_CHOOSER_OFFSET_Y = 516;
 const int           SEED_PACKET_WIDTH = 50;
 const int           SEED_PACKET_HEIGHT = 70;
-const int           IMITATER_DIALOG_WIDTH = 500;
-const int           IMITATER_DIALOG_HEIGHT = 600;
+const int           IMITATER_DIALOG_WIDTH = 615;
+const int           IMITATER_DIALOG_HEIGHT = 738;
 
 const int			WIDESCREEN_OFFSETX = -240;
 const int			WIDESCREEN_OFFSETY = -60;

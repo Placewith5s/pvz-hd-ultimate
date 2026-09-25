@@ -3099,6 +3099,14 @@ void LawnApp::ButtonDepress(int theId)
 				mPlayerInfo->mPurchases[StoreItem::STORE_ITEM_PLANT_SPIKEROCK] = 1;
 				mPlayerInfo->mPurchases[StoreItem::STORE_ITEM_PLANT_COBCANNON] = 1;
 				mPlayerInfo->mPurchases[StoreItem::STORE_ITEM_PLANT_IMITATER] = 1;
+				mPlayerInfo->mPurchases[StoreItem::STORE_ITEM_PLANT_TIMESTOPPER] = 1;
+				mPlayerInfo->mPurchases[StoreItem::STORE_ITEM_PLANT_ICEBERGLETTUCE] = 1;
+				mPlayerInfo->mPurchases[StoreItem::STORE_ITEM_PLANT_CHERRYHOVERBOMB] = 1;
+				mPlayerInfo->mPurchases[StoreItem::STORE_ITEM_PLANT_STINGER] = 1;
+				mPlayerInfo->mPurchases[StoreItem::STORE_ITEM_PLANT_DUPLICATORCYCLER] = 1;
+				mPlayerInfo->mPurchases[StoreItem::STORE_ITEM_PLANT_BEEHIVE] = 1;
+				mPlayerInfo->mPurchases[StoreItem::STORE_ITEM_PLANT_YAMPOLINE] = 1;
+				mPlayerInfo->mPurchases[StoreItem::STORE_ITEM_PLANT_NUKECUMBER] = 1;
 				mPlayerInfo->mPurchases[StoreItem::STORE_ITEM_PACKET_UPGRADE] = 4;
 				mPlayerInfo->mPurchases[StoreItem::STORE_ITEM_POOL_CLEANER] = 1;
 				mPlayerInfo->mPurchases[StoreItem::STORE_ITEM_ROOF_CLEANER] = 1;
@@ -3651,16 +3659,15 @@ SeedType LawnApp::GetAwardSeedForLevel(int theLevel)
 int LawnApp::GetSeedsAvailable()
 {
 	int aLevel = mBoard && mBoard->mIsReplay && mPlayerLevelRef > 4 ? mPlayerLevelRef : mPlayerInfo->GetLevel();
-	int maxPlants = 49;
+	int maxPlants = NUM_SEEDS_IN_CHOOSER;
 
-	if (HasFinishedAdventure() || aLevel > 60 && mPlayerInfo && mPlayerInfo->mHasUsedCheatKeys)
+	if (aLevel >= 8 || HasFinishedAdventure())
 	{
-		if (mTodCheatKeys || mDebugKeysEnabled || mPlayerInfo && mPlayerInfo->mHasUsedCheatKeys) maxPlants += NUM_SEEDS_IN_CHOOSER - SEED_IMITATER - 1;
 		return maxPlants;
 	}
 
 	SeedType aSeedTypeMax = GetAwardSeedForLevel(aLevel);
-	return min(maxPlants, aSeedTypeMax); 
+	return min(maxPlants, aSeedTypeMax);
 }
 
 //0x453B20
@@ -3710,6 +3717,39 @@ bool LawnApp::HasSeedType(SeedType theSeedType)
 	if (theSeedType == SeedType::SEED_IMITATER)
 	{
 		return mPlayerInfo->mPurchases[(int)StoreItem::STORE_ITEM_PLANT_IMITATER] > 0;
+	}
+
+	if (theSeedType == SeedType::SEED_TIMESTOPPER)
+	{
+		return mPlayerInfo->mPurchases[(int)StoreItem::STORE_ITEM_PLANT_TIMESTOPPER] > 0;
+	}
+	if (theSeedType == SeedType::SEED_ICEBERGLETTUCE)
+	{
+		return mPlayerInfo->mPurchases[(int)StoreItem::STORE_ITEM_PLANT_ICEBERGLETTUCE] > 0;
+	}
+	if (theSeedType == SeedType::SEED_CHERRYHOVERBOMB)
+	{
+		return mPlayerInfo->mPurchases[(int)StoreItem::STORE_ITEM_PLANT_CHERRYHOVERBOMB] > 0;
+	}
+	if (theSeedType == SeedType::SEED_STINGER)
+	{
+		return mPlayerInfo->mPurchases[(int)StoreItem::STORE_ITEM_PLANT_STINGER] > 0;
+	}
+	if (theSeedType == SeedType::SEED_DUPLICATORCYCLER)
+	{
+		return mPlayerInfo->mPurchases[(int)StoreItem::STORE_ITEM_PLANT_DUPLICATORCYCLER] > 0;
+	}
+	if (theSeedType == SeedType::SEED_BEEHIVE)
+	{
+		return mPlayerInfo->mPurchases[(int)StoreItem::STORE_ITEM_PLANT_BEEHIVE] > 0;
+	}
+	if (theSeedType == SeedType::SEED_YAMPOLINE)
+	{
+		return mPlayerInfo->mPurchases[(int)StoreItem::STORE_ITEM_PLANT_YAMPOLINE] > 0;
+	}
+	if (theSeedType == SeedType::SEED_NUKECUMBER)
+	{
+		return mPlayerInfo->mPurchases[(int)StoreItem::STORE_ITEM_PLANT_NUKECUMBER] > 0;
 	}
 
 	return theSeedType < GetSeedsAvailable();

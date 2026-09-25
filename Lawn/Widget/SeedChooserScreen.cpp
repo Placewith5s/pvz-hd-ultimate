@@ -40,7 +40,6 @@ SeedChooserScreen::SeedChooserScreen()
 	mScrollAmount = 0;
 	mSwipeVelocityY = 0.0f;
 	mSwipeJustReleased = false;
-	mAllowBetaSeedpackets = (mApp->HasFinishedAdventure() || mApp->mPlayerInfo->mLevel > FINAL_LEVEL) && (mApp->mTodCheatKeys || mApp->mDebugKeysEnabled);
 
 	mStartButton = new GameButton(SeedChooserScreen::SeedChooserScreen_Start);
 	mStartButton->SetLabel(_S("[LETS_ROCK_BUTTON]"));
@@ -132,7 +131,7 @@ SeedChooserScreen::SeedChooserScreen()
 	mScrollbar = new ScrollbarWidget(mApp, ScrollbarMode::VERTICAL);
 	mScrollbar->mScrollRange = 70 * max(0, ceil((mApp->GetSeedsAvailable() - 49) / 8.0f));
 	mScrollbar->Resize(445, 123, 8, 420);
-	int offsetY = Has7Rows() || mAllowBetaSeedpackets ? 0 : 40;
+	int offsetY = Has7Rows() ? 0 : 40;
 	int startY = 123 + offsetY;
 	mScrollbar->mViewport = Rect(22, startY, 443, 528);
 	mScrollbar->mButtonNoDraw = mScrollbar->mScrollRange == 0;
@@ -344,7 +343,7 @@ void SeedChooserScreen::GetSeedPositionInChooser(int theIndex, int& x, int& y)
 		int aCol = theIndex % 8;
 
 		x = aCol * 53 + 22;
-		if (Has7Rows() || mAllowBetaSeedpackets)
+		if (Has7Rows())
 		{
 			y = aRow * 70 + 123;
 		}
@@ -416,11 +415,10 @@ void SeedChooserScreen::Draw(Graphics* g)
 	TodDrawString(g, _S("[CHOOSE_YOUR_PLANTS]"), 229, 110, Sexy::FONT_DWARVENTODCRAFT18YELLOW, Color::White, DS_ALIGN_CENTER);
 
 	int aNumSeeds = Has7Rows() ? 49 : 41;
-	if (mAllowBetaSeedpackets) 
-	{
-		aNumSeeds += NUM_SEEDS_IN_CHOOSER - SEED_IMITATER;
-		if (!Has7Rows())	aNumSeeds += 8;
-	}
+
+	aNumSeeds += NUM_SEEDS_IN_CHOOSER - SEED_IMITATER;
+	if (!Has7Rows())	aNumSeeds += 8;
+
 	for (SeedType aSeedShadow = SEED_PEASHOOTER; aSeedShadow < aNumSeeds - 1; aSeedShadow = (SeedType)(aSeedShadow + 1))
 	{
 		int x, y;
@@ -437,7 +435,7 @@ void SeedChooserScreen::Draw(Graphics* g)
 			if (aChosenSeed.mSeedState != SEED_IN_CHOOSER)
 			{
 				Graphics aSeedGraphics(*g);
-				const bool expandedRows = Has7Rows() || mAllowBetaSeedpackets;
+				const bool expandedRows = Has7Rows();
 				int offsetY = expandedRows ? 0 : 40;
 				int seedHeight = expandedRows ? 73 : 70;
 				int startY = 123 + offsetY;
@@ -452,7 +450,7 @@ void SeedChooserScreen::Draw(Graphics* g)
 			ChosenSeed& aChosenSeed = mChosenSeeds[aSeedShadow];
 			if (aChosenSeed.mSeedState == SEED_IN_CHOOSER)
 			{
-				const bool expandedRows = Has7Rows() || mAllowBetaSeedpackets;
+				const bool expandedRows = Has7Rows();
 				int offsetY = expandedRows ? 0 : 40;
 				int seedHeight = expandedRows ? 73 : 70;
 				int startY = 123 + offsetY;
@@ -500,7 +498,7 @@ void SeedChooserScreen::Draw(Graphics* g)
 			Graphics aSeedGraphics(*g);
 			if (aSeedState != SEED_IN_BANK)
 			{
-				const bool expandedRows = Has7Rows() || mAllowBetaSeedpackets;
+				const bool expandedRows = Has7Rows();
 				int offsetY = expandedRows ? 0 : 40;
 				int seedHeight = expandedRows ? 73 : 70;
 				int startY = 123 + offsetY;
@@ -952,7 +950,7 @@ SeedType SeedChooserScreen::SeedHitTest(int x, int y)
 			{
 				aRect.mY -= mScrollbar->mScrollValue;
 
-				const bool expandedRows = Has7Rows() || mAllowBetaSeedpackets;
+				const bool expandedRows = Has7Rows();
 
 				int offsetY = expandedRows ? 0 : 40;
 				int startY = 123 + offsetY;

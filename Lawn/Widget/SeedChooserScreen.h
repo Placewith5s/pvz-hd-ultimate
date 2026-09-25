@@ -83,7 +83,6 @@ public:
     int						mSwipeStartY;
     float					mSwipeVelocityY;
     bool					mSwipeJustReleased;
-    bool                    mAllowBetaSeedpackets;
     ScrollbarWidget*        mScrollbar;
 
 public:

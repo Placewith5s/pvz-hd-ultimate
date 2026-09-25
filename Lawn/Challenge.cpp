@@ -636,10 +636,18 @@ void Challenge::StartLevel()
 	}
 	if ((mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_LAST_STAND) ||
 		(mApp->mGameMode >= GameMode::GAMEMODE_LAST_STAND_STAGE_1 &&
-		mApp->mGameMode <= GameMode::GAMEMODE_LAST_STAND_STAGE_5) &&
+		mApp->mGameMode <= GameMode::GAMEMODE_LAST_STAND_STAGE_5) ||
+		mApp->mGameMode == GameMode::GAMEMODE_LAST_STAND_STAGE_6 &&
 		mSurvivalStage == 0)
 	{
 		mBoard->DisplayAdvice(TodReplaceNumberString(_S("[ADVICE_SURVIVE_FLAGS]"), _S("{FLAGS}"), LAST_STAND_FLAGS), MESSAGE_STYLE_BIG_MIDDLE_FAST, ADVICE_SURVIVE_FLAGS);
+	}
+	if ((mApp->mGameMode >= GameMode::GAMEMODE_LAST_STAND_ENDLESS_STAGE_1 &&
+		mApp->mGameMode <= GameMode::GAMEMODE_LAST_STAND_ENDLESS_STAGE_5) ||
+		mApp->mGameMode == GameMode::GAMEMODE_LAST_STAND_ENDLESS_STAGE_6 &&
+		mSurvivalStage == 0)
+	{
+		mBoard->DisplayAdvice(_S("[ADVICE_SURVIVE_ENDLESS]"), MESSAGE_STYLE_BIG_MIDDLE_FAST, ADVICE_SURVIVE_FLAGS);
 	}
 	if (aGameMode == GAMEMODE_CHALLENGE_ART_CHALLENGE_WALLNUT)
 	{

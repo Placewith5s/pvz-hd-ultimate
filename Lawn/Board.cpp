@@ -8140,7 +8140,7 @@ float Board::GetSpeedValue(SpeedMod theMod)
 			case SpeedMod::SPEED_FAST:      result = 0.8f; break;
 			case SpeedMod::SPEED_VERY_FAST: result = 1.0f; break;
 			case SpeedMod::SPEED_SONIC:     result = 1.3f; break;
-			default:              result = 1.0f; break;
+			default:              result = 0.5f; break;
 		}
 	else {
 		switch (theMod)
@@ -8150,7 +8150,7 @@ float Board::GetSpeedValue(SpeedMod theMod)
 			case SpeedMod::SPEED_SONIC:     result = 2.5f; break;
 			default:              result = 1.0f; break;
 		}
-	}
+	} 
 
 	return result;
 }

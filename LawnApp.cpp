@@ -3661,7 +3661,7 @@ int LawnApp::GetSeedsAvailable()
 	int aLevel = mBoard && mBoard->mIsReplay && mPlayerLevelRef > 4 ? mPlayerLevelRef : mPlayerInfo->GetLevel();
 	int maxPlants = NUM_SEEDS_IN_CHOOSER;
 
-	if (aLevel >= 8 || HasFinishedAdventure())
+	if (aLevel >= 49 || HasFinishedAdventure())
 	{
 		return maxPlants;
 	}

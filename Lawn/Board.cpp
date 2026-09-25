@@ -8137,17 +8137,17 @@ float Board::GetSpeedValue(SpeedMod theMod)
 	if (gSexyAppBase->mIsHalfspeed)
 		switch (theMod)
 		{
-			case SpeedMod::SPEED_FAST:      result = 1.5f; break;
-			case SpeedMod::SPEED_VERY_FAST: result = 2.0f; break;
-			case SpeedMod::SPEED_SONIC:     result = 2.5f; break;
+			case SpeedMod::SPEED_FAST:      result = 0.8f; break;
+			case SpeedMod::SPEED_VERY_FAST: result = 1.0f; break;
+			case SpeedMod::SPEED_SONIC:     result = 1.3f; break;
 			default:              result = 1.0f; break;
 		}
 	else {
 		switch (theMod)
 		{
-			case SpeedMod::SPEED_FAST:      result = 0.8f; break;
-			case SpeedMod::SPEED_VERY_FAST: result = 1.0f; break;
-			case SpeedMod::SPEED_SONIC:     result = 1.3f; break;
+			case SpeedMod::SPEED_FAST:      result = 1.5f; break;
+			case SpeedMod::SPEED_VERY_FAST: result = 2.0f; break;
+			case SpeedMod::SPEED_SONIC:     result = 2.5f; break;
 			default:              result = 1.0f; break;
 		}
 	}

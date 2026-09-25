@@ -31,7 +31,9 @@ static StoreItem gStoreItemSpots[NUM_STORE_PAGES][MAX_PAGE_SPOTS] =
     { STORE_ITEM_POTTED_MARIGOLD_1, STORE_ITEM_POTTED_MARIGOLD_2,   STORE_ITEM_POTTED_MARIGOLD_3,   STORE_ITEM_GOLD_WATERINGCAN,
       STORE_ITEM_FERTILIZER,        STORE_ITEM_BUG_SPRAY,           STORE_ITEM_PHONOGRAPH,          STORE_ITEM_GARDENING_GLOVE },
     { STORE_ITEM_MUSHROOM_GARDEN,   STORE_ITEM_AQUARIUM_GARDEN,     STORE_ITEM_WHEEL_BARROW,        STORE_ITEM_STINKY_THE_SNAIL,
-      STORE_ITEM_TREE_OF_WISDOM,    STORE_ITEM_TREE_FOOD,           STORE_ITEM_INVALID,             STORE_ITEM_INVALID }
+      STORE_ITEM_TREE_OF_WISDOM,    STORE_ITEM_TREE_FOOD,           STORE_ITEM_INVALID,             STORE_ITEM_INVALID },
+    { STORE_ITEM_PLANT_TIMESTOPPER, STORE_ITEM_PLANT_ICEBERGLETTUCE,   STORE_ITEM_PLANT_CHERRYHOVERBOMB,   STORE_ITEM_PLANT_STINGER,
+      STORE_ITEM_PLANT_DUPLICATORCYCLER, STORE_ITEM_PLANT_BEEHIVE, STORE_ITEM_PLANT_YAMPOLINE, STORE_ITEM_PLANT_NUKECUMBER },
 };
 
 StoreScreenOverlay::StoreScreenOverlay(StoreScreen* theParent)
@@ -264,6 +266,24 @@ bool StoreScreen::IsItemUnavailable(StoreItem theStoreItem)
     {
         return !mApp->HasFinishedAdventure();
     }
+
+    if (theStoreItem == STORE_ITEM_PLANT_TIMESTOPPER && mApp->mPlayerInfo->GetLevel() < 51)
+        return !mApp->HasFinishedAdventure();
+    if (theStoreItem == STORE_ITEM_PLANT_ICEBERGLETTUCE && mApp->mPlayerInfo->GetLevel() < 52)
+        return !mApp->HasFinishedAdventure();
+    if (theStoreItem == STORE_ITEM_PLANT_CHERRYHOVERBOMB && mApp->mPlayerInfo->GetLevel() < 53)
+        return !mApp->HasFinishedAdventure();
+    if (theStoreItem == STORE_ITEM_PLANT_STINGER && mApp->mPlayerInfo->GetLevel() < 54)
+        return !mApp->HasFinishedAdventure();
+    if (theStoreItem == STORE_ITEM_PLANT_DUPLICATORCYCLER && mApp->mPlayerInfo->GetLevel() < 56)
+        return !mApp->HasFinishedAdventure();
+    if (theStoreItem == STORE_ITEM_PLANT_BEEHIVE && mApp->mPlayerInfo->GetLevel() < 57)
+        return !mApp->HasFinishedAdventure();
+    if (theStoreItem == STORE_ITEM_PLANT_YAMPOLINE && mApp->mPlayerInfo->GetLevel() < 58)
+        return !mApp->HasFinishedAdventure();
+    if (theStoreItem == STORE_ITEM_PLANT_NUKECUMBER && mApp->mPlayerInfo->GetLevel() < 59)
+        return !mApp->HasFinishedAdventure();
+
     return false;
 }
 
@@ -381,6 +401,39 @@ void StoreScreen::DrawItemIcon(Graphics* g, int theItemPosition, StoreItem theIt
     {
         mApp->mZenGarden->DrawPottedPlantIcon(g, aPosX, aPosY, &mPottedPlantSpecs);
     }
+    // issue: redraws
+    //else if (theItemType == STORE_ITEM_PLANT_TIMESTOPPER)
+    //{
+    //    g->DrawImage(Sexy::IMAGE_DUPLICATOR, aPosX, aPosY);
+    //}
+    //else if (theItemType == STORE_ITEM_PLANT_ICEBERGLETTUCE)
+    //{
+    //    g->DrawImage(Sexy::IMAGE_ICEBERG, aPosX, aPosY);
+    //}
+    //else if (theItemType == STORE_ITEM_PLANT_CHERRYHOVERBOMB)
+    //{
+    //    g->DrawImage(Sexy::IMAGE_CHERRYBOMB, aPosX, aPosY);
+    //}
+    //else if (theItemType == STORE_ITEM_PLANT_STINGER)
+    //{
+    //    g->DrawImage(Sexy::IMAGE_STINGER, aPosX, aPosY);
+    //}
+    //else if (theItemType == STORE_ITEM_PLANT_DUPLICATORCYCLER)
+    //{
+    //    g->DrawImage(Sexy::IMAGE_DUPLICATOR, aPosX, aPosY);
+    //}
+    //else if (theItemType == STORE_ITEM_PLANT_BEEHIVE)
+    //{
+    //    g->DrawImage(Sexy::IMAGE_BEEHIVE, aPosX, aPosY);
+    //}
+    //else if (theItemType == STORE_ITEM_PLANT_YAMPOLINE)
+    //{
+    //    g->DrawImage(Sexy::IMAGE_YAMPOLINE, aPosX, aPosY);
+    //}
+    //else if (theItemType == STORE_ITEM_PLANT_NUKECUMBER)
+    //{
+    //    g->DrawImage(Sexy::IMAGE_NUKECUMBER, aPosX, aPosY);
+    //}
     else
     {
         DrawSeedPacket(g, aPosX, aPosY, (SeedType)(theItemType + 40), SEED_NONE, 0, 255, false, false);
@@ -601,6 +654,14 @@ void StoreScreen::UpdateMouse()
                 case STORE_ITEM_TREE_FOOD:              aMessageIndex = 2031;                           break;
                 case STORE_ITEM_FIRSTAID:               aMessageIndex = 2033;                           break;
                 case STORE_ITEM_PVZ:                    aMessageIndex = 2034;                           break;
+                case STORE_ITEM_PLANT_TIMESTOPPER:                    aMessageIndex = 2035;                           break;
+                case STORE_ITEM_PLANT_ICEBERGLETTUCE:                    aMessageIndex = 2036;                           break;
+                case STORE_ITEM_PLANT_CHERRYHOVERBOMB:                    aMessageIndex = 2037;                           break;
+                case STORE_ITEM_PLANT_STINGER:                    aMessageIndex = 2038;                           break;
+                case STORE_ITEM_PLANT_DUPLICATORCYCLER:                    aMessageIndex = 2039;                           break;
+                case STORE_ITEM_PLANT_BEEHIVE:                    aMessageIndex = 2040;                           break;
+                case STORE_ITEM_PLANT_YAMPOLINE:                    aMessageIndex = 2041;                           break;
+                case STORE_ITEM_PLANT_NUKECUMBER:                    aMessageIndex = 2042;                           break;
                 default:                                TOD_ASSERT();                                   break;
                 }
                 if (mApp->mCrazyDaveMessageIndex != aMessageIndex)
@@ -636,6 +697,14 @@ void StoreScreen::StorePreload()
         Plant::PreloadPlantResources(SeedType::SEED_SPIKEROCK);
         Plant::PreloadPlantResources(SeedType::SEED_COBCANNON);
         Plant::PreloadPlantResources(SeedType::SEED_IMITATER);
+        Plant::PreloadPlantResources(SeedType::SEED_TIMESTOPPER);
+        Plant::PreloadPlantResources(SeedType::SEED_ICEBERGLETTUCE);
+        Plant::PreloadPlantResources(SeedType::SEED_CHERRYHOVERBOMB);
+        Plant::PreloadPlantResources(SeedType::SEED_STINGER);
+        Plant::PreloadPlantResources(SeedType::SEED_DUPLICATORCYCLER);
+        Plant::PreloadPlantResources(SeedType::SEED_BEEHIVE);
+        Plant::PreloadPlantResources(SeedType::SEED_YAMPOLINE);
+        Plant::PreloadPlantResources(SeedType::SEED_NUKECUMBER);
     }
 }
 
@@ -852,6 +921,7 @@ bool StoreScreen::IsPageShown(StorePages thePage)
     if (thePage == STORE_PAGE_PLANT_UPGRADES) return mApp->mPlayerInfo->mLevel >= 42;
     // 到达或已通过冒险模式 5-5 关卡时，显示花园工具页
     if (thePage == STORE_PAGE_ZEN1) return mApp->mPlayerInfo->mLevel >= 45;
+    if (thePage == STORE_PAGE_PLANT_UPGRADES_2) return mApp->mPlayerInfo->mLevel >= 51;
     // 冒险模式未完成时，不显示智慧树工具页
     return thePage != STORE_PAGE_ZEN2;
 }
@@ -875,7 +945,7 @@ void StoreScreen::ButtonDepress(int theId)
                 mPage = (StorePages)(mPage - 1);
                 if (mPage < STORE_PAGE_SLOT_UPGRADES)
                 {
-                    mPage = STORE_PAGE_ZEN2;
+                    mPage = STORE_PAGE_PLANT_UPGRADES_2;
                 }
             }
             else
@@ -911,6 +981,15 @@ int StoreScreen::GetItemCost(StoreItem theStoreItem)
     case STORE_ITEM_PLANT_SPIKEROCK:                    return 750;
     case STORE_ITEM_PLANT_COBCANNON:                    return 2000;
     case STORE_ITEM_PLANT_IMITATER:                     return 3000;
+    case STORE_ITEM_PLANT_TIMESTOPPER:
+    case STORE_ITEM_PLANT_ICEBERGLETTUCE:
+    case STORE_ITEM_PLANT_CHERRYHOVERBOMB:
+    case STORE_ITEM_PLANT_STINGER:
+    case STORE_ITEM_PLANT_DUPLICATORCYCLER:
+    case STORE_ITEM_PLANT_BEEHIVE:
+    case STORE_ITEM_PLANT_YAMPOLINE:
+    case STORE_ITEM_PLANT_NUKECUMBER:
+        return 500;
     case STORE_ITEM_POTTED_MARIGOLD_1:                  return 250;
     case STORE_ITEM_POTTED_MARIGOLD_2:                  return 250;
     case STORE_ITEM_POTTED_MARIGOLD_3:                  return 250;

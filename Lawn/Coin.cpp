@@ -270,6 +270,10 @@ void Coin::CoinInitialize(int theX, int theY, CoinType theCoinType, CoinMotion t
             SeedType aSeedType = (SeedType)TodPickFromArray(aSeedList, LENGTH(aSeedList));
             mPottedPlantSpec.InitializePottedPlant(aSeedType);
         }
+        else if (mBoard->mLevel == 50 || mBoard->mBackground == BackgroundType::BACKGROUND_6_BOSS)
+        {
+            // do nothing
+        }
         else
         {
             SeedType aSeedType = mApp->mZenGarden->PickRandomSeedType();

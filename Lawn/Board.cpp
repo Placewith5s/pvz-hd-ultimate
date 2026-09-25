@@ -6994,7 +6994,7 @@ void Board::Update()
 
 	UpdateLayers();
 	
-	float aUpdateCount = 1.0f;
+	int aUpdateCount = 1;
 
 #ifdef _REPLANTED_SPEED_CONTROL
 	if (mQECounter > 0)
@@ -7004,23 +7004,63 @@ void Board::Update()
 
 	if (mAllowSpeedMod && !mLevelAwardSpawned && mApp->mGameScene == GameScenes::SCENE_PLAYING)
 	{
-		switch (mSpeedMod)
+		if (gSexyAppBase->mIsHalfspeed)
 		{
-		case SpeedMod::SPEED_NORMAL:
-			aUpdateCount = 1.0f;
-			break;
+			switch (mSpeedMod)
+			{
+				case SpeedMod::SPEED_NORMAL:
+					if (mTicks % 2 == 0)
+					{
+						aUpdateCount = 1;
+					}
+					else {
+						aUpdateCount = 0;
+					}
+					break;
+				case SpeedMod::SPEED_FAST:
+					if (mTicks % 5 == 0)
+					{
+						aUpdateCount = 0;
+					}
+					else
+					{
+						aUpdateCount = 1;
+					}
+					break;
+				case SpeedMod::SPEED_VERY_FAST:
+					aUpdateCount = 1;
+					break;
+				case SpeedMod::SPEED_SONIC:
+					if (mTicks % 10 < 3)
+					{
+						aUpdateCount = 2;
+					}
+					else {
+						aUpdateCount = 1;
+					}
+					break;
+			}
+		}
+		else
+		{
+			switch (mSpeedMod)
+			{
+			case SpeedMod::SPEED_NORMAL:
+				aUpdateCount = 1;
+				break;
 
-		case SpeedMod::SPEED_FAST:
-			aUpdateCount = 1.5f;
-			break;
+			case SpeedMod::SPEED_FAST:
+				aUpdateCount = 1; // 1.5x
+				break;
 
-		case SpeedMod::SPEED_VERY_FAST:
-			aUpdateCount = 2.0f;
-			break;
+			case SpeedMod::SPEED_VERY_FAST:
+				aUpdateCount = 2; // 2.0x
+				break;
 
-		case SpeedMod::SPEED_SONIC:
-			aUpdateCount = 2.5f;
-			break;
+			case SpeedMod::SPEED_SONIC:
+				aUpdateCount = 2; // 2.5x
+				break;
+			}
 		}
 
 		if ((mTicks & 1) == 0 && (mSpeedMod == SpeedMod::SPEED_FAST || mSpeedMod == SpeedMod::SPEED_SONIC))
@@ -7029,10 +7069,6 @@ void Board::Update()
 		}
 	}
 #endif
-
-	if (gSexyAppBase->mIsHalfspeed)
-		aUpdateCount *= 0.53f;
-	//printf("aUpdateCount = %.2f", aUpdateCount);
 
 	for (int i = 0; i < aUpdateCount; i++)
 	{

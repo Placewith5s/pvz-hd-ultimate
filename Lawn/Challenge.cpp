@@ -2951,7 +2951,14 @@ void Challenge::InitZombieWavesSurvival()
 		mBoard->mZombieAllowed[ZOMBIE_TRAFFIC_CONE] = true;
 	}
 
-	int aCapacity = min(mSurvivalStage + 1, 14);
+	const int previous_cap = 9;
+	const int vanilla_almanac_zombies = 26;
+	const int vanilla_zombot_zombies = 6;
+	/* result + redeyed - boss */
+	const int aVanillaZombieCount = (vanilla_almanac_zombies + vanilla_zombot_zombies + 1) - 1;
+
+	int aCapacity = min(mSurvivalStage + 1, previous_cap * ((NUM_ZOMBIE_TYPES - 1) / aVanillaZombieCount));
+
 	while (aCapacity > 0)
 	{
 		ZombieType aRandZombie = (ZombieType)aLevelRNG.Next((unsigned long)ZombieType::NUM_ZOMBIE_TYPES);

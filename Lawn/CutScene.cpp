@@ -939,6 +939,18 @@ void CutScene::StartLevelIntro()
 	{
 		mCrazyDaveDialogStart = mApp->IsFirstTimeAdventureMode() ? 1301 : 1304;
 	}
+	else if (aLevel == 51)
+	{
+		mCrazyDaveDialogStart = 4101;
+	}
+	else if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WORLD_7_1)
+	{
+		mCrazyDaveDialogStart = 4201;
+	}
+	else if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WORLD_8_1)
+	{
+		mCrazyDaveDialogStart = 4301;
+	}
 	else if (!mApp->IsFirstTimeAdventureMode() && aLevel == 1)
 	{
 		mCrazyDaveDialogStart = 1601;

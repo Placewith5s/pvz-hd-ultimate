@@ -1241,19 +1241,6 @@ void Board::PickBackground()
 		break;
 
 	case GameMode::GAMEMODE_CHALLENGE_ZEN_GARDEN:
-		mBackground = BackgroundType::BACKGROUND_GREENHOUSE;
-		break;
-
-	case GameMode::GAMEMODE_TREE_OF_WISDOM:
-		mBackground = BackgroundType::BACKGROUND_TREEOFWISDOM;
-		break;
-
-	case GameMode::GAMEMODE_SURVIVAL_NORMAL_STAGE_HIGHGROUND:
-	case GameMode::GAMEMODE_SURVIVAL_HARD_STAGE_HIGHGROUND:
-	case GameMode::GAMEMODE_SURVIVAL_ENDLESS_STAGE_HIGHGROUND:
-		mBackground = BackgroundType::BACKGROUND_6;
-		break;
-
 	case GameMode::GAMEMODE_CHALLENGE_WORLD_7_1:
 	case GameMode::GAMEMODE_CHALLENGE_WORLD_7_2:
 	case GameMode::GAMEMODE_CHALLENGE_WORLD_7_3:
@@ -1269,6 +1256,16 @@ void Board::PickBackground()
 	case GameMode::GAMEMODE_SURVIVAL_ENDLESS_STAGE_7:
 	case GameMode::GAMEMODE_CHALLENGE_SLOT_MACHINE_4:
 		mBackground = BackgroundType::BACKGROUND_GREENHOUSE;
+		break;
+
+	case GameMode::GAMEMODE_TREE_OF_WISDOM:
+		mBackground = BackgroundType::BACKGROUND_TREEOFWISDOM;
+		break;
+
+	case GameMode::GAMEMODE_SURVIVAL_NORMAL_STAGE_HIGHGROUND:
+	case GameMode::GAMEMODE_SURVIVAL_HARD_STAGE_HIGHGROUND:
+	case GameMode::GAMEMODE_SURVIVAL_ENDLESS_STAGE_HIGHGROUND:
+		mBackground = BackgroundType::BACKGROUND_6;
 		break;
 
 	case GameMode::GAMEMODE_CHALLENGE_WORLD_8_1:
@@ -1305,6 +1302,18 @@ void Board::PickBackground()
 		mPlantRow[3] = PlantRowType::PLANTROW_NORMAL;
 		mPlantRow[4] = PlantRowType::PLANTROW_NORMAL;
 		mPlantRow[5] = PlantRowType::PLANTROW_DIRT;
+
+	GameMode aGameMode = mApp->mGameMode;
+
+	//if ((mApp->mGameMode >= GameMode::GAMEMODE_CHALLENGE_WORLD_7_1 && mApp->mGameMode <= GameMode::GAMEMODE_CHALLENGE_WORLD_7_10) ||
+	//	(mApp->mGameMode >= GameMode::GAMEMODE_SURVIVAL_NORMAL_STAGE_7 && mApp->mGameMode <= GameMode::GAMEMODE_SURVIVAL_ENDLESS_STAGE_7) ||
+	//	(mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_SLOT_MACHINE_4) &&
+	//	mBackground == BackgroundType::BACKGROUND_GREENHOUSE)
+	if (mApp->mGameMode != GAMEMODE_CHALLENGE_ZEN_GARDEN &&
+		mBackground == BackgroundType::BACKGROUND_GREENHOUSE)
+	{
+		mPlantRow[4] = PlantRowType::PLANTROW_DIRT;
+	}
 
 		if (mApp->IsAdventureMode() && mApp->IsFirstTimeAdventureMode() /*&& mApp->mPlayerLevelRef <= 4*/)
 		{

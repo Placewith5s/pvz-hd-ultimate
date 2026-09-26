@@ -3058,7 +3058,6 @@ void Challenge::InitZombieWaves()
 		aList[ZOMBIE_NORMAL] = true;
 		aList[ZOMBIE_TRAFFIC_CONE] = true;
 		aList[ZOMBIE_PAIL] = true;
-		aList[ZOMBIE_DIGGER] = true;
 		aList[ZOMBIE_FOOTBALL] = true;
 		aList[ZOMBIE_BLACK_FOOTBALL] = true;
 		aList[ZOMBIE_GARGANTUAR] = true;
@@ -3291,7 +3290,7 @@ void Challenge::InitZombieWaves()
 	{
 		aList[ZOMBIE_NORMAL] = true;
 		aList[ZOMBIE_TRAFFIC_CONE] = true;
-		aList[ZOMBIE_BUNGEE] = true;
+		aList[ZOMBIE_ZAMBONI] = true;
 		aList[ZOMBIE_BUNGEE_PAIL] = true;
 	}
 	else if (aGameMode == GAMEMODE_CHALLENGE_WORLD_7_2)
@@ -3299,7 +3298,6 @@ void Challenge::InitZombieWaves()
 		aList[ZOMBIE_NORMAL] = true;
 		aList[ZOMBIE_TRAFFIC_CONE] = true;
 		aList[ZOMBIE_PAIL] = true;
-		aList[ZOMBIE_DIGGER] = true;
 		aList[ZOMBIE_BUNGEE] = true;
 		aList[ZOMBIE_BUNGEE_PAIL] = true;
 	}
@@ -3307,7 +3305,6 @@ void Challenge::InitZombieWaves()
 	{
 		aList[ZOMBIE_NORMAL] = true;
 		aList[ZOMBIE_TRAFFIC_CONE] = true;
-		aList[ZOMBIE_POGO] = true;
 		aList[ZOMBIE_POGO_PAIL] = true;
 	}
 	else if (aGameMode == GAMEMODE_CHALLENGE_WORLD_7_4)
@@ -3323,7 +3320,6 @@ void Challenge::InitZombieWaves()
 	{
 		aList[ZOMBIE_NORMAL] = true;
 		aList[ZOMBIE_TRAFFIC_CONE] = true;
-		aList[ZOMBIE_JACK_IN_THE_BOX] = true;
 		aList[ZOMBIE_JACK_IN_THE_BOX_CRAZY] = true;
 	}
 	else if (aGameMode == GAMEMODE_CHALLENGE_WORLD_7_7)
@@ -3331,6 +3327,7 @@ void Challenge::InitZombieWaves()
 		aList[ZOMBIE_NORMAL] = true;
 		aList[ZOMBIE_TRAFFIC_CONE] = true;
 		aList[ZOMBIE_PAIL] = true;
+		aList[ZOMBIE_POGO] = true;
 		aList[ZOMBIE_POGO_PAIL] = true;
 		aList[ZOMBIE_JACK_IN_THE_BOX] = true;
 		aList[ZOMBIE_JACK_IN_THE_BOX_CRAZY] = true;
@@ -3339,7 +3336,6 @@ void Challenge::InitZombieWaves()
 	{
 		aList[ZOMBIE_NORMAL] = true;
 		aList[ZOMBIE_TRAFFIC_CONE] = true;
-		aList[ZOMBIE_DANCER] = true;
 		aList[ZOMBIE_DANCER_COOL] = true;
 	}
 	else if (aGameMode == GAMEMODE_CHALLENGE_WORLD_7_9)

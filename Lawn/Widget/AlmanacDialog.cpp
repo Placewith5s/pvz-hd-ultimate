@@ -534,7 +534,8 @@ void AlmanacDialog::DrawZombies(Graphics* g)
 				g->PushState();
 				aFolllower->BeginDraw(g);
 				g->SetClipRect(-42 - 50 * followerID, -51, 197, 187);
-				if (aFolllower->mZombieType != ZombieType::ZOMBIE_BUNGEE && aFolllower->mZombieType != ZombieType::ZOMBIE_BOSS &&
+				if (aFolllower->mZombieType != ZombieType::ZOMBIE_BUNGEE && aFolllower->mZombieType != ZombieType::ZOMBIE_BUNGEE_PAIL &&
+					aFolllower->mZombieType != ZombieType::ZOMBIE_BOSS &&
 					aFolllower->mZombieType != ZombieType::ZOMBIE_ZAMBONI && aFolllower->mZombieType != ZombieType::ZOMBIE_CATAPULT)
 					aFolllower->DrawShadow(g);
 				if (followerID == 1) {
@@ -553,15 +554,22 @@ void AlmanacDialog::DrawZombies(Graphics* g)
 		switch (mZombie->mZombieType)
 		{
 		case ZombieType::ZOMBIE_ZAMBONI:		g->TranslateF(-30, 5);		break;
-		case ZombieType::ZOMBIE_GARGANTUAR:		g->TranslateF(0, 40);		break;
+		case ZombieType::ZOMBIE_GARGANTUAR:
+		case ZombieType::ZOMBIE_SMASH_GARGANTUAR:
+			g->TranslateF(0, 40);
+			break;
 		case ZombieType::ZOMBIE_FOOTBALL:		g->TranslateF(-10, 0);		break;
 		case ZombieType::ZOMBIE_BALLOON:		g->TranslateF(0, -20);		break;
-		case ZombieType::ZOMBIE_BUNGEE:			g->TranslateF(15, 0);		break;
+		case ZombieType::ZOMBIE_BUNGEE:
+		case ZombieType::ZOMBIE_BUNGEE_PAIL:
+			g->TranslateF(15, 0);
+			break;
 		case ZombieType::ZOMBIE_CATAPULT:		g->TranslateF(-10, 0);		break;
 		case ZombieType::ZOMBIE_BOSS:			g->TranslateF(-540, -175);	break;
 		default: break;
 		}
-		if (mZombie->mZombieType != ZombieType::ZOMBIE_BUNGEE && mZombie->mZombieType != ZombieType::ZOMBIE_BOSS &&
+		if (mZombie->mZombieType != ZombieType::ZOMBIE_BUNGEE && mZombie->mZombieType != ZombieType::ZOMBIE_BUNGEE_PAIL &&
+			mZombie->mZombieType != ZombieType::ZOMBIE_BOSS &&
 			mZombie->mZombieType != ZombieType::ZOMBIE_ZAMBONI && mZombie->mZombieType != ZombieType::ZOMBIE_CATAPULT)
 			mZombie->DrawShadow(g);
 		mZombie->Draw(g);

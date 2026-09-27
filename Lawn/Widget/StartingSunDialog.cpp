@@ -77,13 +77,11 @@ bool StartingSunDialog::AllowChar(int, SexyChar theChar)
 
 SexyString StartingSunDialog::GetStartingSun()
 {
-	if (mSunEditWidget->mString.empty())
-		mSunEditWidget->mString = "0";
+	auto hyphen_count = std::ranges::count(mSunEditWidget->mString, '-');
 
-	if (!mSunEditWidget->mString.starts_with('-'))
-		mSunEditWidget->mString = "0";
-
-	if (std::ranges::count(mSunEditWidget->mString, '-') > 1)
+	if ((mSunEditWidget->mString.empty() ||
+		hyphen_count > 1) ||
+		(mSunEditWidget->mString[0] != '-' && hyphen_count == 1))
 		mSunEditWidget->mString = "0";
 
 	return mSunEditWidget->mString;

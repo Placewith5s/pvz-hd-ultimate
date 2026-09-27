@@ -48,7 +48,8 @@ private:
         SeedChooserScreen_Almanac = 103,
         SeedChooserScreen_Menu = 104,
         SeedChooserScreen_Store = 105,
-        SeedChooserScreen_Imitater = 106
+        SeedChooserScreen_Imitater = 106,
+        SeedChooserScreen_Sun = 107
     };
 
 public:
@@ -59,6 +60,7 @@ public:
     GameButton*             mAlmanacButton;                     //+0x98
     GameButton*             mMenuButton;                        //+0x9C
     GameButton*             mImitaterButton;                    //+0xA0
+    GameButton*             mSunButton;
     ChosenSeed              mChosenSeeds[NUM_SEED_TYPES];       //+0xA4
     LawnApp*                mApp;                               //+0xD10
     Board*                  mBoard;                             //+0xD14
@@ -121,6 +123,7 @@ public:
     virtual void            MouseUp(int x, int y, int theClickCount);
     virtual void            MouseMove(int x, int y);
     void                    UpdateImitaterButton();
+    void                    UpdateSunButton();
     virtual void            MouseDown(int x, int y, int theClickCount);
     /*inline*/ bool         PickedPlantType(SeedType theSeedType);
     void                    CloseSeedChooser();

@@ -809,6 +809,9 @@
     <ClCompile Include="..\include\imgui\backends\imgui_impl_sdlrenderer3.cpp">
       <Filter>imgui</Filter>
     </ClCompile>
+    <ClCompile Include="..\Lawn\Widget\StartingSunDialog.cpp">
+      <Filter>Lawn\Widget\Widget Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Color.h">
@@ -1328,6 +1331,9 @@
     </ClInclude>
     <ClInclude Include="..\include\imgui\backends\imgui_impl_sdlrenderer3.h">
       <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Lawn\Widget\StartingSunDialog.h">
+      <Filter>Lawn\Widget\Widget Include</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

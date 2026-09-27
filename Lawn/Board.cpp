@@ -4046,7 +4046,8 @@ void Board::UpdateToolTip()
 		if (mSeedBank->ContainsPoint(mWidgetManager->mLastMouseX, mWidgetManager->mLastMouseY) ||
 			mApp->mSeedChooserScreen->mAlmanacButton->IsMouseOver() ||
 			mApp->mSeedChooserScreen->mStoreButton->IsMouseOver() ||
-			mApp->mSeedChooserScreen->mImitaterButton->IsMouseOver())
+			mApp->mSeedChooserScreen->mImitaterButton->IsMouseOver() ||
+			mApp->mSeedChooserScreen->mSunButton->IsMouseOver())
 		{
 			mToolTip->mVisible = false;
 			return;
@@ -4092,6 +4093,14 @@ void Board::UpdateToolTip()
 			mToolTip->mMaxBottom = 570 + mApp->mDDInterface->mWideScreenOffsetY;
 		}
 		if (!mApp->mSeedChooserScreen->mImitaterButton->mBtnNoDraw)
+		{
+			mToolTip->CalculateSize();
+			if (mX + mToolTip->mX - mToolTip->mWidth / 2 < 524)
+			{
+				mToolTip->mMaxBottom = 503 + mApp->mDDInterface->mWideScreenOffsetY;
+			}
+		}
+		if (!mApp->mSeedChooserScreen->mSunButton->mBtnNoDraw)
 		{
 			mToolTip->CalculateSize();
 			if (mX + mToolTip->mX - mToolTip->mWidth / 2 < 524)
@@ -10037,15 +10046,19 @@ void Board::KeyChar(SexyChar theChar)
 			{
 				case '1':
 					mNumWaves = 10;
+					//mApp->PlayFoley(FoleyType::)
 					break;
 				case '2':
 					mNumWaves = 20;
+					//mApp->PlayFoley(FoleyType::)
 					break;
 				case '3':
 					mNumWaves = 30;
+					//mApp->PlayFoley(FoleyType::)
 					break;
 				case '4':
 					mNumWaves = 40;
+					//mApp->PlayFoley(FoleyType::)
 					break;
 			}
 		}

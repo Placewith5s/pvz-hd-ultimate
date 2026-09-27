@@ -34,6 +34,7 @@
 #include "Sexy.TodLib/TodStringFile.h"
 #include "Lawn/Widget/AlmanacDialog.h"
 #include "Lawn/Widget/NewUserDialog.h"
+#include "Lawn/Widget/StartingSunDialog.h"
 #include "Lawn/Widget/ContinueDialog.h"
 #include "Lawn/Widget/ZombatarTOS.h"
 #include "Lawn/Widget/LanguageScreen.h"
@@ -1779,6 +1780,16 @@ void LawnApp::DoRenameUserDialog(const SexyString& theName)
 	AddDialog(Dialogs::DIALOG_RENAMEUSER, aDialog);
 }
 
+void LawnApp::DoStartingSunDialog(const SexyString& theSun)
+{
+	KillDialog(Dialogs::DIALOG_STARTING_SUN);
+
+	StartingSunDialog* aDialog = new StartingSunDialog(this);
+	CenterDialog(aDialog, aDialog->mWidth, aDialog->mHeight);
+	aDialog->SetStartingSun(theSun);
+	AddDialog(Dialogs::DIALOG_STARTING_SUN, aDialog);
+}
+
 //0x451260
 void LawnApp::FinishRenameUserDialog(bool isYes)
 {
@@ -1824,6 +1835,24 @@ void LawnApp::FinishRenameUserDialog(bool isYes)
 	mWidgetManager->MarkAllDirty();
 	KillDialog(Dialogs::DIALOG_RENAMEUSER);
 	mWidgetManager->SetFocus(aUserDialog);
+}
+
+void LawnApp::FinishStartingSunDialog(bool isYes)
+{
+	if (!isYes)
+	{
+		KillDialog(Dialogs::DIALOG_STARTING_SUN);
+		return;
+	}
+
+	StartingSunDialog* aStartingSunDialog = (StartingSunDialog*)GetDialog(Dialogs::DIALOG_STARTING_SUN);
+
+	if (aStartingSunDialog == nullptr)
+		return;
+
+	mBoard->AddSunMoney(std::stoi(aStartingSunDialog->GetStartingSun()));
+	mWidgetManager->MarkAllDirty();
+	KillDialog(Dialogs::DIALOG_STARTING_SUN);
 }
 
 //0x451490
@@ -3045,6 +3074,10 @@ void LawnApp::ButtonDepress(int theId)
 			FinishRenameUserDialog(true);
 			return;
 
+		case Dialogs::DIALOG_STARTING_SUN:
+			FinishStartingSunDialog(true);
+			return;
+
 		case Dialogs::DIALOG_CREATEUSERERROR:
 		case Dialogs::DIALOG_RENAMEUSERERROR:
 			FinishNameError(theId - 2000);
@@ -3212,6 +3245,10 @@ void LawnApp::ButtonDepress(int theId)
 
 		case Dialogs::DIALOG_RENAMEUSER:
 			FinishRenameUserDialog(false);
+			return;
+
+		case Dialogs::DIALOG_STARTING_SUN:
+			FinishStartingSunDialog(false);
 			return;
 
 		case Dialogs::DIALOG_CHEAT:

@@ -177,6 +177,10 @@ void UserDialog::ButtonDepress(int theId)
         case UserDialog::UserDialog_DeleteUser:
             mApp->DoConfirmDeleteUserDialog(aSelName);
             break;
+
+        case UserDialog::UserDialog_StartingSun:
+            mApp->DoStartingSunDialog(aSelName);
+            break;
         }
     }
 }

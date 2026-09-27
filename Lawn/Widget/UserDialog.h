@@ -16,7 +16,8 @@ protected:
 	enum
 	{
 		UserDialog_RenameUser,
-		UserDialog_DeleteUser
+		UserDialog_DeleteUser,
+		UserDialog_StartingSun
 	};
 
 public:

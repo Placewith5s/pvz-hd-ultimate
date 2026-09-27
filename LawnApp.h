@@ -194,7 +194,9 @@ public:
 	void							DoConfirmDeleteUserDialog(const SexyString& theName);
 	void							FinishConfirmDeleteUserDialog(bool isYes);
 	void							DoRenameUserDialog(const SexyString& theName);
+	void							DoStartingSunDialog(const SexyString& theName);
 	void							FinishRenameUserDialog(bool isYes);
+	void							FinishStartingSunDialog(bool isYes);
 	void							FinishNameError(int theId);
 	void							FinishRestartConfirmDialog();
 	void							DoConfirmSellDialog(const SexyString& theMessage);

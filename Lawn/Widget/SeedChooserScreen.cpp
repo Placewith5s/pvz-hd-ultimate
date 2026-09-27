@@ -7,6 +7,7 @@
 #include "../../LawnApp.h"
 #include "AlmanacDialog.h"
 #include "ImitaterDialog.h"
+#include "../Widget/StartingSunDialog.h"
 #include "../System/Music.h"
 #include "../../Resources.h"
 #include "../../Lawn/Plant.h"
@@ -128,6 +129,14 @@ SeedChooserScreen::SeedChooserScreen()
 	mImitaterButton->Resize(464, 515, Sexy::IMAGE_IMITATERSEED->mWidth, Sexy::IMAGE_IMITATERSEED->mHeight);
 	mImitaterButton->mParentWidget = this;
 
+	mSunButton = new GameButton(SeedChooserScreen::SeedChooserScreen_Sun);
+	mSunButton->mButtonImage = Sexy::IMAGE_BLANK;
+	mSunButton->mOverImage = Sexy::IMAGE_BLANK;
+	mSunButton->mDownImage = Sexy::IMAGE_BLANK;
+	mSunButton->mDisabledImage = Sexy::IMAGE_BLANK;
+	mSunButton->Resize(464, 415, Sexy::IMAGE_SUNBANK->mWidth, Sexy::IMAGE_SUNBANK->mHeight);
+	mSunButton->mParentWidget = this;
+
 	mScrollbar = new ScrollbarWidget(mApp, ScrollbarMode::VERTICAL);
 	mScrollbar->mScrollRange = 70 * max(0, ceil((mApp->GetSeedsAvailable() - 49) / 8.0f));
 	mScrollbar->Resize(445, 123, 8, 420);
@@ -239,6 +248,7 @@ SeedChooserScreen::SeedChooserScreen()
 	if (mApp->IsAdventureMode() && (!mApp->IsFirstTimeAdventureMode() || mApp->mPlayerLevelRef > 4 && mBoard->mLevel < mApp->mPlayerLevelRef))
 		CrazyDavePickSeeds();
 	UpdateImitaterButton();
+	UpdateSunButton();
 }
 
 template <typename T>
@@ -369,6 +379,7 @@ SeedChooserScreen::~SeedChooserScreen()
 	if (mViewLawnButton) delete mViewLawnButton;
 	if (mAlmanacButton) delete mAlmanacButton;
 	if (mImitaterButton) delete mImitaterButton;
+	if (mSunButton) delete mSunButton;
 	if (mStoreButton) delete mStoreButton;
 	if (mToolTip) delete mToolTip;
 	if (mMenuButton) delete mMenuButton;
@@ -642,6 +653,7 @@ void SeedChooserScreen::UpdateCursor()
 
 	if (mMouseVisible && mChooseState != CHOOSE_VIEW_LAWN && (aMouseSeedType != SEED_NONE && !SeedNotAllowedToPick(aMouseSeedType)) ||
 		mRandomButton->IsMouseOver() || mViewLawnButton->IsMouseOver() || mAlmanacButton->IsMouseOver() || mImitaterButton->IsMouseOver() ||
+		mSunButton->IsMouseOver() ||
 		mStoreButton->IsMouseOver() || mMenuButton->IsMouseOver() || mStartButton->IsMouseOver() || mScrollbar->isThumbOver())
 	{
 		mApp->SetCursor(CURSOR_HAND);
@@ -699,6 +711,7 @@ void SeedChooserScreen::Update()
 	mViewLawnButton->Update();
 	mAlmanacButton->Update();
 	mImitaterButton->Update();
+	mSunButton->Update();
 	mStoreButton->Update();
 	mMenuButton->Update();
 	mScrollbar->Update();
@@ -1060,6 +1073,15 @@ void SeedChooserScreen::ShowToolTip()
 			mToolTip->mY = mImitaterButton->mY - mToolTip->mHeight;
 			mToolTip->mVisible = true;
 		}
+		else if (mSunButton->IsMouseOver() && mMouseVisible)
+		{
+			mToolTip->SetLabel("Lets you type starting sun amount");
+			mToolTip->SetTitle("Starting Sun Editor");
+			mToolTip->SetWarningText(_S(""));
+			mToolTip->mX = (SEED_PACKET_WIDTH - mToolTip->mWidth) / 2 + mSunButton->mX;
+			mToolTip->mY = mSunButton->mY - mToolTip->mHeight;
+			mToolTip->mVisible = true;
+		}
 		else
 		{
 			SeedType aSeedType = SeedHitTest(mLastMouseX, mLastMouseY);
@@ -1177,6 +1199,20 @@ void SeedChooserScreen::UpdateImitaterButton()
 	}
 }
 
+void SeedChooserScreen::UpdateSunButton()
+{
+	if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_LEVEL_EDITOR)
+	{
+		mSunButton->mBtnNoDraw = false;
+		mSunButton->mDisabled = false;
+	}
+	else
+	{
+		mSunButton->mBtnNoDraw = true;
+		mSunButton->mDisabled = true;
+	}
+}
+
 //0x486770
 void SeedChooserScreen::MouseDown(int x, int y, int theClickCount)
 {
@@ -1226,6 +1262,14 @@ void SeedChooserScreen::MouseDown(int x, int y, int theClickCount)
 			aDialog->Resize((mWidth - aDialog->mWidth) / 2, (mHeight - aDialog->mHeight) / 2, aDialog->mWidth, aDialog->mHeight);
 			mApp->mWidgetManager->SetFocus(aDialog);
 		}
+	}
+	else if (mSunButton->IsMouseOver())
+	{
+		mApp->PlaySample(Sexy::SOUND_TAP);
+		StartingSunDialog* aDialog = new StartingSunDialog(mApp);
+		mApp->AddDialog(aDialog->mId, aDialog);
+		aDialog->Resize((mWidth - aDialog->mWidth) / 2, (mHeight - aDialog->mHeight) / 2, aDialog->mWidth, aDialog->mHeight);
+		mApp->mWidgetManager->SetFocus(aDialog);
 	}
 	else
 	{
@@ -1338,6 +1382,7 @@ void SeedChooserScreen::CloseSeedChooser()
 
 	mStartButton->SetDisabled(true);
 	mImitaterButton->SetDisabled(true);
+	mSunButton->SetDisabled(true);
 	mStoreButton->SetDisabled(true);
 	mAlmanacButton->SetDisabled(true);
 	mMenuButton->SetDisabled(true);

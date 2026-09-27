@@ -544,6 +544,7 @@ EXIT /B 0</Command>
     <ClCompile Include="..\Lawn\System\SaveGame.cpp" />
     <ClCompile Include="..\Lawn\System\TypingCheck.cpp" />
     <ClCompile Include="..\Lawn\Widget\AchievementsScreen.cpp" />
+    <ClCompile Include="..\Lawn\Widget\StartingSunDialog.cpp" />
     <ClCompile Include="..\Lawn\Widget\ImageScrollbar.cpp" />
     <ClCompile Include="..\Lawn\Widget\LanguageScreen.cpp" />
     <ClCompile Include="..\Lawn\Widget\MoreSettingsDialog.cpp" />
@@ -1257,6 +1258,7 @@ EXIT /B 0</Command>
     <ClInclude Include="..\Lawn\System\SaveGame.h" />
     <ClInclude Include="..\Lawn\System\TypingCheck.h" />
     <ClInclude Include="..\Lawn\Widget\AchievementsScreen.h" />
+    <ClInclude Include="..\Lawn\Widget\StartingSunDialog.h" />
     <ClInclude Include="..\Lawn\Widget\ImageScrollbar.h" />
     <ClInclude Include="..\Lawn\Widget\LanguageScreen.h" />
     <ClInclude Include="..\Lawn\Widget\MoreSettingsDialog.h" />

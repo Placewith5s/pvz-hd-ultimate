@@ -10041,23 +10041,48 @@ void Board::KeyChar(SexyChar theChar)
 				mBackground = next_bg;
 				LoadBackgroundImages();
 
-				if (mBackground != BackgroundType::BACKGROUND_3_POOL &&
-					mBackground != BackgroundType::BACKGROUND_4_FOG)
+				for (int i = 0; i < MAX_GRID_SIZE_X; i++)
 				{
-					mPlantRow[2] = PlantRowType::PLANTROW_NORMAL;
-					mPlantRow[3] = PlantRowType::PLANTROW_NORMAL;
-					mPlantRow[5] = PlantRowType::PLANTROW_DIRT;
+					for (int j = 0; j < MAX_GRID_SIZE_Y; j++)
+					{
+						mGridSquareType[i][j] = GridSquareType::GRIDSQUARE_GRASS;
+						//mGridCelLook[i][j] = Rand(20);
+						mGridCelOffset[i][j][0] = Rand(10) - 5;
+						mGridCelOffset[i][j][1] = Rand(10) - 5;
+					}
+
+					/*for (int k = 0; k < MAX_GRID_SIZE_Y + 1; k++)
+					{
+						mGridCelFog[i][k] = 0;
+					}*/
 				}
 
 				switch (mBackground)
 				{
 					case BackgroundType::BACKGROUND_3_POOL:
 					case BackgroundType::BACKGROUND_4_FOG:
+						mPlantRow[0] = PlantRowType::PLANTROW_NORMAL;
+						mPlantRow[1] = PlantRowType::PLANTROW_NORMAL;
 						mPlantRow[2] = PlantRowType::PLANTROW_POOL;
 						mPlantRow[3] = PlantRowType::PLANTROW_POOL;
+						mPlantRow[4] = PlantRowType::PLANTROW_NORMAL;
+						mPlantRow[5] = PlantRowType::PLANTROW_NORMAL;
 						break;
 					case BackgroundType::BACKGROUND_GREENHOUSE:
+						mPlantRow[0] = PlantRowType::PLANTROW_NORMAL;
+						mPlantRow[1] = PlantRowType::PLANTROW_NORMAL;
+						mPlantRow[2] = PlantRowType::PLANTROW_NORMAL;
+						mPlantRow[3] = PlantRowType::PLANTROW_NORMAL;
 						mPlantRow[4] = PlantRowType::PLANTROW_DIRT;
+						mPlantRow[5] = PlantRowType::PLANTROW_DIRT;
+						break;
+					default:
+						mPlantRow[0] = PlantRowType::PLANTROW_NORMAL;
+						mPlantRow[1] = PlantRowType::PLANTROW_NORMAL;
+						mPlantRow[2] = PlantRowType::PLANTROW_NORMAL;
+						mPlantRow[3] = PlantRowType::PLANTROW_NORMAL;
+						mPlantRow[4] = PlantRowType::PLANTROW_NORMAL;
+						mPlantRow[5] = PlantRowType::PLANTROW_DIRT;
 						break;
 				}
 

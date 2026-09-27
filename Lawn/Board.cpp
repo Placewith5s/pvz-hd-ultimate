@@ -10040,6 +10040,46 @@ void Board::KeyChar(SexyChar theChar)
 
 				mBackground = next_bg;
 				LoadBackgroundImages();
+
+				if (mBackground != BackgroundType::BACKGROUND_3_POOL &&
+					mBackground != BackgroundType::BACKGROUND_4_FOG)
+				{
+					mPlantRow[2] = PlantRowType::PLANTROW_NORMAL;
+					mPlantRow[3] = PlantRowType::PLANTROW_NORMAL;
+					mPlantRow[5] = PlantRowType::PLANTROW_DIRT;
+				}
+
+				switch (mBackground)
+				{
+					case BackgroundType::BACKGROUND_3_POOL:
+					case BackgroundType::BACKGROUND_4_FOG:
+						mPlantRow[2] = PlantRowType::PLANTROW_POOL;
+						mPlantRow[3] = PlantRowType::PLANTROW_POOL;
+						break;
+					case BackgroundType::BACKGROUND_GREENHOUSE:
+						mPlantRow[4] = PlantRowType::PLANTROW_DIRT;
+						break;
+				}
+
+				// able to place in the modified rows
+				for (int x = 0; x < MAX_GRID_SIZE_X; x++)
+				{
+					for (int y = 0; y < MAX_GRID_SIZE_Y; y++)
+					{
+						if (mPlantRow[y] == PlantRowType::PLANTROW_DIRT)
+						{
+							mGridSquareType[x][y] = GridSquareType::GRIDSQUARE_DIRT;
+						}
+						else if (mPlantRow[y] == PlantRowType::PLANTROW_POOL && x >= 0 && x <= 8)
+						{
+							mGridSquareType[x][y] = GridSquareType::GRIDSQUARE_POOL;
+						}
+						//else if (mPlantRow[y] == PlantRowType::PLANTROW_HIGH_GROUND && x >= 4 && x <= 8)
+						//{
+						//	mGridSquareType[x][y] = GridSquareType::GRIDSQUARE_HIGH_GROUND;
+						//}
+					}
+				}
 			}
 
 			switch (theChar)

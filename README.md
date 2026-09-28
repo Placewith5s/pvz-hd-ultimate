@@ -281,6 +281,42 @@ dependency\
 ```
 > *While browsing, if the program finds a file in a folder from this list, it will use that and will not continue looking in other folders. If you want to replace a certain asset then putting it on `extension/` will work i.e. replacing the `logo.png`. This is how resourcepack works in the mod*
 
+### Changing Plant Stats
+
+Go to the Plant.cpp file and get past the #include lines. If you are using Visual Studio, the file is located inside Board Source.
+
+This here is what the gPlantDefs table uses:
+
+```cpp
+class PlantDefinition
+{
+public:
+    SeedType                mSeedType;          //+0x0
+    Image**                 mPlantImage;        //+0x4
+    ReanimationType         mReanimationType;   //+0x8
+    int                     mPacketIndex;       //+0xC
+    int                     mSeedCost;          //+0x10
+    int                     mRefreshTime;       //+0x14
+    PlantSubClass           mSubClass;          //+0x18
+    int                     mLaunchRate;        //+0x1C
+    const SexyChar*         mPlantName;         //+0x20
+};
+extern PlantDefinition gPlantDefs[SeedType::NUM_SEED_TYPES];
+```
+
+The third (int) non-decimal number/s is the plant's recharge time and the final (int) non-decimal number/s is basically fire rate.
+
+### Modding Tips
+Use Ctrl + Shift + F to find things from all matching files quickly and Ctrl + F to find things from the selected file. There are going to be lots of copy paste for similar plants, zombies, and levels
+
+You should note down which plants are given in conveyor-belt levels and which zombies appear in the newly added levels. These are not easy to fully remember.
+
+If you are used to the command Ctrl + D: go to Tools > Options > Environment > Keyboard > Keyboard and change the "Appl..." dropdown value to something like Visual Studio Code.
+
+- New enum values should come last, unless you are adding new zombies
+- When adding new zombies not viewable in the almanac book, the new enum values should come just before ZOMBIE_REDEYE_GARGANTUAR
+
+Again, this is from my own experience. If you know where the hardcoded values live, you can ignore these tips.
 
 # Development Team
 

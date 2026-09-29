@@ -2439,7 +2439,7 @@ bool LawnApp::UpdatePlayerProfileForFinishingLevel()
 		{
 			ReportAchievement::GiveAchievement(this, AchievementId::FaceToFace, false);
 		}
-		if (!mBoard->mHadPlantedNuts && mPlayerInfo->mLevel > 3)
+		if ((!mBoard->mHadPlantedNuts && mPlayerInfo->mLevel > 3) && mBoard->StageIsNight())
 		{
 			ReportAchievement::GiveAchievement(this, AchievementId::MayNotContainNuts, true);
 		}

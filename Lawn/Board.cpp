@@ -12468,6 +12468,23 @@ int Board::GetKilledlZombiesInRadius(int theRow, int theX, int theY, int theRadi
 	return aKilledZombies;
 }
 
+void Board::KillZombiePlantsInRadius(int theRow, int theX, int theY, int theRadius, int theRowRange)
+{
+	Plant* aPlant = nullptr;
+
+	while (IteratePlants(aPlant))
+	{
+		Rect aPlantRect = aPlant->GetPlantRect();
+		int aRowDist = aPlant->mRow - theRow;
+
+		if (aRowDist <= theRowRange && aRowDist >= -theRowRange && GetCircleRectOverlap(theX, theY, theRadius, aPlantRect))
+		{
+			aPlant->mPlantHealth -= 1800;
+			mPlantsEaten++;
+		}
+	}
+}
+
 void Board::MovePlant(Plant* thePlant, int theGridX, int theGridY)
 {
 	if (!thePlant || thePlant && thePlant->mBurnedCounter > 0)

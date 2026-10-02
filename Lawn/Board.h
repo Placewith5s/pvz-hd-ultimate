@@ -400,6 +400,7 @@ public:
 	void							DrawUITop(Graphics* g);
 	Zombie*							ZombieHitTest(int theMouseX, int theMouseY);
 	void							KillAllPlantsInRadius(int theX, int theY, int theRadius);
+	void							KillZombiePlantsInRadius(int theRow, int theX, int theY, int theRadius, int theRowRange);
 	Plant*							GetPumpkinAt(int theGridX, int theGridY);
 	Plant*							GetFlowerPotAt(int theGridX, int theGridY);
 	static bool						CanZombieSpawnOnLevel(ZombieType theZombieType, int theLevel);

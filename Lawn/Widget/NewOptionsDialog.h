@@ -31,6 +31,7 @@ protected:
 		NewOptionsDialog_SoundSystem,
 		NewOptionsDialog_Language,
 		NewOptionsDialog_Halfspeed,
+		NewOptionsDialog_ScreenShake,
 	};
 
 public:
@@ -40,6 +41,7 @@ public:
 	Sexy::Checkbox*			mFullscreenCheckbox;				//+0x164
 	Sexy::Checkbox*			mHardwareAccelerationCheckbox;		//+0x168
 	Sexy::Checkbox*			mHalfspeedCheckbox;
+	Sexy::Checkbox*			mScreenShakeCheckbox;
 	LawnStoneButton*		mAlmanacButton;						//+0x16C
 	LawnStoneButton*		mBackToMainButton;					//+0x170
 	LawnStoneButton*		mRestartButton;						//+0x174

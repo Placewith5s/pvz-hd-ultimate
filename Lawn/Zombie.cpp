@@ -3784,36 +3784,23 @@ void Zombie::UpdateZombiePotatomineHead()
         }
         else
         {
-            Plant* aPlant = nullptr;
-            while (mBoard->IteratePlants(aPlant))
+            mApp->PlaySample(SOUND_POTATO_MINE);
+
+            aSpecialHeadReanim->SetFramesForLayer("anim_armed");
+            PlantState::STATE_POTATO_ARMED;
+
+            int aPosX = mX + mWidth / 2 - 20;
+            int aPosY = mY + mHeight / 2;
+
+            int aRenderPosition = Board::MakeRenderOrder(RenderLayer::RENDER_LAYER_PARTICLE, mRow, 0);
+            TodParticleSystem* aParticle = mApp->AddTodParticle(aPosX + 20.0f, aPosY, aRenderPosition, ParticleEffect::PARTICLE_POTATO_MINE);
+            Reanimation* aBodyReanim = mApp->ReanimationTryToGet(mBodyReanimID);
+            if (aParticle && aBodyReanim && aBodyReanim->mFilterEffect != FilterEffect::FILTER_EFFECT_NONE)
             {
-                //Rect aPlantRect = aPlant->GetPlantRect();
-                if (aPlant->mRow == mRow && !aPlant->NotOnGround())
-                {
-                    mBoard->mPlantsEaten++;
-
-                    mApp->PlaySample(SOUND_POTATO_MINE);
-
-                    aSpecialHeadReanim->SetFramesForLayer("anim_armed");
-                    PlantState::STATE_POTATO_ARMED;
-
-                    int aPosX = mX + mWidth / 2 - 20;
-                    int aPosY = mY + mHeight / 2;
-                    int aDamageRangeFlags = aPlant->GetDamageRangeFlags(PlantWeapon::WEAPON_PRIMARY);
-
-                    
-                    int aRenderPosition = Board::MakeRenderOrder(RenderLayer::RENDER_LAYER_PARTICLE, mRow, 0);
-                    TodParticleSystem* aParticle = mApp->AddTodParticle(aPosX + 20.0f, aPosY, aRenderPosition, ParticleEffect::PARTICLE_POTATO_MINE);
-                    Reanimation* aBodyReanim = mApp->ReanimationTryToGet(mBodyReanimID);
-                    if (aParticle && aBodyReanim && aBodyReanim->mFilterEffect != FilterEffect::FILTER_EFFECT_NONE)
-                    {
-                        aParticle->OverrideFilterEffect(nullptr, aBodyReanim->mFilterEffect);
-                    }
-
-                    aPlant->mPlantHealth -= 1800;
-                    break;
-                }
+                aParticle->OverrideFilterEffect(nullptr, aBodyReanim->mFilterEffect);
             }
+
+            mBoard->KillZombiePlantsInRadius(mRow, aPosX, aPosY, 60, 0);
         }
         DieNoLoot();
 

@@ -12314,6 +12314,9 @@ bool Board::CanUseGameObject(GameObjectType theGameObject)
 
 void Board::ShakeBoard(int theShakeAmountX, int theShakeAmountY)
 {
+	if ()
+	return;
+
 	mShakeCounter = 12;
 	mShakeAmountX = theShakeAmountX;
 	mShakeAmountY = theShakeAmountY;

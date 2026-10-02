@@ -327,6 +327,7 @@ SexyAppBase::SexyAppBase()
 	mResolutionMode = 0;
 	mEnableVsync = true;
 	mIsHalfspeed = false;
+	mIsScreenShake = false;
 
 	int i;
 

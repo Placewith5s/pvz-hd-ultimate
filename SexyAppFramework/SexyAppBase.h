@@ -338,6 +338,7 @@ public:
 
 	bool					mEnableVsync;
 	bool					mIsHalfspeed;
+	bool					mIsScreenShake;
 
 protected:	
 	void					RehupFocus();
@@ -477,7 +478,6 @@ public:
 	virtual void			SwitchScreenMode();
 	virtual void			SwitchScreenMode(bool wantWindowed);
 	virtual void			SwitchScreenMode(bool wantWindowed, bool is3d, bool force = false);
-	void			SwitchSpeedMultiplier(bool wantHalfspeed);
 	virtual void			SetAlphaDisabled(bool isDisabled);
 	
 	virtual Dialog*			DoDialog(int theDialogId, bool isModal, const SexyString& theDialogHeader, const SexyString& theDialogLines, const SexyString& theDialogFooter, int theButtonMode);

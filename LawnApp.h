@@ -361,6 +361,7 @@ public:
 	/*inline*/ bool					CanDoDaisyMode();
 	virtual void					SwitchScreenMode(bool wantWindowed, bool is3d, bool force = false);
 	void							SwitchSpeedMultiplier(bool wantHalfspeed);
+	void							SwitchScreenShake(bool wantScreenShake);
 	static /*inline*/ void			CenterDialog(Dialog* theDialog, int theWidth, int theHeight);
 #ifdef _HAS_ZOMBATAR
 	void							ShowZombatarTOS();

@@ -2166,18 +2166,18 @@ void GameSelector::AddPreviewProfiles()
 		aProfile->SaveDetails();
 	}
 
-	aProfile = mApp->mProfileMgr->AddProfile(_S("6 Highground"));
-	if (aProfile)
-	{
-		aProfile->mLevel = 51;
-		aProfile->mHasUnlockedMinigames = 1;
-		aProfile->mHasUnlockedPuzzleMode = 1;
-		aProfile->mHasUnlockedSurvivalMode = 1;
-		aProfile->mPurchases[StoreItem::STORE_ITEM_PACKET_UPGRADE] = 2;
-		aProfile->mPurchases[StoreItem::STORE_ITEM_POOL_CLEANER] = 1;
-		aProfile->mCoins = 600;
-		aProfile->SaveDetails();
-	}
+	//aProfile = mApp->mProfileMgr->AddProfile(_S("6 Highground"));
+	//if (aProfile)
+	//{
+	//	aProfile->mLevel = 51;
+	//	aProfile->mHasUnlockedMinigames = 1;
+	//	aProfile->mHasUnlockedPuzzleMode = 1;
+	//	aProfile->mHasUnlockedSurvivalMode = 1;
+	//	aProfile->mPurchases[StoreItem::STORE_ITEM_PACKET_UPGRADE] = 2;
+	//	aProfile->mPurchases[StoreItem::STORE_ITEM_POOL_CLEANER] = 1;
+	//	aProfile->mCoins = 600;
+	//	aProfile->SaveDetails();
+	//}
 
 	aProfile = mApp->mProfileMgr->AddProfile(_S("Complete"));
 	if (aProfile)

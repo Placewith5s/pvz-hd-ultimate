@@ -409,6 +409,7 @@ public:
     void                            UpdateZombieRepeaterHead();
     void                            UpdateZombiePotatomineHead();
     void                            UpdateZombieCabbagepultHead();
+    void                            UpdateZombieSnowpeaHead();
     bool                            IsTanglekelpTarget();
     bool                            HasYuckyFaceImage();
     bool                            IsTangleKelpTarget();

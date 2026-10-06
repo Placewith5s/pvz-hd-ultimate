@@ -61,6 +61,7 @@ ZombieDefinition gZombieDefs[NUM_ZOMBIE_TYPES] = {  //0x69DA80
     { ZOMBIE_POTATOMINE_HEAD,          REANIM_ZOMBIE_ZOMBOTANY,              1,      48,     1,      4000,   _S("ZOMBIE") },
     { ZOMBIE_PUMPKIN_HEAD,      REANIM_ZOMBIE_ZOMBOTANY,              4,      48,     1,      3000,   _S("ZOMBIE") },
     { ZOMBIE_CABBAGEPULT_HEAD,      REANIM_ZOMBIE_ZOMBOTANY,              1,      48,     1,     4000,   _S("ZOMBIE") },
+    { ZOMBIE_SNOWPEA_HEAD,      REANIM_ZOMBIE,              4,      48,     1,      3000,   _S("ZOMBIE") },
     { ZOMBIE_DOOR_TRAFFIC_CONE,              REANIM_ZOMBIE,              4,      53,     5,      3500,   _S("SCREEN_DOOR_CONEHEAD_ZOMBIE") },
     { ZOMBIE_DOOR_PAIL,              REANIM_ZOMBIE,              4,      53,     5,      3500,   _S("SCREEN_DOOR_BUCKETHEAD_ZOMBIE") },
     { ZOMBIE_BUNGEE_PAIL,            REANIM_BUNGEE,              3,      60,     10,     2000,   _S("BUNGEE_BUCKETHEAD_ZOMBIE") },
@@ -1350,6 +1351,31 @@ void Zombie::ZombieInitialize(int theRow, ZombieType theType, bool theVariant, Z
             AttachShield();
         }
         break;
+    }
+
+    case ZombieType::ZOMBIE_SNOWPEA_HEAD:
+    {
+        LoadPlainZombieReanim();
+        ReanimShowPrefix("anim_hair", RENDER_GROUP_HIDDEN);
+        ReanimShowPrefix("anim_head2", RENDER_GROUP_HIDDEN);
+
+        Reanimation* aBodyReanim = mApp->ReanimationGet(mBodyReanimID);
+        if (IsOnBoard())
+        {
+            aBodyReanim->SetFramesForLayer("anim_walk2");
+        }
+
+        ReanimatorTrackInstance* aTrackInstance = aBodyReanim->GetTrackInstanceByName("anim_head1");
+        aTrackInstance->mImageOverride = IMAGE_BLANK;
+        Reanimation* aHeadReanim = mApp->AddReanimation(0.0f, 0.0f, 0, ReanimationType::REANIM_SNOWPEA);
+        aHeadReanim->PlayReanim("anim_head_idle", ReanimLoopType::REANIM_LOOP, 0, 15.0f);
+        mSpecialHeadReanimID = mApp->ReanimationGetID(aHeadReanim);
+        AttachEffect* aAttachEffect = AttachReanim(aTrackInstance->mAttachmentID, aHeadReanim, 0.0f, 0.0f);
+        aBodyReanim->mFrameBasePose = 0;
+        TodScaleRotateTransformMatrix(aAttachEffect->mOffset, 65.0f, -5.0f, 0.2f, -1.0f, 1.0f);
+
+        mPhaseCounter = 150;
+        mVariant = false;
     }
     }
 
@@ -3867,6 +3893,73 @@ void Zombie::UpdateZombieCabbagepultHead()
     }
 }
 
+void Zombie::UpdateZombieSnowpeaHead()
+{
+    if (!mHasHead)
+        return;
+
+    if (mPhaseCounter == 35)
+    {
+        Reanimation* aHeadReanim = mApp->ReanimationGet(mSpecialHeadReanimID);
+        aHeadReanim->PlayReanim("anim_shooting", ReanimLoopType::REANIM_PLAY_ONCE_AND_HOLD, 20, 35.0f);
+    }
+    else if (mPhaseCounter == 0)
+    {
+        Reanimation* aHeadReanim = mApp->ReanimationGet(mSpecialHeadReanimID);
+        aHeadReanim->PlayReanim("anim_head_idle", ReanimLoopType::REANIM_PLAY_ONCE_AND_HOLD, 20, 15.0f);
+        mApp->PlayFoley(FoleyType::FOLEY_THROW);
+
+        Reanimation* aBodyReanim = mApp->ReanimationGet(mBodyReanimID);
+        int aTrackIndex = aBodyReanim->FindTrackIndex("anim_head1");
+        ReanimatorTransform aTransform;
+        aBodyReanim->GetCurrentTransform(aTrackIndex, &aTransform);
+
+        float aOriginX = mPosX + aTransform.mTransX - 9.0f;
+        float aOriginY = mPosY + aTransform.mTransY + 6.0f - mAltitude;
+
+        if (mChilledCounter == 0)
+        {
+            mApp->PlayFoley(FoleyType::FOLEY_FROZEN);
+            mJustGotShotCounter = 25;
+            mHelmetJustGotShotCounter = 25;
+            mShieldJustGotShotCounter = 25;
+        }
+
+        int aChillTime = 1000;
+        mChilledCounter = max(aChillTime, mChilledCounter);
+        //UpdateAnimSpeed(); // one for plants next commit
+
+        if (mMindControlled)  // 魅惑修复
+        {
+            aOriginX += 90.0f * mScaleZombie;
+            Projectile* aProjectile = mBoard->AddProjectile(aOriginX, aOriginY, mRenderOrder, mRow, ProjectileType::PROJECTILE_SNOWPEA);
+            if (mMindControlled) {
+                aProjectile->mOverrideColor = ZOMBIE_MINDCONTROLLED_COLOR;
+                aProjectile->mExtraAdditiveColor = aProjectile->mOverrideColor;
+                aProjectile->mEnableExtraAdditiveDraw = true;
+            }
+            else if (mChilledCounter > 0 || mIceTrapCounter > 0) {
+                aProjectile->mOverrideColor = Color(75, 75, 255);
+                aProjectile->mExtraAdditiveColor = aProjectile->mOverrideColor;
+                aProjectile->mEnableExtraAdditiveDraw = true;
+            }
+            aProjectile->mDamageRangeFlags = 1;
+        }
+        else
+        {
+            Projectile* aProjectile = mBoard->AddProjectile(aOriginX, aOriginY, mRenderOrder, mRow, ProjectileType::PROJECTILE_ZOMBIE_SNOWPEA);
+            if (mChilledCounter > 0 || mIceTrapCounter > 0) {
+                aProjectile->mOverrideColor = Color(75, 75, 255);
+                aProjectile->mExtraAdditiveColor = aProjectile->mOverrideColor;
+                aProjectile->mEnableExtraAdditiveDraw = true;
+            }
+            aProjectile->mMotionType = ProjectileMotion::MOTION_BACKWARDS;
+        }
+
+        mPhaseCounter = 150;
+    }
+}
+
 //0x527F20
 void Zombie::BobsledCrash()
 {
@@ -6324,6 +6417,10 @@ void Zombie::UpdateActions()
         mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_CABBAGEPULT_HEAD)
     {
         UpdateZombieCabbagepultHead();
+    }
+    if (mZombieType == ZombieType::ZOMBIE_SNOWPEA_HEAD)
+    {
+        UpdateZombieSnowpeaHead();
     }
 
 #ifdef _HAS_BLOOM_AND_DOOM_CONTENTS
@@ -9222,6 +9319,7 @@ void Zombie::StartWalkAnim(int theBlendTime)
     {
         int aWalkAnimVariant = Rand(2);
         if (mZombieType == ZombieType::ZOMBIE_PEA_HEAD ||
+            mZombieType == ZombieType::ZOMBIE_SNOWPEA_HEAD ||
             mZombieType == ZombieType::ZOMBIE_REPEATER_HEAD ||
             mZombieType == ZombieType::ZOMBIE_GATLING_HEAD ||
             mZombieType == ZombieType::ZOMBIE_CABBAGEPULT_HEAD ||
@@ -11259,6 +11357,7 @@ bool Zombie::IsZombotany(ZombieType theZombieType)
         theZombieType == ZombieType::ZOMBIE_POTATOMINE_HEAD ||
         theZombieType == ZombieType::ZOMBIE_PUMPKIN_HEAD ||
         theZombieType == ZombieType::ZOMBIE_CABBAGEPULT_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_SNOWPEA_HEAD ||
         theZombieType == ZombieType::ZOMBIE_NIGHTMARE_PEA_HEAD ||
         theZombieType == ZombieType::ZOMBIE_NIGHTMARE_WALLNUT_HEAD ||
         theZombieType == ZombieType::ZOMBIE_NIGHTMARE_TALLNUT_HEAD ||
@@ -11302,6 +11401,7 @@ bool Zombie::ZombieTypeCanGoInPool(ZombieType theZombieType)
         theZombieType == ZombieType::ZOMBIE_REPEATER_HEAD ||
         theZombieType == ZombieType::ZOMBIE_POTATOMINE_HEAD ||
         theZombieType == ZombieType::ZOMBIE_PUMPKIN_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_SNOWPEA_HEAD ||
         theZombieType == ZombieType::ZOMBIE_CABBAGEPULT_HEAD ||
         theZombieType == ZombieType::ZOMBIE_NIGHTMARE_PEA_HEAD ||
         theZombieType == ZombieType::ZOMBIE_NIGHTMARE_WALLNUT_HEAD ||
@@ -11551,7 +11651,8 @@ void Zombie::RemoveButter()
         if (aHeadReanim)
         {
             if ((mZombieType == ZombieType::ZOMBIE_PEA_HEAD || mZombieType == ZombieType::ZOMBIE_NIGHTMARE_PEA_HEAD ||
-                mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_PEA_HEAD) &&
+                mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_PEA_HEAD ||
+                mZombieType == ZombieType::ZOMBIE_SNOWPEA_HEAD) &&
                 aHeadReanim->IsAnimPlaying("anim_shooting"))
             {
                 aHeadReanim->mAnimRate = 35.0f;
@@ -12381,6 +12482,7 @@ void Zombie::UpdateDeath()
         case ZombieType::ZOMBIE_POTATOMINE_HEAD:
         case ZombieType::ZOMBIE_PUMPKIN_HEAD:
         case ZombieType::ZOMBIE_CABBAGEPULT_HEAD:
+        case ZombieType::ZOMBIE_SNOWPEA_HEAD:
         case ZombieType::ZOMBIE_NIGHTMARE_PEA_HEAD:
         case ZombieType::ZOMBIE_NIGHTMARE_WALLNUT_HEAD:
         case ZombieType::ZOMBIE_NIGHTMARE_TALLNUT_HEAD:
@@ -14296,6 +14398,7 @@ void Zombie::EnableDance(bool theEnableDance)
         {
             int aWalkAnimVariant = Rand(2);
             if (mZombieType == ZombieType::ZOMBIE_PEA_HEAD ||
+                mZombieType == ZombieType::ZOMBIE_SNOWPEA_HEAD ||
                 mZombieType == ZombieType::ZOMBIE_REPEATER_HEAD ||
                 mZombieType == ZombieType::ZOMBIE_GATLING_HEAD ||
                 mZombieType == ZombieType::ZOMBIE_CABBAGEPULT_HEAD ||

@@ -467,6 +467,7 @@ MemoryImage* ReanimatorCache::MakeCachedZombieFrame(ZombieType theZombieType)
 
 	float aPosX = 40.0f * scale, aPosY = 40.0f * scale;
 	if (theZombieType == ZombieType::ZOMBIE_PEA_HEAD ||
+		theZombieType == ZombieType::ZOMBIE_SNOWPEA_HEAD ||
 		theZombieType == ZombieType::ZOMBIE_REPEATER_HEAD ||
 		theZombieType == ZombieType::ZOMBIE_GATLING_HEAD || theZombieType == ZombieType::ZOMBIE_SQUASH_HEAD ||
 		theZombieType == ZombieType::ZOMBIE_NIGHTMARE_PEA_HEAD ||
@@ -496,6 +497,9 @@ MemoryImage* ReanimatorCache::MakeCachedZombieFrame(ZombieType theZombieType)
 			case ZOMBIE_NIGHTMARE_PEA_HEAD:
 			case ZOMBIE_EXTREME_NIGHTMARE_PEA_HEAD:
 				aHeadType = ReanimationType::REANIM_PEASHOOTER;
+				break;
+			case ZOMBIE_SNOWPEA_HEAD:
+				aHeadType = ReanimationType::REANIM_SNOWPEA;
 				break;
 			case ZOMBIE_REPEATER_HEAD:
 			case ZOMBIE_NIGHTMARE_REPEATER_HEAD:

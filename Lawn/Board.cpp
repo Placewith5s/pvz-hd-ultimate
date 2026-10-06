@@ -820,6 +820,7 @@ void Board::PickZombieWaves()
 
 			if (mApp->mGameMode != GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS && mApp->mGameMode != GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_2 &&
 				mApp->mGameMode != GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_3 && mApp->mGameMode != GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_4 &&
+				mApp->mGameMode != GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_5 &&
 				mApp->mGameMode != GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_NIGHTMARE &&
 				mApp->mGameMode != GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_EXTREME_NIGHTMARE)
 			{
@@ -1181,6 +1182,7 @@ void Board::PickBackground()
 	case GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_2:
 	case GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_3:
 	case GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_4:
+	case GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_5:
 	case GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_NIGHTMARE:
 	case GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_EXTREME_NIGHTMARE:
 	case GameMode::GAMEMODE_CHALLENGE_VEHICLE_PARTY:
@@ -5855,6 +5857,7 @@ void Board::SpawnZombiesFromGraves()
 {
 	if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS || mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_2 ||
 		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_3 || mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_4 ||
+		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_5 ||
 		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_NIGHTMARE ||
 		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_EXTREME_NIGHTMARE)
 		return;
@@ -10571,6 +10574,7 @@ void Board::KeyChar(SexyChar theChar)
 
 	if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS || mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_2 ||
 		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_3 || mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_4 ||
+		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_5 ||
 		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_NIGHTMARE ||
 		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_EXTREME_NIGHTMARE)
 	{
@@ -10617,6 +10621,11 @@ void Board::KeyChar(SexyChar theChar)
 		if (theChar == _S('c'))
 		{
 			AddZombie(ZombieType::ZOMBIE_CABBAGEPULT_HEAD, Zombie::ZOMBIE_WAVE_DEBUG);
+			return;
+		}
+		if (theChar == _S('S'))
+		{
+			AddZombie(ZombieType::ZOMBIE_SNOWPEA_HEAD, Zombie::ZOMBIE_WAVE_DEBUG);
 			return;
 		}
 	}

@@ -320,6 +320,7 @@ ZombieAllowedLevels gZombieAllowedLevels[NUM_ZOMBIE_TYPES] = {  //0x6A35B0
 	{ ZOMBIE_POTATOMINE_HEAD, {0} },
 	{ ZOMBIE_PUMPKIN_HEAD, {0} },
 	{ ZOMBIE_CABBAGEPULT_HEAD, {0} },
+	{ ZOMBIE_SNOWPEA_HEAD, {0} },
 	{ ZOMBIE_DOOR_TRAFFIC_CONE,
 		{
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -3259,6 +3260,20 @@ void Challenge::InitZombieWaves()
 		aList[ZOMBIE_POTATOMINE_HEAD] = true;
 		aList[ZOMBIE_PUMPKIN_HEAD] = true;
 		aList[ZOMBIE_CABBAGEPULT_HEAD] = true;
+	}
+	else if (aGameMode == GAMEMODE_CHALLENGE_WAR_AND_PEAS_5)
+	{
+		aList[ZOMBIE_PEA_HEAD] = true;
+		aList[ZOMBIE_WALLNUT_HEAD] = true;
+		aList[ZOMBIE_JALAPENO_HEAD] = true;
+		aList[ZOMBIE_GATLING_HEAD] = true;
+		aList[ZOMBIE_SQUASH_HEAD] = true;
+		aList[ZOMBIE_TALLNUT_HEAD] = true;
+		aList[ZOMBIE_REPEATER_HEAD] = true;
+		aList[ZOMBIE_POTATOMINE_HEAD] = true;
+		aList[ZOMBIE_PUMPKIN_HEAD] = true;
+		aList[ZOMBIE_CABBAGEPULT_HEAD] = true;
+		aList[ZOMBIE_SNOWPEA_HEAD] = true;
 	}
 	else if (aGameMode == GAMEMODE_CHALLENGE_WAR_AND_PEAS_NIGHTMARE)
 	{

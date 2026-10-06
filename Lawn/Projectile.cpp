@@ -30,8 +30,8 @@ ProjectileDefinition gProjectileDefinition[] = {  //0x69F1C0
 	{ ProjectileType::PROJECTILE_COBBIG,        0,  300 },
 	{ ProjectileType::PROJECTILE_BUTTER,        0,  40  },
 	{ ProjectileType::PROJECTILE_ZOMBIE_PEA,    0,  20  },
+	{ ProjectileType::PROJECTILE_ZOMBIE_SNOWPEA,    0,  20  },
 	{ ProjectileType::PROJECTILE_ZOMBIE_CABBAGE,       0,  40  },
-	{ ProjectileType::PROJECTILE_ZOMBIE_STAR,          0,  20  },
 #ifdef _PIERCING_CACTUS
 	{ ProjectileType::PROJECTILE_PIERCE_SPIKE,  0,  20  },
 #endif
@@ -200,8 +200,7 @@ void Projectile::ProjectileInitialize(int theX, int theY, int theRenderOrder, in
 		mRotation = RandRangeFloat(0.0f, 2 * PI);
 		mRotationSpeed = RandRangeFloat(0.05f, 0.1f);
 	}
-	else if (mProjectileType == ProjectileType::PROJECTILE_STAR ||
-		mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_STAR)
+	else if (mProjectileType == ProjectileType::PROJECTILE_STAR)
 	{
 		mShadowY += 15.0f;
 		mRotationSpeed = RandRangeFloat(0.05f, 0.1f);
@@ -251,6 +250,7 @@ Plant* Projectile::FindCollisionTargetPlant()
 			continue;
 
 		if (mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_PEA ||
+			mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_SNOWPEA ||
 			mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_CABBAGE)
 		{
 			if (aPlant->mSeedType == SeedType::SEED_PUFFSHROOM ||
@@ -274,6 +274,7 @@ Plant* Projectile::FindCollisionTargetPlant()
 		if (GetRectOverlap(aProjectileRect, aPlantRect) > 8)
 		{
 			if (mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_PEA ||
+				mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_SNOWPEA ||
 				mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_CABBAGE)
 			{
 				Plant* aPlant2 = mBoard->GetTopPlantAt(aPlant->mPlantCol, aPlant->mRow, PlantPriority::TOPPLANT_EATING_ORDER);
@@ -356,7 +357,8 @@ Zombie* Projectile::FindCollisionTarget()
 	{
 		bool isEffected = aZombie->EffectedByDamage((unsigned int)mDamageRangeFlags);
 
-		if (mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_PEA &&
+		if ((mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_PEA ||
+			mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_SNOWPEA) &&
 			aZombie->mMindControlled) {
 			isEffected = aZombie->EffectedByDamage(129);
 		}
@@ -387,6 +389,7 @@ Zombie* Projectile::FindCollisionTarget()
 		if ((aZombie->mZombieType == ZombieType::ZOMBIE_BOSS || aZombie->mRow == mRow) && isEffected)
 		{
 			if ((mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_PEA ||
+				mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_SNOWPEA ||
 				mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_CABBAGE) &&
 				!aZombie->mMindControlled)
 			{
@@ -430,8 +433,8 @@ void Projectile::CheckForCollision()
 	Zombie* aTargetZombie = mMotionType == ProjectileMotion::MOTION_HOMING ?  mBoard->ZombieTryToGet(mTargetZombieID) : nullptr;
 
 	if ((mPosX > WIDE_BOARD_WIDTH && (mProjectileType != ProjectileType::PROJECTILE_ZOMBIE_PEA &&
-		mProjectileType != ProjectileType::PROJECTILE_ZOMBIE_CABBAGE &&
-		mProjectileType != ProjectileType::PROJECTILE_ZOMBIE_STAR) ||
+		mProjectileType != ProjectileType::PROJECTILE_ZOMBIE_SNOWPEA &&
+		mProjectileType != ProjectileType::PROJECTILE_ZOMBIE_CABBAGE) ||
 		mPosX + mWidth < 0) && !aTargetZombie)
 	{
 		Die();
@@ -473,7 +476,8 @@ void Projectile::CheckForCollision()
 		return;
 	}
 
-	if (mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_PEA)
+	if (mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_PEA ||
+		mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_SNOWPEA)
 	{
 		Plant* aPlant = FindCollisionTargetPlant();
 		if (aPlant)
@@ -1264,12 +1268,14 @@ void Projectile::DoImpact(Zombie* theZombie)
 		mApp->PlaySample(SOUND_DOOMSHROOM);
 		mBoard->ShakeBoard(3, -4);
 	}
-	else if (mProjectileType == ProjectileType::PROJECTILE_PEA || mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_PEA)
+	else if (mProjectileType == ProjectileType::PROJECTILE_PEA ||
+		mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_PEA)
 	{
 		aSplatPosX -= 15.0f;
 		aEffect = ParticleEffect::PARTICLE_PEA_SPLAT;
 	}
-	else if (mProjectileType == ProjectileType::PROJECTILE_SNOWPEA)
+	else if (mProjectileType == ProjectileType::PROJECTILE_SNOWPEA ||
+		mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_SNOWPEA)
 	{
 		aSplatPosX -= 15.0f;
 		aEffect = ParticleEffect::PARTICLE_SNOWPEA_SPLAT;
@@ -1292,7 +1298,7 @@ void Projectile::DoImpact(Zombie* theZombie)
 			}
 		}
 	}
-	else if (mProjectileType == ProjectileType::PROJECTILE_STAR || mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_STAR)
+	else if (mProjectileType == ProjectileType::PROJECTILE_STAR)
 	{
 		aEffect = ParticleEffect::PARTICLE_STAR_SPLAT;
 	}
@@ -1447,6 +1453,7 @@ void Projectile::Update()
 		mProjectileType == ProjectileType::PROJECTILE_COBBIG || 
 		mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_PEA ||
 		mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_CABBAGE ||
+		mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_SNOWPEA ||
 		mProjectileType == ProjectileType::PROJECTILE_SPIKE
 #ifdef _HAS_BLOOM_AND_DOOM_CONTENTS
 		|| mProjectileType == ProjectileType::PROJECTILE_BEE
@@ -1508,11 +1515,13 @@ void Projectile::Draw(Graphics* g)
 		aImage = IMAGE_REANIM_COBCANNON_COB;
 		aScaleX = aScaleY = 0.9f;
 	}
-	else if (mProjectileType == ProjectileType::PROJECTILE_PEA || mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_PEA)
+	else if (mProjectileType == ProjectileType::PROJECTILE_PEA ||
+		mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_PEA)
 	{
 		aImage = IMAGE_PROJECTILEPEA;
 	}
-	else if (mProjectileType == ProjectileType::PROJECTILE_SNOWPEA)
+	else if (mProjectileType == ProjectileType::PROJECTILE_SNOWPEA ||
+		mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_SNOWPEA)
 	{
 		aImage = IMAGE_PROJECTILESNOWPEA;
 	}
@@ -1528,7 +1537,7 @@ void Projectile::Draw(Graphics* g)
 	{
 		aImage = IMAGE_PROJECTILECACTUS;
 	}
-	else if (mProjectileType == ProjectileType::PROJECTILE_STAR || mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_STAR)
+	else if (mProjectileType == ProjectileType::PROJECTILE_STAR)
 	{
 		aImage = IMAGE_PROJECTILE_STAR;
 	}
@@ -1697,12 +1706,12 @@ void Projectile::DrawShadow(Graphics* g)
 		break;
 
 	case ProjectileType::PROJECTILE_SNOWPEA:
+	case ProjectileType::PROJECTILE_ZOMBIE_SNOWPEA:
 		aOffsetX += -1.0f;
 		aScaleX = aScaleY = 1.3f;
 		break;
 
 	case ProjectileType::PROJECTILE_STAR:
-	case ProjectileType::PROJECTILE_ZOMBIE_STAR:
 #ifdef _HAS_BLOOM_AND_DOOM_CONTENTS
 	case ProjectileType::PROJECTILE_BEE:
 #endif
@@ -1795,7 +1804,8 @@ Rect Projectile::GetProjectileRect()
 {
 	if (mProjectileType == ProjectileType::PROJECTILE_PEA || 
 		mProjectileType == ProjectileType::PROJECTILE_SNOWPEA ||
-		mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_PEA 
+		mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_PEA ||
+		mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_SNOWPEA
 #ifdef _HAS_BLOOM_AND_DOOM_CONTENTS
 		|| mProjectileType == ProjectileType::PROJECTILE_BEE
 #endif

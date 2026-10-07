@@ -3691,7 +3691,7 @@ void Zombie::UpdateZombieRepeaterHead()
         Reanimation* aHeadReanim = mApp->ReanimationGet(mSpecialHeadReanimID);
         aHeadReanim->PlayReanim("anim_shooting", ReanimLoopType::REANIM_PLAY_ONCE_AND_HOLD, 20, 35.0f);
     }
-    else if (mPhaseCounter == 35 || mPhaseCounter == 51)
+    else if (mPhaseCounter == 35 || mPhaseCounter == 68)
     {
         mApp->PlayFoley(FoleyType::FOLEY_THROW);
 

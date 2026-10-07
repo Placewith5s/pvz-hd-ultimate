@@ -129,7 +129,8 @@ void Projectile::ProjectileInitialize(int theX, int theY, int theRenderOrder, in
 		mRotation = 0.0f;
 		mRotationSpeed = RandRangeFloat(-0.2f, -0.08f);
 	}
-	else if (mProjectileType == ProjectileType::PROJECTILE_SNOWPEA)
+	else if (mProjectileType == ProjectileType::PROJECTILE_SNOWPEA ||
+		mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_SNOWPEA)
 	{
 		/*Trail* aTrail = mApp->mEffectSystem->mTrailHolder->AllocTrail(305000, TrailType::TRAIL_ICE);
 		if (aTrail) 

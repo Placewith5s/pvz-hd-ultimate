@@ -328,6 +328,7 @@ public:
     float                           ZombieTargetLeadX(float theTime);
     void                            UpdateZombieImp();
     void                            SquishAllInSquare(int theX, int theY, ZombieAttackType theAttackType);
+    void                            SlowdownPlantInSquare(int theX, int theY);
     void                            RemoveIceTrap();
     bool                            IsBouncingPogo();
     int                             GetBobsledPosition();

@@ -3917,17 +3917,14 @@ void Zombie::UpdateZombieSnowpeaHead()
         float aOriginX = mPosX + aTransform.mTransX - 9.0f;
         float aOriginY = mPosY + aTransform.mTransY + 6.0f - mAltitude;
 
+        int aDestX = mBoard->GridToPixelX(mBoard->PixelToGridXKeepOnBoard(mX, mY), mRow);
+        float squashX = mPosX + 6.0f + aDestX - 20 - mPosX;
+
         if (mChilledCounter == 0)
         {
             mApp->PlayFoley(FoleyType::FOLEY_FROZEN);
-            mJustGotShotCounter = 25;
-            mHelmetJustGotShotCounter = 25;
-            mShieldJustGotShotCounter = 25;
+            SlowdownPlantInSquare(mBoard->PixelToGridXKeepOnBoard(squashX + 20, mY), mRow);
         }
-
-        int aChillTime = 1000;
-        mChilledCounter = max(aChillTime, mChilledCounter);
-        //UpdateAnimSpeed(); // one for plants next commit
 
         if (mMindControlled)  // 魅惑修复
         {
@@ -8944,6 +8941,35 @@ void Zombie::SquishAllInSquare(int theX, int theY, ZombieAttackType theAttackTyp
                 {
                     SquishAllInSquare(theNextGrid, theY, theAttackType);
                 }
+            }
+        }
+    }
+}
+
+void Zombie::SlowdownPlantInSquare(int theX, int theY)
+{
+    Plant* aPlant = nullptr;
+    while (mBoard->IteratePlants(aPlant))
+    {
+        if (aPlant->mRow == theY && aPlant->mPlantCol == theX)
+        {
+            if (aPlant->mSeedType != SeedType::SEED_SPIKEROCK
+#ifdef _HAS_BLOOM_AND_DOOM_CONTENTS
+                && aPlant->mSeedType != SeedType::SEED_STINGER
+#endif
+                )
+            {
+                unsigned int aDamageFlags = 0U;
+                SetBit(aDamageFlags, (int)DamageFlags::DAMAGE_FREEZE, true);
+
+                if (TestBit(aDamageFlags, (int)DamageFlags::DAMAGE_FREEZE))
+                {
+                    int aChillTime = 1000;
+                    mChilledCounter = max(aChillTime, mChilledCounter);
+                }
+
+                mBoard->mPlantsEaten++;
+                aPlant->mLaunchRate /= 1.8;
             }
         }
     }

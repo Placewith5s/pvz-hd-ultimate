@@ -3689,9 +3689,9 @@ void Zombie::UpdateZombieRepeaterHead()
     if (mPhaseCounter == 100)
     {
         Reanimation* aHeadReanim = mApp->ReanimationGet(mSpecialHeadReanimID);
-        aHeadReanim->PlayReanim("anim_shooting", ReanimLoopType::REANIM_PLAY_ONCE_AND_HOLD, 20, 35.0f);
+        aHeadReanim->PlayReanim("anim_shooting", ReanimLoopType::REANIM_PLAY_ONCE_AND_HOLD, 20, 45.0f);
     }
-    else if (mPhaseCounter == 35 || mPhaseCounter == 68)
+    else if (mPhaseCounter == 1 || mPhaseCounter == 26)
     {
         mApp->PlayFoley(FoleyType::FOLEY_THROW);
 
@@ -11551,12 +11551,16 @@ void Zombie::RemoveButter()
         if (aHeadReanim)
         {
             if ((mZombieType == ZombieType::ZOMBIE_PEA_HEAD || mZombieType == ZombieType::ZOMBIE_NIGHTMARE_PEA_HEAD ||
-                mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_PEA_HEAD ||
-                mZombieType == ZombieType::ZOMBIE_REPEATER_HEAD || mZombieType == ZombieType::ZOMBIE_NIGHTMARE_REPEATER_HEAD ||
-                mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_REPEATER_HEAD) &&
+                mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_PEA_HEAD) &&
                 aHeadReanim->IsAnimPlaying("anim_shooting"))
             {
                 aHeadReanim->mAnimRate = 35.0f;
+            }
+            else if ((mZombieType == ZombieType::ZOMBIE_REPEATER_HEAD || mZombieType == ZombieType::ZOMBIE_NIGHTMARE_REPEATER_HEAD ||
+                mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_REPEATER_HEAD) &&
+                aHeadReanim->IsAnimPlaying("anim_shooting"))
+            {
+                aHeadReanim->mAnimRate = 45.0f;
             }
             else if ((mZombieType == ZombieType::ZOMBIE_GATLING_HEAD || mZombieType == ZombieType::ZOMBIE_NIGHTMARE_GATLING_HEAD ||
                 mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_GATLING_HEAD) &&

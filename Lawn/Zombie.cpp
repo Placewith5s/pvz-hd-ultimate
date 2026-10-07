@@ -3855,6 +3855,7 @@ void Zombie::UpdateZombieCabbagepultHead()
                 aProjectile->mEnableExtraAdditiveDraw = true;
             }
             aProjectile->mMotionType = ProjectileMotion::MOTION_BACKWARDS;
+            //aProjectile->mMotionType = ProjectileMotion::MOTION_LOBBED_BACKWARDS;
         }
 
         mPhaseCounter = 300;

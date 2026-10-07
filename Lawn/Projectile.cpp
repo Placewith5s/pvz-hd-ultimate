@@ -97,7 +97,8 @@ void Projectile::ProjectileInitialize(int theX, int theY, int theRenderOrder, in
 	memset(mPiercedZombies, 0, sizeof(mPiercedZombies));
 	mNumPierced = 0;
 
-	if (mProjectileType == ProjectileType::PROJECTILE_CABBAGE || mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_CABBAGE ||
+	if (mProjectileType == ProjectileType::PROJECTILE_CABBAGE ||
+		mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_CABBAGE ||
 		mProjectileType == ProjectileType::PROJECTILE_BUTTER)
 	{
 		mRotation = -7 * PI / 25;  // DEG_TO_RAD(-50.4f);
@@ -533,7 +534,9 @@ void Projectile::CheckForCollision()
 //0x46D090
 bool Projectile::CantHitHighGround()
 {
-	if (mMotionType == ProjectileMotion::MOTION_BACKWARDS || mMotionType == ProjectileMotion::MOTION_HOMING
+	if (mMotionType == ProjectileMotion::MOTION_BACKWARDS ||
+		mMotionType == ProjectileMotion::MOTION_HOMING //||
+		//mMotionType == ProjectileMotion::MOTION_LOBBED_BACKWARDS
 #ifdef _HAS_BLOOM_AND_DOOM_CONTENTS
 		|| mProjectileType == ProjectileType::PROJECTILE_BEE
 #endif
@@ -774,6 +777,11 @@ void Projectile::UpdateLobMotion()
 {
 	float displaceX = -700.0f;
 
+	//if (mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_CABBAGE)
+	//{
+	//	mPosX -= 3.33f;
+	//}
+
 	if (mProjectileType == ProjectileType::PROJECTILE_COBBIG && !FloatApproxEqual(mRad, 0.0f))
 	{
 		displaceX /= sin(mRad);
@@ -825,7 +833,9 @@ void Projectile::UpdateLobMotion()
 		{
 			aMinCollisionZ = -35.0f;
 		}
-		else if (mProjectileType == ProjectileType::PROJECTILE_CABBAGE || mProjectileType == ProjectileType::PROJECTILE_KERNEL)
+		else if (mProjectileType == ProjectileType::PROJECTILE_CABBAGE ||
+			mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_CABBAGE ||
+			mProjectileType == ProjectileType::PROJECTILE_KERNEL)
 		{
 			aMinCollisionZ = -30.0f;
 		}
@@ -1090,7 +1100,8 @@ void Projectile::UpdateMotion()
 
 	int aOldRow = mRow;
 	float aOldY = mBoard->GetPosYBasedOnRow(mPosX, mRow);
-	if (mMotionType == ProjectileMotion::MOTION_LOBBED)
+	if (mMotionType == ProjectileMotion::MOTION_LOBBED) //||
+		//mMotionType == ProjectileMotion::MOTION_LOBBED_BACKWARDS)
 	{
 		UpdateLobMotion();
 	}
@@ -1108,7 +1119,8 @@ void Projectile::UpdateMotion()
 	{
 		mPosY += aSlopeHeightChange;
 	}
-	if (mMotionType == ProjectileMotion::MOTION_LOBBED)
+	if (mMotionType == ProjectileMotion::MOTION_LOBBED) //||
+		//mMotionType == ProjectileMotion::MOTION_LOBBED_BACKWARDS)
 	{
 		mPosY += aSlopeHeightChange;
 		mPosZ -= aSlopeHeightChange;
@@ -1298,7 +1310,8 @@ void Projectile::DoImpact(Zombie* theZombie)
 		aSplatPosX -= 20.0f;
 		aEffect = ParticleEffect::PARTICLE_PUFF_SPLAT;
 	}
-	else if (mProjectileType == ProjectileType::PROJECTILE_CABBAGE || mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_CABBAGE)
+	else if (mProjectileType == ProjectileType::PROJECTILE_CABBAGE ||
+		mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_CABBAGE)
 	{
 		aSplatPosX = aLastPosX - 38.0f;
 		aSplatPosY = aLastPosY + 23.0f;
@@ -1539,7 +1552,8 @@ void Projectile::Draw(Graphics* g)
 		aImage = IMAGE_REANIM_ZOMBIE_CATAPULT_BASKETBALL;
 		aScaleX = aScaleY = 1.1f;
 	}
-	else if (mProjectileType == ProjectileType::PROJECTILE_CABBAGE || mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_CABBAGE)
+	else if (mProjectileType == ProjectileType::PROJECTILE_CABBAGE ||
+		mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_CABBAGE)
 	{
 		aImage = IMAGE_REANIM_CABBAGEPULT_CABBAGE;
 		aScaleX = aScaleY = 1.0f;
@@ -1738,6 +1752,12 @@ void Projectile::DrawShadow(Graphics* g)
 		float aHeight = ClampFloat(-mPosZ, 0.0f, 200.0f);
 		aScaleX = aScaleY *= 200.0f / (aHeight + 200.0f);
 	}
+
+	//if (mMotionType == ProjectileMotion::MOTION_LOBBED_BACKWARDS)
+	//{
+	//	float aHeight = ClampFloat(-mPosZ, 0.0f, 200.0f);
+	//	aScaleX = aScaleY *= 200.0f / (aHeight + 200.0f);
+	//}
 
 	if (mProjectileType == ProjectileType::PROJECTILE_COBBIG && mMotionType == ProjectileMotion::MOTION_LOBBED)
 	{

@@ -31,7 +31,6 @@ ProjectileDefinition gProjectileDefinition[] = {  //0x69F1C0
 	{ ProjectileType::PROJECTILE_BUTTER,        0,  40  },
 	{ ProjectileType::PROJECTILE_ZOMBIE_PEA,    0,  20  },
 	{ ProjectileType::PROJECTILE_ZOMBIE_CABBAGE,       0,  40  },
-	{ ProjectileType::PROJECTILE_ZOMBIE_STAR,          0,  20  },
 #ifdef _PIERCING_CACTUS
 	{ ProjectileType::PROJECTILE_PIERCE_SPIKE,  0,  20  },
 #endif
@@ -200,8 +199,7 @@ void Projectile::ProjectileInitialize(int theX, int theY, int theRenderOrder, in
 		mRotation = RandRangeFloat(0.0f, 2 * PI);
 		mRotationSpeed = RandRangeFloat(0.05f, 0.1f);
 	}
-	else if (mProjectileType == ProjectileType::PROJECTILE_STAR ||
-		mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_STAR)
+	else if (mProjectileType == ProjectileType::PROJECTILE_STAR)
 	{
 		mShadowY += 15.0f;
 		mRotationSpeed = RandRangeFloat(0.05f, 0.1f);
@@ -430,8 +428,7 @@ void Projectile::CheckForCollision()
 	Zombie* aTargetZombie = mMotionType == ProjectileMotion::MOTION_HOMING ?  mBoard->ZombieTryToGet(mTargetZombieID) : nullptr;
 
 	if ((mPosX > WIDE_BOARD_WIDTH && (mProjectileType != ProjectileType::PROJECTILE_ZOMBIE_PEA &&
-		mProjectileType != ProjectileType::PROJECTILE_ZOMBIE_CABBAGE &&
-		mProjectileType != ProjectileType::PROJECTILE_ZOMBIE_STAR) ||
+		mProjectileType != ProjectileType::PROJECTILE_ZOMBIE_CABBAGE) ||
 		mPosX + mWidth < 0) && !aTargetZombie)
 	{
 		Die();
@@ -1292,7 +1289,7 @@ void Projectile::DoImpact(Zombie* theZombie)
 			}
 		}
 	}
-	else if (mProjectileType == ProjectileType::PROJECTILE_STAR || mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_STAR)
+	else if (mProjectileType == ProjectileType::PROJECTILE_STAR)
 	{
 		aEffect = ParticleEffect::PARTICLE_STAR_SPLAT;
 	}
@@ -1528,7 +1525,7 @@ void Projectile::Draw(Graphics* g)
 	{
 		aImage = IMAGE_PROJECTILECACTUS;
 	}
-	else if (mProjectileType == ProjectileType::PROJECTILE_STAR || mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_STAR)
+	else if (mProjectileType == ProjectileType::PROJECTILE_STAR)
 	{
 		aImage = IMAGE_PROJECTILE_STAR;
 	}
@@ -1702,7 +1699,6 @@ void Projectile::DrawShadow(Graphics* g)
 		break;
 
 	case ProjectileType::PROJECTILE_STAR:
-	case ProjectileType::PROJECTILE_ZOMBIE_STAR:
 #ifdef _HAS_BLOOM_AND_DOOM_CONTENTS
 	case ProjectileType::PROJECTILE_BEE:
 #endif

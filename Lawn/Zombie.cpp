@@ -1322,10 +1322,7 @@ void Zombie::ZombieInitialize(int theRow, ZombieType theType, bool theVariant, Z
         ReanimatorTrackInstance* aTrackInstance = aBodyReanim->GetTrackInstanceByName("anim_head1");
         aTrackInstance->mImageOverride = IMAGE_BLANK;
         Reanimation* aHeadReanim = mApp->AddReanimation(0.0f, 0.0f, 0, ReanimationType::REANIM_CABBAGEPULT);
-        // can't find track anim_head_idle
-        //aHeadReanim->PlayReanim("anim_head_idle", ReanimLoopType::REANIM_LOOP, 0, 7.5f);
-
-        aHeadReanim->PlayReanim("anim_idle", ReanimLoopType::REANIM_LOOP, 0, 7.5f);
+        aHeadReanim->PlayReanim("anim_idle", ReanimLoopType::REANIM_LOOP, 0, 15.0f);
 
         mSpecialHeadReanimID = mApp->ReanimationGetID(aHeadReanim);
         AttachEffect* aAttachEffect = AttachReanim(aTrackInstance->mAttachmentID, aHeadReanim, 0.0f, 0.0f);
@@ -3812,19 +3809,16 @@ void Zombie::UpdateZombieCabbagepultHead()
     if (!mHasHead)
         return;
 
-    if (mPhaseCounter == 136)
+    if (mPhaseCounter == 32 * 4)
     {
         Reanimation* aHeadReanim = mApp->ReanimationGet(mSpecialHeadReanimID);
-        aHeadReanim->PlayReanim("anim_shooting", ReanimLoopType::REANIM_PLAY_ONCE_AND_HOLD, 20, 17.5f);
+        aHeadReanim->PlayReanim("anim_shooting", ReanimLoopType::REANIM_PLAY_ONCE_AND_HOLD, 20, 35.0f);
     }
     else if (mPhaseCounter == 0)
     {
         Reanimation* aHeadReanim = mApp->ReanimationGet(mSpecialHeadReanimID);
 
-        // can't find track anim_head_idle
-        //aHeadReanim->PlayReanim("anim_head_idle", ReanimLoopType::REANIM_PLAY_ONCE_AND_HOLD, 20, 7.5f);
-
-        aHeadReanim->PlayReanim("anim_idle", ReanimLoopType::REANIM_PLAY_ONCE_AND_HOLD, 20, 7.5f);
+        aHeadReanim->PlayReanim("anim_idle", ReanimLoopType::REANIM_PLAY_ONCE_AND_HOLD, 20, 15.0f);
 
         mApp->PlayFoley(FoleyType::FOLEY_THROW);
 
@@ -11551,7 +11545,9 @@ void Zombie::RemoveButter()
         if (aHeadReanim)
         {
             if ((mZombieType == ZombieType::ZOMBIE_PEA_HEAD || mZombieType == ZombieType::ZOMBIE_NIGHTMARE_PEA_HEAD ||
-                mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_PEA_HEAD) &&
+                mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_PEA_HEAD ||
+                mZombieType == ZombieType::ZOMBIE_CABBAGEPULT_HEAD || mZombieType == ZombieType::ZOMBIE_NIGHTMARE_CABBAGEPULT_HEAD ||
+                mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_CABBAGEPULT_HEAD) &&
                 aHeadReanim->IsAnimPlaying("anim_shooting"))
             {
                 aHeadReanim->mAnimRate = 35.0f;
@@ -11567,12 +11563,6 @@ void Zombie::RemoveButter()
                 aHeadReanim->IsAnimPlaying("anim_shooting"))
             {
                 aHeadReanim->mAnimRate = 38.0f;
-            }
-            else if ((mZombieType == ZombieType::ZOMBIE_CABBAGEPULT_HEAD || mZombieType == ZombieType::ZOMBIE_NIGHTMARE_CABBAGEPULT_HEAD ||
-                mZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_CABBAGEPULT_HEAD) &&
-                aHeadReanim->IsAnimPlaying("anim_shooting"))
-            {
-                aHeadReanim->mAnimRate = 17.5f;
             }
             else
             {

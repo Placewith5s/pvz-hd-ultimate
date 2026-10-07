@@ -10619,6 +10619,11 @@ void Board::KeyChar(SexyChar theChar)
 			AddZombie(ZombieType::ZOMBIE_CABBAGEPULT_HEAD, Zombie::ZOMBIE_WAVE_DEBUG);
 			return;
 		}
+		if (theChar == _S('C'))
+		{
+			AddZombie(ZombieType::ZOMBIE_CHERRYBOMB_HEAD, Zombie::ZOMBIE_WAVE_DEBUG);
+			return;
+		}
 	}
 
 	if (theChar == _S('q'))

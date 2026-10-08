@@ -10638,6 +10638,11 @@ void Board::KeyChar(SexyChar theChar)
 			AddZombie(ZombieType::ZOMBIE_DOOMSHROOM_HEAD, Zombie::ZOMBIE_WAVE_DEBUG);
 			return;
 		}
+		if (theChar == _S('h'))
+		{
+			AddZombie(ZombieType::ZOMBIE_HYPNOSHROOM_HEAD, Zombie::ZOMBIE_WAVE_DEBUG);
+			return;
+		}
 	}
 
 	if (theChar == _S('q'))

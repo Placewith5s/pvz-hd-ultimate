@@ -323,6 +323,7 @@ ZombieAllowedLevels gZombieAllowedLevels[NUM_ZOMBIE_TYPES] = {  //0x6A35B0
 	{ ZOMBIE_CHERRYBOMB_HEAD, {0} },
 	{ ZOMBIE_UMBRELLA_HEAD, {0} },
 	{ ZOMBIE_DOOMSHROOM_HEAD, {0} },
+	{ ZOMBIE_HYPNOSHROOM_HEAD, {0} },
 	{ ZOMBIE_DOOR_TRAFFIC_CONE,
 		{
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -3280,6 +3281,7 @@ void Challenge::InitZombieWaves()
 		aList[ZOMBIE_CABBAGEPULT_HEAD] = true;
 		aList[ZOMBIE_CHERRYBOMB_HEAD] = true;
 		aList[ZOMBIE_UMBRELLA_HEAD] = true;
+		aList[ZOMBIE_HYPNOSHROOM_HEAD] = true;
 	}
 	else if (aGameMode == GAMEMODE_CHALLENGE_WAR_AND_PEAS_NIGHTMARE)
 	{

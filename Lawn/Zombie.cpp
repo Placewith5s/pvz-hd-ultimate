@@ -1432,7 +1432,7 @@ void Zombie::ZombieInitialize(int theRow, ZombieType theType, bool theVariant, Z
         mSpecialHeadReanimID = mApp->ReanimationGetID(aHeadReanim);
         AttachEffect* aAttachEffect = AttachReanim(aTrackInstance->mAttachmentID, aHeadReanim, 0.0f, 0.0f);
         aBodyReanim->mFrameBasePose = 0;
-        TodScaleRotateTransformMatrix(aAttachEffect->mOffset, 55.0f, -5.0f, 0.2f, -1.0f, 1.0f);
+        TodScaleRotateTransformMatrix(aAttachEffect->mOffset, 70.0f, -35.0f, 0.2f, -1.0f, 1.0f);
 
         mVariant = false;
         mBodyHealth = 500;

@@ -63,6 +63,7 @@ ZombieDefinition gZombieDefs[NUM_ZOMBIE_TYPES] = {  //0x69DA80
     { ZOMBIE_CABBAGEPULT_HEAD,      REANIM_ZOMBIE_ZOMBOTANY,              1,      48,     1,     4000,   _S("ZOMBIE") },
     { ZOMBIE_CHERRYBOMB_HEAD,     REANIM_ZOMBIE_ZOMBOTANY,              3,      48,     10,     1000,   _S("ZOMBIE") },
     { ZOMBIE_UMBRELLA_HEAD,     REANIM_ZOMBIE_ZOMBOTANY,              1,      48,     1,     4000,   _S("ZOMBIE") },
+    { ZOMBIE_DOOMSHROOM_HEAD,     REANIM_ZOMBIE_ZOMBOTANY,              3,      48,     10,     1000,   _S("ZOMBIE") },
     { ZOMBIE_DOOR_TRAFFIC_CONE,              REANIM_ZOMBIE,              4,      53,     5,      3500,   _S("SCREEN_DOOR_CONEHEAD_ZOMBIE") },
     { ZOMBIE_DOOR_PAIL,              REANIM_ZOMBIE,              4,      53,     5,      3500,   _S("SCREEN_DOOR_BUCKETHEAD_ZOMBIE") },
     { ZOMBIE_BUNGEE_PAIL,            REANIM_BUNGEE,              3,      60,     10,     2000,   _S("BUNGEE_BUCKETHEAD_ZOMBIE") },
@@ -1415,6 +1416,30 @@ void Zombie::ZombieInitialize(int theRow, ZombieType theType, bool theVariant, Z
         mPhaseCounter = 500;
         break;
     }
+
+    case ZombieType::ZOMBIE_DOOMSHROOM_HEAD:  // doom shroom zombie
+    {
+        LoadPlainZombieReanim();
+        ReanimShowPrefix("anim_hair", RENDER_GROUP_HIDDEN);
+        ReanimShowPrefix("anim_head", RENDER_GROUP_HIDDEN);
+        ReanimShowPrefix("Zombie_tie", RENDER_GROUP_HIDDEN);
+        ReanimShowPrefix("Zombie_zombotany_tie", RENDER_GROUP_NORMAL);
+
+        Reanimation* aBodyReanim = mApp->ReanimationGet(mBodyReanimID);
+        ReanimatorTrackInstance* aTrackInstance = aBodyReanim->GetTrackInstanceByName("Zombie_zombotany_body");
+        Reanimation* aHeadReanim = mApp->AddReanimation(0.0f, 0.0f, 0, ReanimationType::REANIM_DOOMSHROOM);
+        aHeadReanim->PlayReanim("anim_idle", ReanimLoopType::REANIM_LOOP, 0, 15.0f);
+        mSpecialHeadReanimID = mApp->ReanimationGetID(aHeadReanim);
+        AttachEffect* aAttachEffect = AttachReanim(aTrackInstance->mAttachmentID, aHeadReanim, 0.0f, 0.0f);
+        aBodyReanim->mFrameBasePose = 0;
+        TodScaleRotateTransformMatrix(aAttachEffect->mOffset, 55.0f, -5.0f, 0.2f, -1.0f, 1.0f);
+
+        mVariant = false;
+        mBodyHealth = 500;
+        int aDistance = 275 + Rand(175);
+        mPhaseCounter = (int)(aDistance / mVelX) * ZOMBIE_LIMP_SPEED_FACTOR;
+        break;
+    }
     }
 
     if (IsOnBoard() && mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_ZOMBIQUARIUM)
@@ -1509,6 +1534,7 @@ void Zombie::SetupReanimLayers(Reanimation* aReanim, ZombieType theZombieType)
     aReanim->AssignRenderGroupToPrefix("Zombie_zombotany_tie", RENDER_GROUP_HIDDEN);
     if (theZombieType == ZombieType::ZOMBIE_WALLNUT_HEAD || theZombieType == ZombieType::ZOMBIE_TALLNUT_HEAD || theZombieType == ZombieType::ZOMBIE_JALAPENO_HEAD ||
         theZombieType == ZombieType::ZOMBIE_POTATOMINE_HEAD || theZombieType == ZombieType::ZOMBIE_CHERRYBOMB_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_DOOMSHROOM_HEAD ||
         theZombieType == ZombieType::ZOMBIE_PUMPKIN_HEAD || theZombieType == ZombieType::ZOMBIE_UMBRELLA_HEAD ||
         theZombieType == ZombieType::ZOMBIE_NIGHTMARE_WALLNUT_HEAD || theZombieType == ZombieType::ZOMBIE_NIGHTMARE_TALLNUT_HEAD ||
         theZombieType == ZombieType::ZOMBIE_NIGHTMARE_JALAPENO_HEAD ||
@@ -3814,6 +3840,9 @@ void Zombie::UpdateZombiePotatomineHead()
 
     Reanimation* aSpecialHeadReanim = mApp->ReanimationTryToGet(mSpecialHeadReanimID);
 
+    int aPosX = mX + mWidth / 2 - 20;
+    int aPosY = mY + mHeight / 2;
+
     if (mPhaseCounter <= 100 && mHasHead)
     {
         Reanimation* aBodyReanim = mApp->ReanimationTryToGet(mBodyReanimID);
@@ -3840,9 +3869,6 @@ void Zombie::UpdateZombiePotatomineHead()
             aSpecialHeadReanim->SetFramesForLayer("anim_armed");
             PlantState::STATE_POTATO_ARMED;
 
-            int aPosX = mX + mWidth / 2 - 20;
-            int aPosY = mY + mHeight / 2;
-
             int aRenderPosition = Board::MakeRenderOrder(RenderLayer::RENDER_LAYER_PARTICLE, mRow, 0);
             TodParticleSystem* aParticle = mApp->AddTodParticle(aPosX + 20.0f, aPosY, aRenderPosition, ParticleEffect::PARTICLE_POTATO_MINE);
             Reanimation* aBodyReanim = mApp->ReanimationTryToGet(mBodyReanimID);
@@ -3857,9 +3883,6 @@ void Zombie::UpdateZombiePotatomineHead()
 
             aSpecialHeadReanim->SetFramesForLayer("anim_armed");
             PlantState::STATE_POTATO_ARMED;
-
-            int aPosX = mX + mWidth / 2 - 20;
-            int aPosY = mY + mHeight / 2;
 
             int aRenderPosition = Board::MakeRenderOrder(RenderLayer::RENDER_LAYER_PARTICLE, mRow, 0);
             TodParticleSystem* aParticle = mApp->AddTodParticle(aPosX + 20.0f, aPosY, aRenderPosition, ParticleEffect::PARTICLE_POTATO_MINE);
@@ -3941,6 +3964,9 @@ void Zombie::UpdateZombieCherrybombHead()
 
     Reanimation* aSpecialHeadReanim = mApp->ReanimationTryToGet(mSpecialHeadReanimID);
 
+    int aPosX = mX + mWidth / 2 - 20;
+    int aPosY = mY + mHeight / 2;
+
     if (mPhaseCounter <= 100 && mHasHead)
     {
         Reanimation* aBodyReanim = mApp->ReanimationTryToGet(mBodyReanimID);
@@ -3962,9 +3988,6 @@ void Zombie::UpdateZombieCherrybombHead()
             mApp->PlayFoley(FoleyType::FOLEY_CHERRYBOMB);
             mApp->PlayFoley(FoleyType::FOLEY_JUICY);
 
-            int aPosX = mX + mWidth / 2;
-            int aPosY = mY + mHeight / 2;
-
             TodParticleSystem* aParticle = mApp->AddTodParticle(aPosX, aPosY, (int)RenderLayer::RENDER_LAYER_TOP, ParticleEffect::PARTICLE_POWIE);
             Reanimation* aBodyReanim = mApp->ReanimationTryToGet(mBodyReanimID);
             if (aParticle && aBodyReanim && aBodyReanim->mFilterEffect != FilterEffect::FILTER_EFFECT_NONE)
@@ -3978,9 +4001,6 @@ void Zombie::UpdateZombieCherrybombHead()
             mApp->PlayFoley(FoleyType::FOLEY_JUICY);
 
             //mApp->PlaySample(SOUND_CHERRYBOMB);
-
-            int aPosX = mX + mWidth / 2 - 20;
-            int aPosY = mY + mHeight / 2;
 
             TodParticleSystem* aParticle = mApp->AddTodParticle(aPosX, aPosY, (int)RenderLayer::RENDER_LAYER_TOP, ParticleEffect::PARTICLE_POWIE);
             Reanimation* aBodyReanim = mApp->ReanimationTryToGet(mBodyReanimID);
@@ -4157,6 +4177,67 @@ void Zombie::UpdateZombieUmbrellaHead()
             }
         }
         mPhaseCounter = 500;
+    }
+}
+
+void Zombie::UpdateZombieDoomshroomHead()
+{
+    if (!mHasHead)
+        return;
+
+    Reanimation* aSpecialHeadReanim = mApp->ReanimationTryToGet(mSpecialHeadReanimID);
+
+    int aPosX = mX + mWidth / 2 - 20;
+    int aPosY = mY + mHeight / 2;
+
+    if (mPhaseCounter <= 100 && mHasHead)
+    {
+        Reanimation* aBodyReanim = mApp->ReanimationTryToGet(mBodyReanimID);
+        if (aBodyReanim && aSpecialHeadReanim)
+        {
+            ReanimatorTrackInstance* aTrackInstance = aBodyReanim->GetTrackInstanceByName("Zombie_zombotany_body");
+            Attachment* aAttachment = gEffectSystem->mAttachmentHolder->mAttachments.DataArrayTryToGet(aTrackInstance->mAttachmentID);
+            aAttachment->mShakeOffsetX = RandRangeFloat(-1.0f, 1.0f);
+            aAttachment->mShakeOffsetY = RandRangeFloat(-1.0f, 1.0f);
+        }
+    }
+
+    if (mPhaseCounter == 0)
+    {
+        mBoard->ShakeBoard(3, -4);
+
+        if (mMindControlled)
+        {
+            mApp->PlaySample(SOUND_DOOMSHROOM);
+
+            mBoard->KillForZombiePlantsInRadius(mRow, aPosX, aPosY, 250, 3);
+
+            TodParticleSystem* aParticle = mApp->AddTodParticle(aPosX, aPosY, (int)RenderLayer::RENDER_LAYER_TOP, ParticleEffect::PARTICLE_DOOM);
+            Reanimation* aBodyReanim = mApp->ReanimationTryToGet(mBodyReanimID);
+            if (aParticle && aBodyReanim && aBodyReanim->mFilterEffect != FilterEffect::FILTER_EFFECT_NONE)
+            {
+                aParticle->OverrideFilterEffect(nullptr, aBodyReanim->mFilterEffect);
+            }
+            //mBoard->AddACrater(mPlantCol, mRow)->mGridItemCounter = 18000;
+            mBoard->ShakeBoard(3, -4);
+        }
+        else
+        {
+            mApp->PlaySample(SOUND_DOOMSHROOM);
+
+            mBoard->KillForZombiePlantsInRadius(mRow, aPosX, aPosY, 250, 3);
+
+            TodParticleSystem* aParticle = mApp->AddTodParticle(aPosX, aPosY, (int)RenderLayer::RENDER_LAYER_TOP, ParticleEffect::PARTICLE_DOOM);
+            Reanimation* aBodyReanim = mApp->ReanimationTryToGet(mBodyReanimID);
+            if (aParticle && aBodyReanim && aBodyReanim->mFilterEffect != FilterEffect::FILTER_EFFECT_NONE)
+            {
+                aParticle->OverrideFilterEffect(nullptr, aBodyReanim->mFilterEffect);
+            }
+            //mBoard->AddACrater(mPlantCol, mRow)->mGridItemCounter = 18000;
+            mBoard->ShakeBoard(3, -4);
+        }
+        DieNoLoot();
+
     }
 }
 
@@ -6626,6 +6707,10 @@ void Zombie::UpdateActions()
     if (mZombieType == ZombieType::ZOMBIE_UMBRELLA_HEAD)
     {
         UpdateZombieUmbrellaHead();
+    }
+    if (mZombieType == ZombieType::ZOMBIE_DOOMSHROOM_HEAD)
+    {
+        UpdateZombieDoomshroomHead();
     }
 
 #ifdef _HAS_BLOOM_AND_DOOM_CONTENTS
@@ -11563,6 +11648,7 @@ bool Zombie::IsZombotany(ZombieType theZombieType)
         theZombieType == ZombieType::ZOMBIE_CABBAGEPULT_HEAD ||
         theZombieType == ZombieType::ZOMBIE_CHERRYBOMB_HEAD ||
         theZombieType == ZombieType::ZOMBIE_UMBRELLA_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_DOOMSHROOM_HEAD ||
         theZombieType == ZombieType::ZOMBIE_NIGHTMARE_PEA_HEAD ||
         theZombieType == ZombieType::ZOMBIE_NIGHTMARE_WALLNUT_HEAD ||
         theZombieType == ZombieType::ZOMBIE_NIGHTMARE_TALLNUT_HEAD ||
@@ -11611,6 +11697,7 @@ bool Zombie::ZombieTypeCanGoInPool(ZombieType theZombieType)
         theZombieType == ZombieType::ZOMBIE_CABBAGEPULT_HEAD ||
         theZombieType == ZombieType::ZOMBIE_CHERRYBOMB_HEAD ||
         theZombieType == ZombieType::ZOMBIE_UMBRELLA_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_DOOMSHROOM_HEAD ||
         theZombieType == ZombieType::ZOMBIE_NIGHTMARE_PEA_HEAD ||
         theZombieType == ZombieType::ZOMBIE_NIGHTMARE_WALLNUT_HEAD ||
         theZombieType == ZombieType::ZOMBIE_NIGHTMARE_JALAPENO_HEAD ||
@@ -12679,6 +12766,7 @@ void Zombie::UpdateDeath()
         case ZombieType::ZOMBIE_CABBAGEPULT_HEAD:
         case ZombieType::ZOMBIE_CHERRYBOMB_HEAD:
         case ZombieType::ZOMBIE_UMBRELLA_HEAD:
+        case ZombieType::ZOMBIE_DOOMSHROOM_HEAD:
         case ZombieType::ZOMBIE_NIGHTMARE_PEA_HEAD:
         case ZombieType::ZOMBIE_NIGHTMARE_WALLNUT_HEAD:
         case ZombieType::ZOMBIE_NIGHTMARE_TALLNUT_HEAD:

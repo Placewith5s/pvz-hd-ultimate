@@ -64,6 +64,7 @@ ZombieDefinition gZombieDefs[NUM_ZOMBIE_TYPES] = {  //0x69DA80
     { ZOMBIE_CHERRYBOMB_HEAD,     REANIM_ZOMBIE_ZOMBOTANY,              3,      48,     10,     1000,   _S("ZOMBIE") },
     { ZOMBIE_UMBRELLA_HEAD,     REANIM_ZOMBIE_ZOMBOTANY,              1,      48,     1,     4000,   _S("ZOMBIE") },
     { ZOMBIE_DOOMSHROOM_HEAD,     REANIM_ZOMBIE_ZOMBOTANY,              3,      48,     10,     1000,   _S("ZOMBIE") },
+    { ZOMBIE_HYPNOSHROOM_HEAD,          REANIM_ZOMBIE_ZOMBOTANY,              1,      48,     1,      4000,   _S("ZOMBIE") },
     { ZOMBIE_DOOR_TRAFFIC_CONE,              REANIM_ZOMBIE,              4,      53,     5,      3500,   _S("SCREEN_DOOR_CONEHEAD_ZOMBIE") },
     { ZOMBIE_DOOR_PAIL,              REANIM_ZOMBIE,              4,      53,     5,      3500,   _S("SCREEN_DOOR_BUCKETHEAD_ZOMBIE") },
     { ZOMBIE_BUNGEE_PAIL,            REANIM_BUNGEE,              3,      60,     10,     2000,   _S("BUNGEE_BUCKETHEAD_ZOMBIE") },
@@ -1417,7 +1418,7 @@ void Zombie::ZombieInitialize(int theRow, ZombieType theType, bool theVariant, Z
         break;
     }
 
-    case ZombieType::ZOMBIE_DOOMSHROOM_HEAD:  // doom shroom zombie
+    case ZombieType::ZOMBIE_DOOMSHROOM_HEAD:  // doom-shroom zombie
     {
         LoadPlainZombieReanim();
         ReanimShowPrefix("anim_hair", RENDER_GROUP_HIDDEN);
@@ -1438,6 +1439,28 @@ void Zombie::ZombieInitialize(int theRow, ZombieType theType, bool theVariant, Z
         mBodyHealth = 500;
         int aDistance = 275 + Rand(175);
         mPhaseCounter = (int)(aDistance / mVelX) * ZOMBIE_LIMP_SPEED_FACTOR;
+        break;
+    }
+
+    case ZombieType::ZOMBIE_HYPNOSHROOM_HEAD:  // hypno-shroom zombie
+    {
+        LoadPlainZombieReanim();
+        ReanimShowPrefix("anim_hair", RENDER_GROUP_HIDDEN);
+        ReanimShowPrefix("anim_head", RENDER_GROUP_HIDDEN);
+        ReanimShowPrefix("Zombie_tie", RENDER_GROUP_HIDDEN);
+        ReanimShowPrefix("Zombie_zombotany_tie", RENDER_GROUP_NORMAL);
+
+        Reanimation* aBodyReanim = mApp->ReanimationGet(mBodyReanimID);
+        ReanimatorTrackInstance* aTrackInstance = aBodyReanim->GetTrackInstanceByName("Zombie_zombotany_body");
+        Reanimation* aHeadReanim = mApp->AddReanimation(0.0f, 0.0f, 0, ReanimationType::REANIM_HYPNOSHROOM);
+        aHeadReanim->PlayReanim("anim_idle", ReanimLoopType::REANIM_LOOP, 0, 15.0f);
+        mSpecialHeadReanimID = mApp->ReanimationGetID(aHeadReanim);
+        AttachEffect* aAttachEffect = AttachReanim(aTrackInstance->mAttachmentID, aHeadReanim, 0.0f, 0.0f);
+        aBodyReanim->mFrameBasePose = 0;
+        TodScaleRotateTransformMatrix(aAttachEffect->mOffset, 60.0f, -5.0f, 0.2f, -1.0f, 1.0f);
+
+        mVariant = false;
+        mBodyHealth = 500;
         break;
     }
     }
@@ -1532,7 +1555,8 @@ void Zombie::SetupReanimLayers(Reanimation* aReanim, ZombieType theZombieType)
     aReanim->AssignRenderGroupToPrefix("anim_tongue", RENDER_GROUP_HIDDEN);
     aReanim->AssignRenderGroupToPrefix("Zombie_mustache", RENDER_GROUP_HIDDEN);
     aReanim->AssignRenderGroupToPrefix("Zombie_zombotany_tie", RENDER_GROUP_HIDDEN);
-    if (theZombieType == ZombieType::ZOMBIE_WALLNUT_HEAD || theZombieType == ZombieType::ZOMBIE_TALLNUT_HEAD || theZombieType == ZombieType::ZOMBIE_JALAPENO_HEAD ||
+    if (theZombieType == ZombieType::ZOMBIE_WALLNUT_HEAD || theZombieType == ZombieType::ZOMBIE_TALLNUT_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_JALAPENO_HEAD ||
         theZombieType == ZombieType::ZOMBIE_POTATOMINE_HEAD || theZombieType == ZombieType::ZOMBIE_CHERRYBOMB_HEAD ||
         theZombieType == ZombieType::ZOMBIE_DOOMSHROOM_HEAD ||
         theZombieType == ZombieType::ZOMBIE_PUMPKIN_HEAD || theZombieType == ZombieType::ZOMBIE_UMBRELLA_HEAD ||
@@ -1543,7 +1567,8 @@ void Zombie::SetupReanimLayers(Reanimation* aReanim, ZombieType theZombieType)
         theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_WALLNUT_HEAD || theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_TALLNUT_HEAD ||
         theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_JALAPENO_HEAD ||
         theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_POTATOMINE_HEAD || theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_CHERRYBOMB_HEAD ||
-        theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_PUMPKIN_HEAD)
+        theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_PUMPKIN_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_HYPNOSHROOM_HEAD)
     {
         ReanimatorTrackInstance* aTrackInstance = aReanim->GetTrackInstanceByName("Zombie_zombotany_body");
         if (aTrackInstance)
@@ -4030,14 +4055,6 @@ void Zombie::UpdateZombieUmbrellaHead()
 
     Reanimation* aBodyReanim = mApp->ReanimationTryToGet(mBodyReanimID);
 
-    if (aBodyReanim && aSpecialHeadReanim)
-    {
-        ReanimatorTrackInstance* aTrackInstance = aBodyReanim->GetTrackInstanceByName("Zombie_zombotany_body");
-        Attachment* aAttachment = gEffectSystem->mAttachmentHolder->mAttachments.DataArrayTryToGet(aTrackInstance->mAttachmentID);
-        aAttachment->mShakeOffsetX = RandRangeFloat(-1.0f, 1.0f);
-        aAttachment->mShakeOffsetY = RandRangeFloat(-1.0f, 1.0f);
-    }
-
     if (mPhaseCounter == 0)
     {
         if (mMindControlled)
@@ -4238,6 +4255,30 @@ void Zombie::UpdateZombieDoomshroomHead()
         }
         DieNoLoot();
 
+    }
+}
+
+void Zombie::UpdateZombieHypnoshroomHead()
+{
+    if (!mHasHead)
+        return;
+
+    Reanimation* aSpecialHeadReanim = mApp->ReanimationTryToGet(mSpecialHeadReanimID);
+
+    int aPosX = mX + mWidth / 2 - 20;
+    int aPosY = mY + mHeight / 2;
+
+    Reanimation* aBodyReanim = mApp->ReanimationTryToGet(mBodyReanimID);
+
+    if (mIsEating)
+    {
+        if (!mMindControlled)
+        {
+            mApp->PlayFoley(FoleyType::FOLEY_JUICY);
+            mBoard->KillForZombiePlantsInRadius(mRow, aPosX, aPosY, 30, 0);
+        }
+
+        DieNoLoot();
     }
 }
 
@@ -6711,6 +6752,10 @@ void Zombie::UpdateActions()
     if (mZombieType == ZombieType::ZOMBIE_DOOMSHROOM_HEAD)
     {
         UpdateZombieDoomshroomHead();
+    }
+    if (mZombieType == ZombieType::ZOMBIE_HYPNOSHROOM_HEAD)
+    {
+        UpdateZombieHypnoshroomHead();
     }
 
 #ifdef _HAS_BLOOM_AND_DOOM_CONTENTS
@@ -11649,6 +11694,7 @@ bool Zombie::IsZombotany(ZombieType theZombieType)
         theZombieType == ZombieType::ZOMBIE_CHERRYBOMB_HEAD ||
         theZombieType == ZombieType::ZOMBIE_UMBRELLA_HEAD ||
         theZombieType == ZombieType::ZOMBIE_DOOMSHROOM_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_HYPNOSHROOM_HEAD ||
         theZombieType == ZombieType::ZOMBIE_NIGHTMARE_PEA_HEAD ||
         theZombieType == ZombieType::ZOMBIE_NIGHTMARE_WALLNUT_HEAD ||
         theZombieType == ZombieType::ZOMBIE_NIGHTMARE_TALLNUT_HEAD ||
@@ -11698,6 +11744,7 @@ bool Zombie::ZombieTypeCanGoInPool(ZombieType theZombieType)
         theZombieType == ZombieType::ZOMBIE_CHERRYBOMB_HEAD ||
         theZombieType == ZombieType::ZOMBIE_UMBRELLA_HEAD ||
         theZombieType == ZombieType::ZOMBIE_DOOMSHROOM_HEAD ||
+        theZombieType == ZombieType::ZOMBIE_HYPNOSHROOM_HEAD ||
         theZombieType == ZombieType::ZOMBIE_NIGHTMARE_PEA_HEAD ||
         theZombieType == ZombieType::ZOMBIE_NIGHTMARE_WALLNUT_HEAD ||
         theZombieType == ZombieType::ZOMBIE_NIGHTMARE_JALAPENO_HEAD ||
@@ -12767,6 +12814,7 @@ void Zombie::UpdateDeath()
         case ZombieType::ZOMBIE_CHERRYBOMB_HEAD:
         case ZombieType::ZOMBIE_UMBRELLA_HEAD:
         case ZombieType::ZOMBIE_DOOMSHROOM_HEAD:
+        case ZombieType::ZOMBIE_HYPNOSHROOM_HEAD:
         case ZombieType::ZOMBIE_NIGHTMARE_PEA_HEAD:
         case ZombieType::ZOMBIE_NIGHTMARE_WALLNUT_HEAD:
         case ZombieType::ZOMBIE_NIGHTMARE_TALLNUT_HEAD:

@@ -677,43 +677,28 @@ MemoryImage* ReanimatorCache::MakeCachedZombieFrame(ZombieType theZombieType)
 		aReanim.OverrideScale(scale, scale);
 		Zombie::SetupReanimLayers(&aReanim, aUseZombieType);
 
-		// unused: one plant zombie has no head if used
-		//switch (theZombieType)
-		//{
-		//	case ZombieType::ZOMBIE_DOOR:
-		//	case ZombieType::ZOMBIE_DOOR_TRAFFIC_CONE:
-		//	case ZombieType::ZOMBIE_DOOR_PAIL:
-		//	
-		//	case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_PEA_HEAD:
-		//	case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_JALAPENO_HEAD:
-		//	case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_GATLING_HEAD:
-		//	case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_SQUASH_HEAD:
-		//	case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_REPEATER_HEAD:
-		//	case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_POTATOMINE_HEAD:
-		//	case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_CABBAGEPULT_HEAD:
-		//	case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_CHERRYBOMB_HEAD:
-		//	{
-		//		aReanim.AssignRenderGroupToTrack("anim_screendoor", RENDER_GROUP_NORMAL);
-		//		aReanim.AssignRenderGroupToTrack("Zombie_outerarm_screendoor", RENDER_GROUP_NORMAL);
-		//		break;
-		//	}
-		//}
-
-		if (theZombieType == ZombieType::ZOMBIE_DOOR || theZombieType == ZombieType::ZOMBIE_DOOR_TRAFFIC_CONE ||
-			theZombieType == ZombieType::ZOMBIE_DOOR_PAIL ||
-			theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_PEA_HEAD ||
-			theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_JALAPENO_HEAD ||
-			theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_GATLING_HEAD ||
-			theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_SQUASH_HEAD ||
-			theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_REPEATER_HEAD ||
-			theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_POTATOMINE_HEAD ||
-			theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_CABBAGEPULT_HEAD ||
-			theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_CHERRYBOMB_HEAD)
+		switch (theZombieType)
 		{
-			aReanim.AssignRenderGroupToTrack("anim_screendoor", RENDER_GROUP_NORMAL);
-			aReanim.AssignRenderGroupToTrack("Zombie_outerarm_screendoor", RENDER_GROUP_NORMAL);
+			case ZombieType::ZOMBIE_DOOR:
+			case ZombieType::ZOMBIE_DOOR_TRAFFIC_CONE:
+			case ZombieType::ZOMBIE_DOOR_PAIL:
+			
+			case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_PEA_HEAD:
+			case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_JALAPENO_HEAD:
+			case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_GATLING_HEAD:
+			case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_SQUASH_HEAD:
+			case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_REPEATER_HEAD:
+			case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_POTATOMINE_HEAD:
+			case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_CABBAGEPULT_HEAD:
+			case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_CHERRYBOMB_HEAD:
+			{
+				aReanim.AssignRenderGroupToTrack("anim_screendoor", RENDER_GROUP_NORMAL);
+				aReanim.AssignRenderGroupToTrack("Zombie_outerarm_screendoor", RENDER_GROUP_NORMAL);
+				break;
+			}
 		}
-		else if (theZombieType == ZombieType::ZOMBIE_FLAG)
+
+		if (theZombieType == ZombieType::ZOMBIE_FLAG)
 		{
 			Reanimation aReanimFlag;
 			aReanimFlag.OverrideScale(scale, scale);
@@ -727,83 +712,65 @@ MemoryImage* ReanimatorCache::MakeCachedZombieFrame(ZombieType theZombieType)
 		{
 			aReanim.AssignRenderGroupToTrack("anim_cone", RENDER_GROUP_HELMET);
 		}
-		else if (theZombieType == ZombieType::ZOMBIE_PAIL || theZombieType == ZombieType::ZOMBIE_PAIL_VERY_HUNGRY ||
-			theZombieType == ZombieType::ZOMBIE_DOOR_PAIL ||
-			theZombieType == ZombieType::ZOMBIE_BUNGEE_PAIL ||
-			theZombieType == ZombieType::ZOMBIE_POGO_PAIL ||
-			theZombieType == ZombieType::ZOMBIE_NIGHTMARE_PEA_HEAD ||
-			theZombieType == ZombieType::ZOMBIE_NIGHTMARE_JALAPENO_HEAD ||
-			theZombieType == ZombieType::ZOMBIE_NIGHTMARE_GATLING_HEAD ||
-			theZombieType == ZombieType::ZOMBIE_NIGHTMARE_SQUASH_HEAD ||
-			theZombieType == ZombieType::ZOMBIE_NIGHTMARE_REPEATER_HEAD ||
-			theZombieType == ZombieType::ZOMBIE_NIGHTMARE_POTATOMINE_HEAD ||
-			theZombieType == ZombieType::ZOMBIE_NIGHTMARE_CABBAGEPULT_HEAD ||
-			theZombieType == ZombieType::ZOMBIE_NIGHTMARE_CHERRYBOMB_HEAD ||
-			theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_PEA_HEAD ||
-			theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_JALAPENO_HEAD ||
-			theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_GATLING_HEAD ||
-			theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_SQUASH_HEAD ||
-			theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_REPEATER_HEAD ||
-			theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_POTATOMINE_HEAD ||
-			theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_CABBAGEPULT_HEAD ||
-			theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_CHERRYBOMB_HEAD)
+
+		switch (theZombieType)
 		{
-			aReanim.AssignRenderGroupToTrack("anim_bucket", RENDER_GROUP_HELMET);
+			case ZombieType::ZOMBIE_PAIL:
+			case ZombieType::ZOMBIE_PAIL_VERY_HUNGRY:
+			case ZombieType::ZOMBIE_DOOR_PAIL:
+			case ZombieType::ZOMBIE_BUNGEE_PAIL:
+			case ZombieType::ZOMBIE_POGO_PAIL:
+			case ZombieType::ZOMBIE_NIGHTMARE_PEA_HEAD:
+			case ZombieType::ZOMBIE_NIGHTMARE_JALAPENO_HEAD:
+			case ZombieType::ZOMBIE_NIGHTMARE_GATLING_HEAD:
+			case ZombieType::ZOMBIE_NIGHTMARE_SQUASH_HEAD:
+			case ZombieType::ZOMBIE_NIGHTMARE_REPEATER_HEAD:
+			case ZombieType::ZOMBIE_NIGHTMARE_POTATOMINE_HEAD:
+			case ZombieType::ZOMBIE_NIGHTMARE_CABBAGEPULT_HEAD:
+			case ZombieType::ZOMBIE_NIGHTMARE_CHERRYBOMB_HEAD:
+			case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_PEA_HEAD:
+			case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_JALAPENO_HEAD:
+			case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_GATLING_HEAD:
+			case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_SQUASH_HEAD:
+			case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_REPEATER_HEAD:
+			case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_POTATOMINE_HEAD:
+			case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_CABBAGEPULT_HEAD:
+			case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_CHERRYBOMB_HEAD:
+			{
+				aReanim.AssignRenderGroupToTrack("anim_bucket", RENDER_GROUP_HELMET);
+			}
 		}
 
 		aReanim.Draw(&aMemoryGraphics);
 
-		// unused: problematic or something else is
-		//switch (theZombieType)
-		//{
-		//	case ZombieType::ZOMBIE_TRAFFIC_CONE:
-		//	case ZombieType::ZOMBIE_PAIL:
-		//	case ZombieType::ZOMBIE_TRAFFIC_CONE_VERY_HUNGRY:
-		//	case ZombieType::ZOMBIE_PAIL_VERY_HUNGRY:
-		//	
-		//	case ZombieType::ZOMBIE_NIGHTMARE_PEA_HEAD:
-		//	case ZombieType::ZOMBIE_NIGHTMARE_JALAPENO_HEAD:
-		//	case ZombieType::ZOMBIE_NIGHTMARE_GATLING_HEAD:
-		//	case ZombieType::ZOMBIE_NIGHTMARE_SQUASH_HEAD:
-		//	case ZombieType::ZOMBIE_NIGHTMARE_REPEATER_HEAD:
-		//	case ZombieType::ZOMBIE_NIGHTMARE_POTATOMINE_HEAD:
-		//	case ZombieType::ZOMBIE_NIGHTMARE_CABBAGEPULT_HEAD:
-		//	case ZombieType::ZOMBIE_NIGHTMARE_CHERRYBOMB_HEAD:
-		//	case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_PEA_HEAD:
-		//	case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_JALAPENO_HEAD:
-		//	case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_GATLING_HEAD:
-		//	case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_SQUASH_HEAD:
-		//	case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_REPEATER_HEAD:
-		//	case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_POTATOMINE_HEAD:
-		//	case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_CABBAGEPULT_HEAD:
-		//	case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_CHERRYBOMB_HEAD:
-		//	{
-		//		aReanim.mOverlayMatrix.m02 -= 2;
-		//		aReanim.DrawRenderGroup(&aMemoryGraphics, RENDER_GROUP_HELMET);
-		//		break;
-		//	}
-		//}
-
-		if (theZombieType == ZombieType::ZOMBIE_TRAFFIC_CONE || theZombieType == ZombieType::ZOMBIE_PAIL ||
-			theZombieType == ZombieType::ZOMBIE_TRAFFIC_CONE_VERY_HUNGRY || theZombieType == ZombieType::ZOMBIE_PAIL_VERY_HUNGRY ||
-			theZombieType == ZombieType::ZOMBIE_NIGHTMARE_PEA_HEAD ||
-			theZombieType == ZombieType::ZOMBIE_NIGHTMARE_JALAPENO_HEAD ||
-			theZombieType == ZombieType::ZOMBIE_NIGHTMARE_GATLING_HEAD ||
-			theZombieType == ZombieType::ZOMBIE_NIGHTMARE_SQUASH_HEAD ||
-			theZombieType == ZombieType::ZOMBIE_NIGHTMARE_REPEATER_HEAD ||
-			theZombieType == ZombieType::ZOMBIE_NIGHTMARE_POTATOMINE_HEAD ||
-			theZombieType == ZombieType::ZOMBIE_NIGHTMARE_CABBAGEPULT_HEAD ||
-			theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_PEA_HEAD ||
-			theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_JALAPENO_HEAD ||
-			theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_GATLING_HEAD ||
-			theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_SQUASH_HEAD ||
-			theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_REPEATER_HEAD ||
-			theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_POTATOMINE_HEAD ||
-			theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_CABBAGEPULT_HEAD ||
-			theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_CHERRYBOMB_HEAD)
+		switch (theZombieType)
 		{
-			aReanim.mOverlayMatrix.m02 -= 2;
-			aReanim.DrawRenderGroup(&aMemoryGraphics, RENDER_GROUP_HELMET);
+			case ZombieType::ZOMBIE_TRAFFIC_CONE:
+			case ZombieType::ZOMBIE_PAIL:
+			case ZombieType::ZOMBIE_TRAFFIC_CONE_VERY_HUNGRY:
+			case ZombieType::ZOMBIE_PAIL_VERY_HUNGRY:
+			
+			case ZombieType::ZOMBIE_NIGHTMARE_PEA_HEAD:
+			case ZombieType::ZOMBIE_NIGHTMARE_JALAPENO_HEAD:
+			case ZombieType::ZOMBIE_NIGHTMARE_GATLING_HEAD:
+			case ZombieType::ZOMBIE_NIGHTMARE_SQUASH_HEAD:
+			case ZombieType::ZOMBIE_NIGHTMARE_REPEATER_HEAD:
+			case ZombieType::ZOMBIE_NIGHTMARE_POTATOMINE_HEAD:
+			case ZombieType::ZOMBIE_NIGHTMARE_CABBAGEPULT_HEAD:
+			case ZombieType::ZOMBIE_NIGHTMARE_CHERRYBOMB_HEAD:
+			case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_PEA_HEAD:
+			case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_JALAPENO_HEAD:
+			case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_GATLING_HEAD:
+			case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_SQUASH_HEAD:
+			case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_REPEATER_HEAD:
+			case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_POTATOMINE_HEAD:
+			case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_CABBAGEPULT_HEAD:
+			case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_CHERRYBOMB_HEAD:
+			{
+				aReanim.mOverlayMatrix.m02 -= 2;
+				aReanim.DrawRenderGroup(&aMemoryGraphics, RENDER_GROUP_HELMET);
+				break;
+			}
 		}
 	}
 	else if (aZombieDef.mReanimationType == ReanimationType::REANIM_BOSS)

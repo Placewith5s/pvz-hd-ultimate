@@ -538,7 +538,7 @@ MemoryImage* ReanimatorCache::MakeCachedZombieFrame(ZombieType theZombieType)
 	else if (theZombieType == ZombieType::ZOMBIE_WALLNUT_HEAD || theZombieType == ZombieType::ZOMBIE_TALLNUT_HEAD ||
 		theZombieType == ZombieType::ZOMBIE_JALAPENO_HEAD || theZombieType == ZombieType::ZOMBIE_POTATOMINE_HEAD ||
 		theZombieType == ZombieType::ZOMBIE_PUMPKIN_HEAD || theZombieType == ZombieType::ZOMBIE_CABBAGEPULT_HEAD ||
-		theZombieType == ZombieType::ZOMBIE_CHERRYBOMB_HEAD ||
+		theZombieType == ZombieType::ZOMBIE_CHERRYBOMB_HEAD || theZombieType == ZombieType::ZOMBIE_UMBRELLA_HEAD ||
 		theZombieType == ZombieType::ZOMBIE_NIGHTMARE_WALLNUT_HEAD || theZombieType == ZombieType::ZOMBIE_NIGHTMARE_TALLNUT_HEAD ||
 		theZombieType == ZombieType::ZOMBIE_NIGHTMARE_JALAPENO_HEAD || theZombieType == ZombieType::ZOMBIE_NIGHTMARE_POTATOMINE_HEAD ||
 		theZombieType == ZombieType::ZOMBIE_NIGHTMARE_PUMPKIN_HEAD || theZombieType == ZombieType::ZOMBIE_NIGHTMARE_CABBAGEPULT_HEAD ||
@@ -602,6 +602,9 @@ MemoryImage* ReanimatorCache::MakeCachedZombieFrame(ZombieType theZombieType)
 			case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_CHERRYBOMB_HEAD:
 				aHeadType = ReanimationType::REANIM_CHERRYBOMB;
 				break;
+			case ZombieType::ZOMBIE_UMBRELLA_HEAD:
+				aHeadType = ReanimationType::REANIM_UMBRELLALEAF;
+				break;
 		}
 
 		Reanimation aHeadReanim;
@@ -647,6 +650,9 @@ MemoryImage* ReanimatorCache::MakeCachedZombieFrame(ZombieType theZombieType)
 			case ZombieType::ZOMBIE_NIGHTMARE_CHERRYBOMB_HEAD:
 			case ZombieType::ZOMBIE_EXTREME_NIGHTMARE_CHERRYBOMB_HEAD:
 				TodScaleRotateTransformMatrix(aAttachEffect->mOffset, 70.0f, -15.0f, 0.2f, -1.0f, 1.0f);
+				break;
+			case ZombieType::ZOMBIE_UMBRELLA_HEAD:
+				TodScaleRotateTransformMatrix(aAttachEffect->mOffset, 60.0f, -25.0f, 0.2f, -1.0f, 1.0f);
 				break;
 		}
 

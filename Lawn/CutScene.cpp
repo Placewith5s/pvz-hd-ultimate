@@ -112,7 +112,8 @@ void CutScene::PlaceAZombie(ZombieType theZombieType, int theGridX, int theGridY
 {
 	bool aPutOnDuckyTube = false;
 	if (theZombieType == ZombieType::ZOMBIE_DUCKY_TUBE && (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS || mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_2 ||
-		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_3 || mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_4))
+		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_3 || mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_4 ||
+		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_5))
 	{
 		theZombieType = ZombieType::ZOMBIE_PEA_HEAD;
 		aPutOnDuckyTube = true;

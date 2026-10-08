@@ -410,6 +410,7 @@ public:
     void                            UpdateZombiePotatomineHead();
     void                            UpdateZombieCabbagepultHead();
     void                            UpdateZombieCherrybombHead();
+    void                            UpdateZombieUmbrellaHead();
     bool                            IsTanglekelpTarget();
     bool                            HasYuckyFaceImage();
     bool                            IsTangleKelpTarget();

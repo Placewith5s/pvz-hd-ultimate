@@ -1412,7 +1412,7 @@ void Zombie::ZombieInitialize(int theRow, ZombieType theType, bool theVariant, Z
         TodScaleRotateTransformMatrix(aAttachEffect->mOffset, 60.0f, -25.0f, 0.2f, -1.0f, 1.0f);
 
         mVariant = false;
-        mPhaseCounter = 150;
+        mPhaseCounter = 500;
         break;
     }
     }
@@ -4005,70 +4005,80 @@ void Zombie::UpdateZombieUmbrellaHead()
 
     Plant* aPlant = nullptr;
     Projectile* aProjectile = nullptr;
+    //int mStateCountdown = 0;
+    ReanimationID mSpecialReanimID = ReanimationID::REANIMATIONID_NULL;
 
-    if (mPhaseCounter == 35)
+    Reanimation* aBodyReanim = mApp->ReanimationTryToGet(mBodyReanimID);
+
+    if (aBodyReanim && aSpecialHeadReanim)
     {
-        Reanimation* aBodyReanim = mApp->ReanimationTryToGet(mBodyReanimID);
-        if (aBodyReanim && aSpecialHeadReanim)
-        {
-            ReanimatorTrackInstance* aTrackInstance = aBodyReanim->GetTrackInstanceByName("Zombie_zombotany_body");
-            Attachment* aAttachment = gEffectSystem->mAttachmentHolder->mAttachments.DataArrayTryToGet(aTrackInstance->mAttachmentID);
-            aAttachment->mShakeOffsetX = RandRangeFloat(-1.0f, 1.0f);
-            aAttachment->mShakeOffsetY = RandRangeFloat(-1.0f, 1.0f);
-        }
+        ReanimatorTrackInstance* aTrackInstance = aBodyReanim->GetTrackInstanceByName("Zombie_zombotany_body");
+        Attachment* aAttachment = gEffectSystem->mAttachmentHolder->mAttachments.DataArrayTryToGet(aTrackInstance->mAttachmentID);
+        aAttachment->mShakeOffsetX = RandRangeFloat(-1.0f, 1.0f);
+        aAttachment->mShakeOffsetY = RandRangeFloat(-1.0f, 1.0f);
     }
-    else if (mPhaseCounter == 0)
+
+    if (mPhaseCounter == 0)
     {
         if (mMindControlled)
         {
-            while (mBoard->IteratePlants(aPlant))
+            DieNoLoot();
+        }
+        else
+        {
+            //if (mStateCountdown > 0)
+                //mStateCountdown--;
+
+            if (PlantState::STATE_UMBRELLA_REFLECTING)
             {
-                if (aPlant->mState == PlantState::STATE_UMBRELLA_REFLECTING)
-                {
-                    mApp->PlayFoley(FoleyType::FOLEY_SPLAT);
-                    int aRenderPosition = Board::MakeRenderOrder(RenderLayer::RENDER_LAYER_TOP, 0, 1);
-                    mApp->AddTodParticle(mPosX + 20.0f, mPosY + 20.0f, aRenderPosition, ParticleEffect::PARTICLE_UMBRELLA_REFLECT);
+                mApp->PlayFoley(FoleyType::FOLEY_SPLAT);
+                int aRenderPosition = Board::MakeRenderOrder(RenderLayer::RENDER_LAYER_TOP, 0, 1);
+                mApp->AddTodParticle(mPosX + 20.0f, mPosY + 20.0f, aRenderPosition, ParticleEffect::PARTICLE_UMBRELLA_REFLECT);
 
-                    while (mBoard->IterateProjectiles(aProjectile))
-                    {
-                        aProjectile->Die();
-                        break;
-                    }
-                }
-                else if (aPlant->mState != PlantState::STATE_UMBRELLA_TRIGGERED)
+                while (mBoard->mProjectiles.IterateNext(aProjectile))
                 {
-                    mApp->PlayFoley(FoleyType::FOLEY_UMBRELLA);
+                    aProjectile->Die();
+                    //break;
                 }
+            }
+            else if (!PlantState::STATE_UMBRELLA_TRIGGERED)
+            {
+                mApp->PlayFoley(FoleyType::FOLEY_UMBRELLA);
+                //aUmbrellaPlant->DoSpecial();
 
-                if (aPlant->mState != PlantState::STATE_UMBRELLA_TRIGGERED && aPlant->mState != PlantState::STATE_UMBRELLA_REFLECTING)
+                if (!PlantState::STATE_UMBRELLA_TRIGGERED && !PlantState::STATE_UMBRELLA_REFLECTING)
                 {
-                    aPlant->mState = PlantState::STATE_UMBRELLA_TRIGGERED;
-                    aPlant->mStateCountdown = 5;
+                    PlantState::STATE_UMBRELLA_TRIGGERED;
+                    //mStateCountdown = 5;
 
                     const PlantDefinition& aPlantDef = GetPlantDefinition(SeedType::SEED_UMBRELLA);
 
-                    Reanimation* aSpecialReanim = mApp->ReanimationTryToGet(aPlant->mSpecialReanimID);
+                    Reanimation* aSpecialReanim = mApp->ReanimationTryToGet(mSpecialReanimID);
                     Reanimation* aBodyReanim = mApp->ReanimationTryToGet(mBodyReanimID);
 
                     if (!aSpecialReanim)
                     {
-                        float aOffsetY = PlantDrawHeightOffset(mBoard, aPlant, SeedType::SEED_UMBRELLA, aPlant->mPlantCol, mRow);
-
-                        aSpecialReanim = mApp->AddReanimation(mX, mY + aOffsetY, Board::MakeRenderOrder(RenderLayer::RENDER_LAYER_PROJECTILE, mRow + 1, 0), aPlantDef.mReanimationType);
-                        aSpecialReanim->AssignRenderGroupToTrack("anim_face", RENDER_GROUP_HIDDEN);
-                        aSpecialReanim->PlayReanim("anim_block", ReanimLoopType::REANIM_PLAY_ONCE_AND_HOLD, 0, 22.0f);
-                        aPlant->mSpecialReanimID = mApp->ReanimationGetID(aSpecialReanim);
-
-                        if (!FloatApproxEqual(aPlant->mRad, 0.0f))
+                        while (mBoard->IteratePlants(aPlant))
                         {
-                            float aOffsetX = -sin(aPlant->mRad) * aOffsetY;
-                            TodScaleRotateTransformMatrix(aSpecialReanim->mOverlayMatrix, mX + aBodyReanim->mOverlayMatrix.m02 + aOffsetX, mY + aOffsetX + aBodyReanim->mOverlayMatrix.m12, aPlant->mRad, 1.0f, 1.0f);
-                        }
+                            float aOffsetY = PlantDrawHeightOffset(mBoard, aPlant, SeedType::SEED_UMBRELLA, aPlant->mPlantCol, mRow);
 
-                        if (aBodyReanim)
-                        {
-                            aSpecialReanim->mFilterEffect = aBodyReanim->mFilterEffect;
-                            aBodyReanim->ShowOnlyTrack("anim_face");
+                            aSpecialReanim = mApp->AddReanimation(mX, mY + aOffsetY, Board::MakeRenderOrder(RenderLayer::RENDER_LAYER_PROJECTILE, mRow + 1, 0), aPlantDef.mReanimationType);
+                            aSpecialReanim->AssignRenderGroupToTrack("anim_face", RENDER_GROUP_HIDDEN);
+                            aSpecialReanim->PlayReanim("anim_block", ReanimLoopType::REANIM_PLAY_ONCE_AND_HOLD, 0, 22.0f);
+                            mSpecialReanimID = mApp->ReanimationGetID(aSpecialReanim);
+
+                            if (!FloatApproxEqual(aPlant->mRad, 0.0f))
+                            {
+                                float aOffsetX = -sin(aPlant->mRad) * aOffsetY;
+                                TodScaleRotateTransformMatrix(aSpecialReanim->mOverlayMatrix, mX + aBodyReanim->mOverlayMatrix.m02 + aOffsetX, mY + aOffsetX + aBodyReanim->mOverlayMatrix.m12, aPlant->mRad, 1.0f, 1.0f);
+                            }
+
+                            if (aBodyReanim)
+                            {
+                                aSpecialReanim->mFilterEffect = aBodyReanim->mFilterEffect;
+                                aBodyReanim->ShowOnlyTrack("anim_face");
+                            }
+                            break;
                         }
                     }
                     else
@@ -4081,14 +4091,72 @@ void Zombie::UpdateZombieUmbrellaHead()
                         aSpecialReanim->mAnimRate = 22.0f;
                         aSpecialReanim->mRenderOrder = Board::MakeRenderOrder(RenderLayer::RENDER_LAYER_PROJECTILE, mRow + 1, 0);
                     }
-                }
 
-                aPlant->UpdateUmbrella();
-                break;
+                    //PlayBodyReanim("anim_block", ReanimLoopType::REANIM_PLAY_ONCE_AND_HOLD, 0, 22.0f);
+                }
             }
         }
 
-        mPhaseCounter = 150;
+        //aPlant->UpdateUmbrella();
+        if (PlantState::STATE_UMBRELLA_TRIGGERED)
+        {
+            //if (mStateCountdown == 0)
+            //{
+                //mRenderOrder = Board::MakeRenderOrder(RenderLayer::RENDER_LAYER_PROJECTILE, mRow + 1, 0);
+            PlantState::STATE_UMBRELLA_REFLECTING;
+            //}
+        }
+        else if (PlantState::STATE_UMBRELLA_REFLECTING)
+        {
+            Reanimation* aBodyReanim = mApp->ReanimationGet(mBodyReanimID);
+            if (aBodyReanim->mLoopCount > 0)
+            {
+                //PlayIdleAnim(0.0f);
+                PlantState::STATE_NOTREADY;
+                //mRenderOrder = CalcRenderOrder();
+            }
+        }
+
+        Reanimation* aSpecialReanim = mApp->ReanimationTryToGet(mSpecialReanimID);
+        aBodyReanim = mApp->ReanimationGet(mBodyReanimID);
+        if (aSpecialReanim)
+        {
+            if (aBodyReanim)
+            {
+                aSpecialReanim->mColorOverride = aBodyReanim->mColorOverride;
+                aSpecialReanim->mExtraAdditiveColor = aBodyReanim->mExtraAdditiveColor;
+                aSpecialReanim->mExtraOverlayColor = aBodyReanim->mExtraOverlayColor;
+                aSpecialReanim->mEnableExtraAdditiveDraw = aBodyReanim->mEnableExtraAdditiveDraw;
+                aSpecialReanim->mEnableExtraOverlayDraw = aBodyReanim->mEnableExtraOverlayDraw;
+            }
+
+            if (aSpecialReanim->mLoopCount > 0)
+            {
+                if (aSpecialReanim->IsAnimPlaying("anim_block"))
+                {
+                    aSpecialReanim->StartBlend(20);
+                    aSpecialReanim->SetFramesForLayer("anim_idle");
+                    aSpecialReanim->mLoopCount = 0;
+                    aSpecialReanim->mAnimTime = aBodyReanim->mAnimTime;
+                    aSpecialReanim->mLoopType = ReanimLoopType::REANIM_PLAY_ONCE_AND_HOLD;
+                    aSpecialReanim->mAnimRate = aBodyReanim->mAnimRate;
+                    aSpecialReanim->mRenderOrder = aBodyReanim->mRenderOrder;
+                }
+                else if (aSpecialReanim->IsAnimPlaying("anim_idle"))
+                {
+                    mApp->RemoveReanimation(mSpecialReanimID);
+                    Reanimation* aBodyReanim = mApp->ReanimationTryToGet(mBodyReanimID);
+                    if (aBodyReanim)
+                    {
+                        for (int i = 0; i < aBodyReanim->mDefinition->mTracks.count; i++)
+                        {
+                            aBodyReanim->mTrackInstances[i].mRenderGroup = RENDER_GROUP_NORMAL;
+                        }
+                    }
+                }
+            }
+        }
+        mPhaseCounter = 500;
     }
 }
 

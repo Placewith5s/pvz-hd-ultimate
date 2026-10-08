@@ -401,6 +401,7 @@ public:
 	Zombie*							ZombieHitTest(int theMouseX, int theMouseY);
 	void							KillAllPlantsInRadius(int theX, int theY, int theRadius);
 	void							KillForZombiePlantsInRadius(int theRow, int theX, int theY, int theRadius, int theRowRange);
+	void							PutGraveInRadius(int theRow, int theX, int theY, int theRadius, int theRowRange);
 	Plant*							GetPumpkinAt(int theGridX, int theGridY);
 	Plant*							GetFlowerPotAt(int theGridX, int theGridY);
 	static bool						CanZombieSpawnOnLevel(ZombieType theZombieType, int theLevel);

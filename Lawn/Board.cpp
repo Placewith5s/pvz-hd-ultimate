@@ -10643,6 +10643,11 @@ void Board::KeyChar(SexyChar theChar)
 			AddZombie(ZombieType::ZOMBIE_HYPNOSHROOM_HEAD, Zombie::ZOMBIE_WAVE_DEBUG);
 			return;
 		}
+		if (theChar == _S('G'))
+		{
+			AddZombie(ZombieType::ZOMBIE_GRAVEBUSTER_HEAD, Zombie::ZOMBIE_WAVE_DEBUG);
+			return;
+		}
 	}
 
 	if (theChar == _S('q'))
@@ -11239,6 +11244,9 @@ bool Board::StageHasGraveStones()
 #endif
 		)
 		return false;
+
+	if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_5)
+		return true;
 
 	return mBackground == BackgroundType::BACKGROUND_2_NIGHT;
 }
@@ -12508,6 +12516,25 @@ void Board::KillForZombiePlantsInRadius(int theRow, int theX, int theY, int theR
 		{
 			aPlant->mPlantHealth -= 1800;
 			mPlantsEaten++;
+		}
+	}
+}
+
+void Board::PutGraveInRadius(int theRow, int theX, int theY, int theRadius, int theRowRange)
+{
+	Plant* aPlant = nullptr;
+
+	while (IteratePlants(aPlant))
+	{
+		Rect aPlantRect = aPlant->GetPlantRect();
+		int aRowDist = aPlant->mRow - theRow;
+
+		if (aRowDist <= theRowRange && aRowDist >= -theRowRange && GetCircleRectOverlap(theX, theY, theRadius, aPlantRect))
+		{
+			aPlant->mPlantHealth = 0;
+			mPlantsEaten++;
+			AddAGraveStone(PixelToGridX(theX, theY), PixelToGridY(theX, theY));
+			break;
 		}
 	}
 }

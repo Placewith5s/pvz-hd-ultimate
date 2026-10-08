@@ -659,7 +659,7 @@ MemoryImage* ReanimatorCache::MakeCachedZombieFrame(ZombieType theZombieType)
 				TodScaleRotateTransformMatrix(aAttachEffect->mOffset, 60.0f, -25.0f, 0.2f, -1.0f, 1.0f);
 				break;
 			case ZombieType::ZOMBIE_DOOMSHROOM_HEAD:
-				TodScaleRotateTransformMatrix(aAttachEffect->mOffset, 70.0f, -35.0f, 0.2f, -1.0f, 1.0f);
+				TodScaleRotateTransformMatrix(aAttachEffect->mOffset, 65.0f, -35.0f, 0.2f, -1.0f, 1.0f);
 				break;
 		}
 

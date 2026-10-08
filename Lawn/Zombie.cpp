@@ -11621,16 +11621,6 @@ bool Zombie::ZombieTypeCanGoInPool(ZombieType theZombieType)
         theZombieType == ZombieType::ZOMBIE_NIGHTMARE_PUMPKIN_HEAD ||
         theZombieType == ZombieType::ZOMBIE_NIGHTMARE_CABBAGEPULT_HEAD ||
         theZombieType == ZombieType::ZOMBIE_NIGHTMARE_CHERRYBOMB_HEAD ||
-        theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_PEA_HEAD ||
-        theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_WALLNUT_HEAD ||
-        theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_JALAPENO_HEAD ||
-        theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_GATLING_HEAD ||
-        theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_TALLNUT_HEAD ||
-        theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_REPEATER_HEAD ||
-        theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_POTATOMINE_HEAD ||
-        theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_PUMPKIN_HEAD ||
-        theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_CABBAGEPULT_HEAD ||
-        theZombieType == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_CHERRYBOMB_HEAD ||
         theZombieType == ZombieType::ZOMBIE_BALLOON
 #ifdef _HAS_BLOOM_AND_DOOM_CONTENTS
         || theZombieType == ZombieType::ZOMBIE_PROPELLER

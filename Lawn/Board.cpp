@@ -7275,7 +7275,31 @@ void Board::DrawBackdrop(Graphics* g)
 	mChallenge->DrawBackdrop(g);
 	if (mApp->mGameScene == GameScenes::SCENE_LEVEL_INTRO && StageHasGraveStones())
 	{
-		g->DrawImageF(Sexy::IMAGE_NIGHT_GRAVE_GRAPHIC, 1092, 30); // Y: 40
+		if (mApp->mGameMode != GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_5 &&
+			mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_NORMAL_STAGE_1 &&
+			mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_NORMAL_STAGE_3 &&
+			mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_NORMAL_STAGE_4 &&
+			mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_NORMAL_STAGE_5 &&
+			mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_NORMAL_STAGE_6 &&
+			mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_NORMAL_STAGE_7 &&
+			mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_NORMAL_STAGE_8 &&
+			mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_HARD_STAGE_1 &&
+			mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_HARD_STAGE_3 &&
+			mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_HARD_STAGE_4 &&
+			mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_HARD_STAGE_5 &&
+			mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_HARD_STAGE_6 &&
+			mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_HARD_STAGE_7 &&
+			mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_HARD_STAGE_8 &&
+			mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_ENDLESS_STAGE_1 &&
+			mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_ENDLESS_STAGE_3 &&
+			mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_ENDLESS_STAGE_4 &&
+			mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_ENDLESS_STAGE_5 &&
+			mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_ENDLESS_STAGE_6 &&
+			mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_ENDLESS_STAGE_7 &&
+			mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_ENDLESS_STAGE_8)
+		{
+			g->DrawImageF(Sexy::IMAGE_NIGHT_GRAVE_GRAPHIC, 1092, 30); // Y: 40
+		}
 	}
 }
 
@@ -11245,8 +11269,32 @@ bool Board::StageHasGraveStones()
 		)
 		return false;
 
-	if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_5)
-		return true;
+	switch (mApp->mGameMode)
+	{
+		case GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_5:
+		case GameMode::GAMEMODE_SURVIVAL_NORMAL_STAGE_1:
+		case GameMode::GAMEMODE_SURVIVAL_NORMAL_STAGE_3:
+		case GameMode::GAMEMODE_SURVIVAL_NORMAL_STAGE_4:
+		case GameMode::GAMEMODE_SURVIVAL_NORMAL_STAGE_5:
+		case GameMode::GAMEMODE_SURVIVAL_NORMAL_STAGE_6:
+		case GameMode::GAMEMODE_SURVIVAL_NORMAL_STAGE_7:
+		case GameMode::GAMEMODE_SURVIVAL_NORMAL_STAGE_8:
+		case GameMode::GAMEMODE_SURVIVAL_HARD_STAGE_1:
+		case GameMode::GAMEMODE_SURVIVAL_HARD_STAGE_3:
+		case GameMode::GAMEMODE_SURVIVAL_HARD_STAGE_4:
+		case GameMode::GAMEMODE_SURVIVAL_HARD_STAGE_5:
+		case GameMode::GAMEMODE_SURVIVAL_HARD_STAGE_6:
+		case GameMode::GAMEMODE_SURVIVAL_HARD_STAGE_7:
+		case GameMode::GAMEMODE_SURVIVAL_HARD_STAGE_8:
+		case GameMode::GAMEMODE_SURVIVAL_ENDLESS_STAGE_1:
+		case GameMode::GAMEMODE_SURVIVAL_ENDLESS_STAGE_3:
+		case GameMode::GAMEMODE_SURVIVAL_ENDLESS_STAGE_4:
+		case GameMode::GAMEMODE_SURVIVAL_ENDLESS_STAGE_5:
+		case GameMode::GAMEMODE_SURVIVAL_ENDLESS_STAGE_6:
+		case GameMode::GAMEMODE_SURVIVAL_ENDLESS_STAGE_7:
+		case GameMode::GAMEMODE_SURVIVAL_ENDLESS_STAGE_8:
+			return true;
+	}
 
 	return mBackground == BackgroundType::BACKGROUND_2_NIGHT;
 }

@@ -4703,9 +4703,9 @@ int LawnApp::GetNumTrophies(ChallengePage thePage)
 int LawnApp::TrophiesNeedForGoldSunflower()
 {
 	// previously 48
-	// 33 minigames
+	// 34 minigames
 	// 6 last stand puzzles
-	return 87 - GetNumTrophies(CHALLENGE_PAGE_SURVIVAL) - GetNumTrophies(CHALLENGE_PAGE_CHALLENGE) - GetNumTrophies(CHALLENGE_PAGE_CUSTOM_CHALLENGE) - GetNumTrophies(CHALLENGE_PAGE_CUSTOM_CHALLENGE_2) - GetNumTrophies(CHALLENGE_PAGE_PUZZLE) - GetNumTrophies(CHALLENGE_PAGE_LAST_STAND);
+	return 88 - GetNumTrophies(CHALLENGE_PAGE_SURVIVAL) - GetNumTrophies(CHALLENGE_PAGE_CHALLENGE) - GetNumTrophies(CHALLENGE_PAGE_CUSTOM_CHALLENGE) - GetNumTrophies(CHALLENGE_PAGE_CUSTOM_CHALLENGE_2) - GetNumTrophies(CHALLENGE_PAGE_PUZZLE) - GetNumTrophies(CHALLENGE_PAGE_LAST_STAND);
 }
 
 //0x455C50

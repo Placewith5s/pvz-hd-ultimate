@@ -1521,9 +1521,9 @@ void LawnApp::DoPauseDialog()
 		Dialog::BUTTONS_FOOTER
 	);
 
-	aDialog->mReanimation->AddReanimation(72.0f, 42.0f, ReanimationType::REANIM_ZOMBIE_NEWSPAPER);
-	aDialog->mSpaceAfterHeader = 155;
-	aDialog->CalcSize(0, 10);
+	aDialog->mReanimation->AddReanimation(88.56f, 51.66f, ReanimationType::REANIM_ZOMBIE_NEWSPAPER);
+	aDialog->mSpaceAfterHeader = 190;
+	aDialog->CalcSize(0, 12);
 	CenterDialog(aDialog, aDialog->mWidth, aDialog->mHeight);
 }
 

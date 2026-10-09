@@ -26,7 +26,7 @@ StartingSunDialog::StartingSunDialog(LawnApp* theApp) : LawnDialog(
 	mLawnYesButton->mMouseVisible = false;
 	mLawnNoButton->mBtnNoDraw = true;
 	mLawnNoButton->mMouseVisible = false;
-	CalcSize(110, 40);
+	CalcSize(135, 49);
 }
 
 StartingSunDialog::~StartingSunDialog()

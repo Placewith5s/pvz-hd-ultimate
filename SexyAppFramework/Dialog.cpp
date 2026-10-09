@@ -33,9 +33,9 @@ Dialog::Dialog(Image* theComponentImage, Image* theButtonComponentImage, int the
 	mContentInsets = Insets(24, 24, 24, 24);
 	mTextAlign = 0;
 	mLineSpacingOffset = 0;
-	mSpaceAfterHeader = 10;
+	mSpaceAfterHeader = 12;
 	mButtonSidePadding = 0;
-	mButtonHorzSpacing = 8;
+	mButtonHorzSpacing = 10;
 	mDialogListener = gSexyAppBase;
 
 	mDialogHeader = theDialogHeader;

@@ -53,7 +53,7 @@ UserDialog::UserDialog(LawnApp* theApp) : LawnDialog(theApp, Dialogs::DIALOG_USE
     }
 
     mTallBottom = true;
-    CalcSize(210, 270);
+    CalcSize(258, 332);
 }
 
 //0x51CBC0��0x51CBE0

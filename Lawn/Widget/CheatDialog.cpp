@@ -30,7 +30,7 @@ CheatDialog::CheatDialog(LawnApp* theApp) : LawnDialog(theApp, Dialogs::DIALOG_C
 	}
 	mLevelEditWidget->SetText(aCheatStr, true);
 
-	CalcSize(110, 40);
+	CalcSize(135, 49);
 }
 
 CheatDialog::~CheatDialog()

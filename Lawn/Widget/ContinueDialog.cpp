@@ -31,7 +31,7 @@ ContinueDialog::ContinueDialog(LawnApp* theApp) : LawnDialog(
     }
 
     mTallBottom = true;
-    CalcSize(10, 60);
+    CalcSize(12, 74);
 }
 
 //0x4333D0¡¢0x4333F0

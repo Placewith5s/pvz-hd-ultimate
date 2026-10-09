@@ -2978,6 +2978,7 @@ void Challenge::InitZombieWavesSurvival()
 			(aRandZombie == ZombieType::ZOMBIE_BUNGEE || aRandZombie == ZombieType::ZOMBIE_BUNGEE_PAIL))	continue;
 		if (mBoard->GetSurvivalFlagsCompleted() < 10 && aRandZombie >= ZombieType::ZOMBIE_REDEYE_GARGANTUAR)																continue;
 		if (mApp->IsSurvivalNormal(mApp->mGameMode) && aRandZombie > ZombieType::ZOMBIE_SNORKEL)																			continue;
+		if (mApp->IsSurvivalHard(mApp->mGameMode) && aRandZombie == ZombieType::ZOMBIE_DOOMSHROOM_HEAD) continue;
 		if (mBoard->IsZombieTypeSpawnedOnly(aRandZombie) ||
 			aRandZombie == ZombieType::ZOMBIE_DUCKY_TUBE || aRandZombie == ZombieType::ZOMBIE_YETI || aRandZombie == ZombieType::ZOMBIE_BOSS
 #ifdef _HAS_BLOOM_AND_DOOM_CONTENTS

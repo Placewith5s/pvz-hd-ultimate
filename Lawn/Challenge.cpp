@@ -3188,6 +3188,65 @@ void Challenge::InitZombieWaves()
 		aList[ZOMBIE_CHERRYBOMB_HEAD] = true;
 		aList[ZOMBIE_DOOMSHROOM_HEAD] = true;
 	}
+	else if (aGameMode == GAMEMODE_CHALLENGE_MADNESS)
+	{
+		aList[ZOMBIE_NORMAL] = true;
+		aList[ZOMBIE_TRAFFIC_CONE] = true;
+		aList[ZOMBIE_POLEVAULTER] = true;
+		aList[ZOMBIE_PAIL] = true;
+
+		aList[ZOMBIE_NEWSPAPER] = true;
+		aList[ZOMBIE_DOOR] = true;
+		aList[ZOMBIE_FOOTBALL] = true;
+		aList[ZOMBIE_DANCER] = true;
+
+		aList[ZOMBIE_SNORKEL] = true;
+		aList[ZOMBIE_DOLPHIN_RIDER] = true;
+		aList[ZOMBIE_ZAMBONI] = true;
+		aList[ZOMBIE_BOBSLED] = true;
+
+		aList[ZOMBIE_JACK_IN_THE_BOX] = true;
+		aList[ZOMBIE_BALLOON] = true;
+		aList[ZOMBIE_DIGGER] = true;
+		aList[ZOMBIE_POGO] = true;
+
+		aList[ZOMBIE_BUNGEE] = true;
+		aList[ZOMBIE_LADDER] = true;
+		aList[ZOMBIE_CATAPULT] = true;
+		aList[ZOMBIE_GARGANTUAR] = true;
+
+		aList[ZOMBIE_TRASHCAN] = true;
+		aList[ZOMBIE_DOOR_TRAFFIC_CONE] = true;
+		aList[ZOMBIE_DOOR_PAIL] = true;
+		aList[ZOMBIE_BLACK_FOOTBALL] = true;
+		aList[ZOMBIE_REDEYE_GARGANTUAR] = true;
+
+		aList[ZOMBIE_BUNGEE_PAIL] = true;
+		aList[ZOMBIE_POGO_PAIL] = true;
+		aList[ZOMBIE_JACK_IN_THE_BOX_CRAZY] = true;
+		aList[ZOMBIE_DANCER_COOL] = true;
+
+		aList[ZOMBIE_NORMAL_VERY_HUNGRY] = true;
+		aList[ZOMBIE_TRAFFIC_CONE_VERY_HUNGRY] = true;
+		aList[ZOMBIE_PAIL_VERY_HUNGRY] = true;
+		aList[ZOMBIE_SMASH_GARGANTUAR] = true;
+
+		aList[ZOMBIE_PEA_HEAD] = true;
+		aList[ZOMBIE_WALLNUT_HEAD] = true;
+		aList[ZOMBIE_JALAPENO_HEAD] = true;
+		aList[ZOMBIE_GATLING_HEAD] = true;
+		aList[ZOMBIE_SQUASH_HEAD] = true;
+		aList[ZOMBIE_TALLNUT_HEAD] = true;
+		aList[ZOMBIE_REPEATER_HEAD] = true;
+		aList[ZOMBIE_POTATOMINE_HEAD] = true;
+		aList[ZOMBIE_PUMPKIN_HEAD] = true;
+		aList[ZOMBIE_CABBAGEPULT_HEAD] = true;
+		aList[ZOMBIE_CHERRYBOMB_HEAD] = true;
+		aList[ZOMBIE_UMBRELLA_HEAD] = true;
+		aList[ZOMBIE_HYPNOSHROOM_HEAD] = true;
+		aList[ZOMBIE_GRAVEBUSTER_HEAD] = true;
+		aList[ZOMBIE_DOOMSHROOM_HEAD] = true;
+	}
 	else if (aGameMode == GAMEMODE_CHALLENGE_AIR_RAID)
 	{
 		aList[ZOMBIE_BALLOON] = true;

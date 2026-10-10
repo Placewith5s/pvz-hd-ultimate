@@ -3179,6 +3179,15 @@ void Challenge::InitZombieWaves()
 		aList[ZOMBIE_PAIL] = true;
 		aList[ZOMBIE_BUNGEE_PAIL] = true;
 	}
+	else if (aGameMode == GAMEMODE_CHALLENGE_SLOT_MACHINE_4)
+	{
+		aList[ZOMBIE_JACK_IN_THE_BOX] = true;
+		aList[ZOMBIE_JACK_IN_THE_BOX_CRAZY] = true;
+		aList[ZOMBIE_JALAPENO_HEAD] = true;
+		aList[ZOMBIE_POTATOMINE_HEAD] = true;
+		aList[ZOMBIE_CHERRYBOMB_HEAD] = true;
+		aList[ZOMBIE_DOOMSHROOM_HEAD] = true;
+	}
 	else if (aGameMode == GAMEMODE_CHALLENGE_AIR_RAID)
 	{
 		aList[ZOMBIE_BALLOON] = true;

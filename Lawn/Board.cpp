@@ -1210,6 +1210,7 @@ void Board::PickBackground()
 	case GameMode::GAMEMODE_CHALLENGE_STORMY_NIGHT:
 	case GameMode::GAMEMODE_LAST_STAND_STAGE_4:
 	case GameMode::GAMEMODE_LAST_STAND_ENDLESS_STAGE_4:
+	case GameMode::GAMEMODE_CHALLENGE_MADNESS:
 		mBackground = BackgroundType::BACKGROUND_4_FOG;
 		break;
 

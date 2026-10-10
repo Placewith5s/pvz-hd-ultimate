@@ -7275,6 +7275,7 @@ void Board::DrawBackdrop(Graphics* g)
 	if (mApp->mGameScene == GameScenes::SCENE_LEVEL_INTRO && StageHasGraveStones())
 	{
 		if (mApp->mGameMode != GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_5 &&
+			mApp->mGameMode != GameMode::GAMEMODE_CHALLENGE_MADNESS &&
 			mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_HARD_STAGE_1 &&
 			mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_HARD_STAGE_3 &&
 			mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_HARD_STAGE_4 &&
@@ -11264,6 +11265,7 @@ bool Board::StageHasGraveStones()
 	switch (mApp->mGameMode)
 	{
 		case GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_5:
+		case GameMode::GAMEMODE_CHALLENGE_MADNESS:
 		case GameMode::GAMEMODE_SURVIVAL_HARD_STAGE_1:
 		case GameMode::GAMEMODE_SURVIVAL_HARD_STAGE_3:
 		case GameMode::GAMEMODE_SURVIVAL_HARD_STAGE_4:

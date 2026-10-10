@@ -3179,7 +3179,7 @@ void Challenge::InitZombieWaves()
 		aList[ZOMBIE_PAIL] = true;
 		aList[ZOMBIE_BUNGEE_PAIL] = true;
 	}
-	else if (aGameMode == GAMEMODE_CHALLENGE_SLOT_MACHINE_4)
+	else if (aGameMode == GAMEMODE_CHALLENGE_EXPLOSIONS)
 	{
 		aList[ZOMBIE_JACK_IN_THE_BOX] = true;
 		aList[ZOMBIE_JACK_IN_THE_BOX_CRAZY] = true;

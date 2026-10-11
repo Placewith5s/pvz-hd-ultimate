@@ -837,6 +837,7 @@ void CutScene::StartLevelIntro()
 		else if ((!IsSurvivalRepick()) &&
 			mApp->mGameMode != GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_5 &&
 			mApp->mGameMode != GameMode::GAMEMODE_CHALLENGE_MADNESS &&
+			mApp->mGameMode != GameMode::GAMEMODE_CHALLENGE_BOSS_ANOTHER_PLANET &&
 			mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_HARD_STAGE_1 &&
 			mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_HARD_STAGE_3 &&
 			mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_HARD_STAGE_4 &&

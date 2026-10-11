@@ -2029,22 +2029,36 @@ void Challenge::UpdateConveyorBelt()
 		aSeedPickArray[5].mWeight = 8;
 
 		if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WORLD_7_10)
-			{
-				aSeedPickCount = 6;
-				aSeedPickArray[0].mItem = SEED_INSTANT_COFFEE;
-				aSeedPickArray[0].mWeight = 5;
-				aSeedPickArray[1].mItem = SEED_MELONPULT;
-				aSeedPickArray[1].mWeight = 10;
-				aSeedPickArray[2].mItem = SEED_JALAPENO;
-				aSeedPickArray[2].mWeight = 17;
-				aSeedPickArray[3].mItem = SEED_CABBAGEPULT;
-				aSeedPickArray[3].mWeight = 30;
-				aSeedPickArray[4].mItem = SEED_KERNELPULT;
-				aSeedPickArray[4].mWeight = 20;
-				aSeedPickArray[5].mItem = SEED_ICESHROOM;
-				aSeedPickArray[5].mWeight = 18;
-			}
+		{
+			aSeedPickCount = 6;
+			aSeedPickArray[0].mItem = SEED_INSTANT_COFFEE;
+			aSeedPickArray[0].mWeight = 5;
+			aSeedPickArray[1].mItem = SEED_MELONPULT;
+			aSeedPickArray[1].mWeight = 10;
+			aSeedPickArray[2].mItem = SEED_JALAPENO;
+			aSeedPickArray[2].mWeight = 17;
+			aSeedPickArray[3].mItem = SEED_CABBAGEPULT;
+			aSeedPickArray[3].mWeight = 30;
+			aSeedPickArray[4].mItem = SEED_KERNELPULT;
+			aSeedPickArray[4].mWeight = 20;
+			aSeedPickArray[5].mItem = SEED_ICESHROOM;
+			aSeedPickArray[5].mWeight = 18;
 		}
+		else if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_BOSS_ANOTHER_PLANET)
+		{
+			aSeedPickCount = 5;
+			aSeedPickArray[0].mItem = SEED_INSTANT_COFFEE;
+			aSeedPickArray[0].mWeight = 5;
+			aSeedPickArray[1].mItem = SEED_JALAPENO;
+			aSeedPickArray[1].mWeight = 17;
+			aSeedPickArray[2].mItem = SEED_CABBAGEPULT;
+			aSeedPickArray[2].mWeight = 40;
+			aSeedPickArray[3].mItem = SEED_KERNELPULT;
+			aSeedPickArray[3].mWeight = 20;
+			aSeedPickArray[4].mItem = SEED_ICESHROOM;
+			aSeedPickArray[4].mWeight = 18;
+		}
+	}
 	else if (mApp->IsShovelLevel())
 	{
 		aSeedPickCount = 1;

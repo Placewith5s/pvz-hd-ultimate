@@ -13795,7 +13795,7 @@ void Zombie::BossSpawnAttack()
         mSummonCounter = RandRangeInt(450, 550);
 
         if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_BOSS_ANOTHER_PLANET)
-            mSummonCounter = RandRangeInt(225, 275);
+            mSummonCounter = RandRangeInt(300, 367);
     }
     else if (mBossMode == 1)
     {
@@ -13983,7 +13983,7 @@ void Zombie::BossSpawnContact()
         }
         else if (mZombieAge < 12500)
         {
-            aZombieType = ZombieType::ZOMBIE_REPEATER_HEAD;
+            aZombieType = ZombieType::ZOMBIE_GATLING_HEAD;
         }
         else
         {

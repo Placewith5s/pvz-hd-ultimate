@@ -80,6 +80,7 @@ public:
     void                    CheckForHighGround();
     bool                    CantHitHighGround();
     void                    DoSplashDamage(Zombie* theZombie);
+    void                    DoSplashDamageToPlants(Plant* thePlant);
     ProjectileDefinition&   GetProjectileDef();
     unsigned int            GetDamageFlags(Zombie* theZombie/* = nullptr*/);
     Rect                    GetProjectileRect();
@@ -90,6 +91,7 @@ public:
     bool                    IsSplashDamage(Zombie* theZombie/* = nullptr*/);
     void                    PlayImpactSound(Zombie* theZombie);
     bool                    IsZombieHitBySplash(Zombie* theZombie);
+    bool                    IsPlantHitBySplash(Plant* thePlant);
     bool                    PeaAboutToHitTorchwood();
     void                    OverrideAngle(float theAngle);
 

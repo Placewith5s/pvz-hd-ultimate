@@ -414,7 +414,7 @@ public:
     void                            UpdateZombieDoomshroomHead();
     void                            UpdateZombieHypnoshroomHead();
     void                            UpdateZombieGravebusterHead();
-    void                            UpdateZombieMelonpultHead();
+    //void                            UpdateZombieMelonpultHead();
     bool                            IsTanglekelpTarget();
     bool                            HasYuckyFaceImage();
     bool                            IsTangleKelpTarget();

@@ -161,7 +161,8 @@ ChallengeDefinition gChallengeDefs[NUM_CHALLENGE_MODES] = {
 	{ GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_5,             0,   ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE_2,   2,  3,  _S("[WAR_AND_PEAS_5]") },
 	{ GameMode::GAMEMODE_CHALLENGE_EXPLOSIONS,             10,   ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE_2,   2,  4,  _S("[EXPLOSIONS]") },
 	{ GameMode::GAMEMODE_CHALLENGE_MADNESS,             10,   ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE_2,   3,  0,  _S("[MADNESS]") },
-	{ GameMode::GAMEMODE_CHALLENGE_LEVEL_EDITOR,             10,   ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE_2,   3,  1,  _S("[LEVEL_EDITOR]") },
+	{ GameMode::GAMEMODE_CHALLENGE_BOSS_ANOTHER_PLANET,             19,   ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE_2,   3,  1,  _S("[BOSS_ANOTHER_PLANET]") },
+	{ GameMode::GAMEMODE_CHALLENGE_LEVEL_EDITOR,             10,   ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE_2,   3,  2,  _S("[LEVEL_EDITOR]") },
 };
 
 //0x42DAE0
@@ -867,7 +868,7 @@ void ChallengeScreen::Draw(Graphics* g)
 	TodDrawString(g, aTitleString, 400, 58, Sexy::FONT_HOUSEOFTERROR28, Color(220, 220, 220), DS_ALIGN_CENTER);
 
 	int aTrophiesGot = mApp->GetNumTrophies(mPageIndex);
-	int aTrophiesTotal = mPageIndex == CHALLENGE_PAGE_SURVIVAL ? 10 : mPageIndex == CHALLENGE_PAGE_CHALLENGE ? 20 : mPageIndex == CHALLENGE_PAGE_CUSTOM_CHALLENGE ? 20 : mPageIndex == CHALLENGE_PAGE_CUSTOM_CHALLENGE_2 ? 16 : mPageIndex == CHALLENGE_PAGE_PUZZLE ? 18 : mPageIndex == CHALLENGE_PAGE_LAST_STAND ? 6 : 0;
+	int aTrophiesTotal = mPageIndex == CHALLENGE_PAGE_SURVIVAL ? 10 : mPageIndex == CHALLENGE_PAGE_CHALLENGE ? 20 : mPageIndex == CHALLENGE_PAGE_CUSTOM_CHALLENGE ? 20 : mPageIndex == CHALLENGE_PAGE_CUSTOM_CHALLENGE_2 ? 17 : mPageIndex == CHALLENGE_PAGE_PUZZLE ? 18 : mPageIndex == CHALLENGE_PAGE_LAST_STAND ? 6 : 0;
 	if (aTrophiesTotal > 0)
 	{
 		SexyString aTrophyString = StrFormat(_S("%d/%d"), aTrophiesGot, aTrophiesTotal);

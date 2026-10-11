@@ -31,7 +31,7 @@ ProjectileDefinition gProjectileDefinition[] = {  //0x69F1C0
 	{ ProjectileType::PROJECTILE_BUTTER,        0,  40  },
 	{ ProjectileType::PROJECTILE_ZOMBIE_PEA,    0,  20  },
 	{ ProjectileType::PROJECTILE_ZOMBIE_CABBAGE,       0,  40  },
-	{ ProjectileType::PROJECTILE_ZOMBIE_MELON,       0,  80  },
+	//{ ProjectileType::PROJECTILE_ZOMBIE_MELON,       0,  80  },
 #ifdef _PIERCING_CACTUS
 	{ ProjectileType::PROJECTILE_PIERCE_SPIKE,  0,  20  },
 #endif
@@ -105,8 +105,8 @@ void Projectile::ProjectileInitialize(int theX, int theY, int theRenderOrder, in
 		mRotation = -7 * PI / 25;  // DEG_TO_RAD(-50.4f);
 		mRotationSpeed = RandRangeFloat(-0.08f, -0.02f);
 	}
-	else if (mProjectileType == ProjectileType::PROJECTILE_MELON ||
-		mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_MELON)
+	else if (mProjectileType == ProjectileType::PROJECTILE_MELON) //||
+		//mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_MELON)
 	{
 		mRotation = -2 * PI / 5;  // DEG_TO_RAD(-72.0f);
 		mRotationSpeed = RandRangeFloat(-0.08f, -0.02f);
@@ -252,8 +252,8 @@ Plant* Projectile::FindCollisionTargetPlant()
 			continue;
 
 		if (mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_PEA ||
-			mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_CABBAGE ||
-			mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_MELON)
+			mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_CABBAGE) //||
+			//mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_MELON)
 		{
 			if (aPlant->mSeedType == SeedType::SEED_PUFFSHROOM ||
 				aPlant->mSeedType == SeedType::SEED_SEASHROOM ||
@@ -276,8 +276,8 @@ Plant* Projectile::FindCollisionTargetPlant()
 		if (GetRectOverlap(aProjectileRect, aPlantRect) > 8)
 		{
 			if (mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_PEA ||
-				mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_CABBAGE ||
-				mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_MELON)
+				mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_CABBAGE) //||
+				//mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_MELON)
 			{
 				Plant* aPlant2 = mBoard->GetTopPlantAt(aPlant->mPlantCol, aPlant->mRow, PlantPriority::TOPPLANT_EATING_ORDER);
 				if (aPlant2 && (aPlant2->mSeedType == SeedType::SEED_PUFFSHROOM ||
@@ -367,10 +367,10 @@ Zombie* Projectile::FindCollisionTarget()
 			aZombie->mMindControlled) {
 			isEffected = aZombie->EffectedByDamage(258);
 		}
-		else if (mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_MELON &&
-			aZombie->mMindControlled) {
-			isEffected = aZombie->EffectedByDamage(516);
-		}
+		//else if (mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_MELON &&
+		//	aZombie->mMindControlled) {
+		//	isEffected = aZombie->EffectedByDamage(516);
+		//}
 
 #ifdef _PIERCING_CACTUS
 		if (mProjectileType == ProjectileType::PROJECTILE_PIERCE_SPIKE && mNumPierced > 0)
@@ -394,8 +394,8 @@ Zombie* Projectile::FindCollisionTarget()
 		if ((aZombie->mZombieType == ZombieType::ZOMBIE_BOSS || aZombie->mRow == mRow) && isEffected)
 		{
 			if ((mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_PEA ||
-				mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_CABBAGE ||
-				mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_MELON) &&
+				mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_CABBAGE) && //||
+				//mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_MELON) &&
 				!aZombie->mMindControlled)
 			{
 				continue;
@@ -438,8 +438,8 @@ void Projectile::CheckForCollision()
 	Zombie* aTargetZombie = mMotionType == ProjectileMotion::MOTION_HOMING ?  mBoard->ZombieTryToGet(mTargetZombieID) : nullptr;
 
 	if ((mPosX > WIDE_BOARD_WIDTH && (mProjectileType != ProjectileType::PROJECTILE_ZOMBIE_PEA &&
-		mProjectileType != ProjectileType::PROJECTILE_ZOMBIE_CABBAGE &&
-		mProjectileType != ProjectileType::PROJECTILE_ZOMBIE_MELON) ||
+		mProjectileType != ProjectileType::PROJECTILE_ZOMBIE_CABBAGE) || //&&
+		//mProjectileType != ProjectileType::PROJECTILE_ZOMBIE_MELON) ||
 		mPosX + mWidth < 0) && !aTargetZombie)
 	{
 		Die();
@@ -529,23 +529,23 @@ void Projectile::CheckForCollision()
 		}
 	}
 
-	if (mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_MELON)
-	{
-		Plant* aPlant = FindCollisionTargetPlant();
-		if (aPlant)
-		{
-			const ProjectileDefinition& aProjectileDef = GetProjectileDef();
-			aPlant->mPlantHealth -= aProjectileDef.mDamage;
-			aPlant->mEatenFlashCountdown = max(aPlant->mEatenFlashCountdown, 25);
+	//if (mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_MELON)
+	//{
+	//	Plant* aPlant = FindCollisionTargetPlant();
+	//	if (aPlant)
+	//	{
+	//		const ProjectileDefinition& aProjectileDef = GetProjectileDef();
+	//		aPlant->mPlantHealth -= aProjectileDef.mDamage;
+	//		aPlant->mEatenFlashCountdown = max(aPlant->mEatenFlashCountdown, 25);
 
-			mApp->PlayFoley(FoleyType::FOLEY_MELONIMPACT);
-			float aLastPosX = mPosX - mVelX;
-			float aLastPosY = mPosY + mPosZ - mVelY - mVelZ;
-			TodParticleSystem* aParticle = mApp->AddTodParticle(aLastPosX + 30.0f, aLastPosY + 30.0f, mRenderOrder + 1, ParticleEffect::PARTICLE_MELONSPLASH);
-			aParticle->OverrideFilterEffect(nullptr, mFilterEffect);
-			Die();
-		}
-	}
+	//		mApp->PlayFoley(FoleyType::FOLEY_MELONIMPACT);
+	//		float aLastPosX = mPosX - mVelX;
+	//		float aLastPosY = mPosY + mPosZ - mVelY - mVelZ;
+	//		TodParticleSystem* aParticle = mApp->AddTodParticle(aLastPosX + 30.0f, aLastPosY + 30.0f, mRenderOrder + 1, ParticleEffect::PARTICLE_MELONSPLASH);
+	//		aParticle->OverrideFilterEffect(nullptr, mFilterEffect);
+	//		Die();
+	//	}
+	//}
 
 	Zombie* aZombie = FindCollisionTarget();
 	if (aZombie)
@@ -911,7 +911,7 @@ void Projectile::UpdateLobMotion()
 			aMinCollisionZ = 60.0f;
 		}
 		else if (mProjectileType == ProjectileType::PROJECTILE_MELON ||
-			mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_MELON ||
+			//mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_MELON ||
 			mProjectileType == ProjectileType::PROJECTILE_WINTERMELON)
 		{
 			aMinCollisionZ = -35.0f;
@@ -1337,8 +1337,8 @@ void Projectile::DoImpact(Zombie* theZombie)
 	ParticleEffect aEffect = ParticleEffect::PARTICLE_NONE;
 	float aSplatPosX = mPosX + 12.0f;
 	float aSplatPosY = mPosY + 12.0f;
-	if (mProjectileType == ProjectileType::PROJECTILE_MELON ||
-		mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_MELON)
+	if (mProjectileType == ProjectileType::PROJECTILE_MELON) //||
+		//mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_MELON)
 	{
 		TodParticleSystem* aParticle = mApp->AddTodParticle(aLastPosX + 30.0f, aLastPosY + 30.0f, mRenderOrder + 1, ParticleEffect::PARTICLE_MELONSPLASH);
 		aParticle->OverrideFilterEffect(nullptr, mFilterEffect);
@@ -1542,7 +1542,7 @@ void Projectile::Update()
 		mProjectileType == ProjectileType::PROJECTILE_COBBIG || 
 		mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_PEA ||
 		mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_CABBAGE ||
-		mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_MELON ||
+		//mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_MELON ||
 		mProjectileType == ProjectileType::PROJECTILE_SPIKE
 #ifdef _HAS_BLOOM_AND_DOOM_CONTENTS
 		|| mProjectileType == ProjectileType::PROJECTILE_BEE
@@ -1654,8 +1654,8 @@ void Projectile::Draw(Graphics* g)
 		aImage = IMAGE_REANIM_CORNPULT_BUTTER;
 		aScaleX = aScaleY = 0.8f;
 	}
-	else if (mProjectileType == ProjectileType::PROJECTILE_MELON ||
-		mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_MELON)
+	else if (mProjectileType == ProjectileType::PROJECTILE_MELON) //||
+		//mProjectileType == ProjectileType::PROJECTILE_ZOMBIE_MELON)
 	{
 		aImage = IMAGE_REANIM_MELONPULT_MELON;
 		aScaleX = aScaleY = 1.0f;
@@ -1811,7 +1811,7 @@ void Projectile::DrawShadow(Graphics* g)
 	case ProjectileType::PROJECTILE_KERNEL:
 	case ProjectileType::PROJECTILE_BUTTER:
 	case ProjectileType::PROJECTILE_MELON:
-	case ProjectileType::PROJECTILE_ZOMBIE_MELON:
+	//case ProjectileType::PROJECTILE_ZOMBIE_MELON:
 	case ProjectileType::PROJECTILE_WINTERMELON:
 #ifdef _HAS_BLOOM_AND_DOOM_CONTENTS
 	case ProjectileType::PROJECTILE_LETTUCE:

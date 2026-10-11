@@ -4129,7 +4129,7 @@ void Zombie::UpdateZombieUmbrellaHead()
                 {
                     if (aProjectile->mProjectileType != ProjectileType::PROJECTILE_ZOMBIE_PEA &&
                         aProjectile->mProjectileType != ProjectileType::PROJECTILE_ZOMBIE_CABBAGE &&
-                        aProjectile->mProjectileType != ProjectileType::PROJECTILE_ZOMBIE_MELON &&
+                        //aProjectile->mProjectileType != ProjectileType::PROJECTILE_ZOMBIE_MELON &&
                         // available in survival endless
                         aProjectile->mProjectileType != ProjectileType::PROJECTILE_BASKETBALL)
                     {

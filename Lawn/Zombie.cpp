@@ -13657,6 +13657,9 @@ void Zombie::BossRVLanding()
     if (mBossMode >= 1 && mBossStompCounter == -1)
     {
         mBossStompCounter = 4000;
+
+        if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_BOSS_ANOTHER_PLANET)
+            mBossStompCounter = 1000;
     }
     if (mBossMode >= 2)
     {
@@ -13906,6 +13909,9 @@ void Zombie::BossStompAttack()
     RemoveColdEffects();
     mZombiePhase = ZombiePhase::PHASE_BOSS_STOMPING;
     mBossStompCounter = RandRangeInt(5500, 6500);
+
+    if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_BOSS_ANOTHER_PLANET)
+        mBossStompCounter = RandRangeInt(1375, 1625);
 
     mTargetRow = TodPickFromArray(aRowArray, aRowsCount);
 

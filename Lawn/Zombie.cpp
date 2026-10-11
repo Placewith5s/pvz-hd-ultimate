@@ -13760,6 +13760,25 @@ void Zombie::BossSpawnContact()
             ZombieType::ZOMBIE_GARGANTUAR
         };
     }
+    else if (mApp->mGameMode == GAMEMODE_CHALLENGE_BOSS_ANOTHER_PLANET)
+    {
+        ZombieType gBossZombieList[] = {
+            ZombieType::ZOMBIE_WALLNUT_HEAD,
+            ZombieType::ZOMBIE_JALAPENO_HEAD,
+            ZombieType::ZOMBIE_GATLING_HEAD,
+            ZombieType::ZOMBIE_SQUASH_HEAD,
+            ZombieType::ZOMBIE_TALLNUT_HEAD,
+            ZombieType::ZOMBIE_REPEATER_HEAD,
+            ZombieType::ZOMBIE_POTATOMINE_HEAD,
+            ZombieType::ZOMBIE_PUMPKIN_HEAD,
+            ZombieType::ZOMBIE_CABBAGEPULT_HEAD,
+            ZombieType::ZOMBIE_CHERRYBOMB_HEAD,
+            ZombieType::ZOMBIE_UMBRELLA_HEAD,
+            ZombieType::ZOMBIE_HYPNOSHROOM_HEAD,
+            ZombieType::ZOMBIE_GRAVEBUSTER_HEAD,
+            ZombieType::ZOMBIE_DOOMSHROOM_HEAD
+        };
+    }
     else
     {
         ZombieType gBossZombieList[] = {
@@ -13786,28 +13805,56 @@ void Zombie::BossSpawnContact()
     }
 
     ZombieType aZombieType;
-    if (mZombieAge < 3500)
-    {
-        aZombieType = ZombieType::ZOMBIE_NORMAL;
-    }
-    else if (mZombieAge < 8000)
-    {
-        aZombieType = ZombieType::ZOMBIE_TRAFFIC_CONE;
-    }
-    else if (mZombieAge < 12500)
-    {
-        aZombieType = ZombieType::ZOMBIE_PAIL;
+    int aZombieTypeCount = LENGTH(gBossZombieList);
+
+    if (mApp->mGameMode != GAMEMODE_CHALLENGE_BOSS_ANOTHER_PLANET) {
+        if (mZombieAge < 3500)
+        {
+            aZombieType = ZombieType::ZOMBIE_NORMAL;
+        }
+        else if (mZombieAge < 8000)
+        {
+            aZombieType = ZombieType::ZOMBIE_TRAFFIC_CONE;
+        }
+        else if (mZombieAge < 12500)
+        {
+            aZombieType = ZombieType::ZOMBIE_PAIL;
+        }
+        else
+        {
+            if (mTargetRow == 0)
+            {
+                TOD_ASSERT(gBossZombieList[aZombieTypeCount - 1] == ZombieType::ZOMBIE_GARGANTUAR);
+                aZombieTypeCount--;
+            }
+
+            aZombieType = (ZombieType)TodPickFromArray(gBossZombieList, aZombieTypeCount);
+        }
     }
     else
     {
-        int aZombieTypeCount = LENGTH(gBossZombieList);
-        if (mTargetRow == 0)
+        if (mZombieAge < 3500)
         {
-            TOD_ASSERT(gBossZombieList[aZombieTypeCount - 1] == ZombieType::ZOMBIE_GARGANTUAR);
-            aZombieTypeCount--;
+            aZombieType = ZombieType::ZOMBIE_PEA_HEAD;
         }
+        else if (mZombieAge < 8000)
+        {
+            aZombieType = ZombieType::ZOMBIE_WALLNUT_HEAD;
+        }
+        else if (mZombieAge < 12500)
+        {
+            aZombieType = ZombieType::ZOMBIE_REPEATER_HEAD;
+        }
+        else
+        {
+            if (mTargetRow == 0)
+            {
+                TOD_ASSERT(gBossZombieList[aZombieTypeCount - 1] == ZombieType::ZOMBIE_DOOMSHROOM_HEAD);
+                aZombieTypeCount--;
+            }
 
-        aZombieType = (ZombieType)TodPickFromArray(gBossZombieList, aZombieTypeCount);
+            aZombieType = (ZombieType)TodPickFromArray(gBossZombieList, aZombieTypeCount);
+        }
     }
 
     Zombie* aZombie = mBoard->AddZombieInRow(aZombieType, mTargetRow, 0);

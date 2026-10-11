@@ -2028,7 +2028,7 @@ void Challenge::UpdateConveyorBelt()
 		aSeedPickArray[5].mItem = SEED_ICESHROOM;
 		aSeedPickArray[5].mWeight = 8;
 
-		if (mApp->mGameMode == GAMEMODE_CHALLENGE_WORLD_7_10)
+		if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WORLD_7_10)
 			{
 				aSeedPickCount = 6;
 				aSeedPickArray[0].mItem = SEED_INSTANT_COFFEE;

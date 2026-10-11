@@ -13702,112 +13702,121 @@ void Zombie::BossSpawnAttack()
 //0x534DC0
 void Zombie::BossSpawnContact()
 {
-    if (mApp->mGameMode == GAMEMODE_CHALLENGE_WORLD_7_10)
+    ZombieType gBossZombieList[] = {
+        ZombieType::ZOMBIE_TRAFFIC_CONE,
+        ZombieType::ZOMBIE_PAIL,
+        ZombieType::ZOMBIE_FOOTBALL,
+        ZombieType::ZOMBIE_POLEVAULTER,
+        ZombieType::ZOMBIE_JACK_IN_THE_BOX,
+        ZombieType::ZOMBIE_LADDER,
+        ZombieType::ZOMBIE_ZAMBONI,
+        ZombieType::ZOMBIE_CATAPULT,
+        ZombieType::ZOMBIE_POGO,
+        ZombieType::ZOMBIE_NEWSPAPER,
+        ZombieType::ZOMBIE_DOOR,
+        ZombieType::ZOMBIE_DANCER,
+        ZombieType::ZOMBIE_BOBSLED,
+        ZombieType::ZOMBIE_TRASHCAN,
+        ZombieType::ZOMBIE_DOOR_TRAFFIC_CONE,
+        ZombieType::ZOMBIE_DOOR_PAIL,
+        ZombieType::ZOMBIE_BLACK_FOOTBALL,
+        ZombieType::ZOMBIE_REDEYE_GARGANTUAR,
+        ZombieType::ZOMBIE_GARGANTUAR
+    };
+
+    ZombieType gBossZombieListWorld7[] = {
+        ZombieType::ZOMBIE_TRAFFIC_CONE,
+        ZombieType::ZOMBIE_PAIL,
+        ZombieType::ZOMBIE_FOOTBALL,
+        ZombieType::ZOMBIE_POLEVAULTER,
+        ZombieType::ZOMBIE_JACK_IN_THE_BOX,
+        ZombieType::ZOMBIE_LADDER,
+        ZombieType::ZOMBIE_ZAMBONI,
+        ZombieType::ZOMBIE_CATAPULT,
+        ZombieType::ZOMBIE_POGO,
+        ZombieType::ZOMBIE_NEWSPAPER,
+        ZombieType::ZOMBIE_DOOR,
+        ZombieType::ZOMBIE_DANCER,
+        ZombieType::ZOMBIE_BOBSLED,
+        ZombieType::ZOMBIE_TRASHCAN,
+        ZombieType::ZOMBIE_DOOR_TRAFFIC_CONE,
+        ZombieType::ZOMBIE_DOOR_PAIL,
+        ZombieType::ZOMBIE_BLACK_FOOTBALL,
+        ZombieType::ZOMBIE_REDEYE_GARGANTUAR,
+        ZombieType::ZOMBIE_POGO_PAIL,
+        ZombieType::ZOMBIE_JACK_IN_THE_BOX_CRAZY,
+        ZombieType::ZOMBIE_DANCER_COOL,
+        ZombieType::ZOMBIE_GARGANTUAR
+    };
+
+    ZombieType gBossZombieListWorld8[] = {
+        ZombieType::ZOMBIE_TRAFFIC_CONE,
+        ZombieType::ZOMBIE_PAIL,
+        ZombieType::ZOMBIE_FOOTBALL,
+        ZombieType::ZOMBIE_POLEVAULTER,
+        ZombieType::ZOMBIE_JACK_IN_THE_BOX,
+        ZombieType::ZOMBIE_LADDER,
+        ZombieType::ZOMBIE_ZAMBONI,
+        ZombieType::ZOMBIE_CATAPULT,
+        ZombieType::ZOMBIE_POGO,
+        ZombieType::ZOMBIE_NEWSPAPER,
+        ZombieType::ZOMBIE_DOOR,
+        ZombieType::ZOMBIE_DANCER,
+        ZombieType::ZOMBIE_BOBSLED,
+        ZombieType::ZOMBIE_TRASHCAN,
+        ZombieType::ZOMBIE_DOOR_TRAFFIC_CONE,
+        ZombieType::ZOMBIE_DOOR_PAIL,
+        ZombieType::ZOMBIE_BLACK_FOOTBALL,
+        ZombieType::ZOMBIE_REDEYE_GARGANTUAR,
+        ZombieType::ZOMBIE_POGO_PAIL,
+        ZombieType::ZOMBIE_JACK_IN_THE_BOX_CRAZY,
+        ZombieType::ZOMBIE_DANCER_COOL,
+        ZombieType::ZOMBIE_NORMAL_VERY_HUNGRY,
+        ZombieType::ZOMBIE_TRAFFIC_CONE_VERY_HUNGRY,
+        ZombieType::ZOMBIE_PAIL_VERY_HUNGRY,
+        ZombieType::ZOMBIE_SMASH_GARGANTUAR,
+        ZombieType::ZOMBIE_GARGANTUAR
+    };
+
+    ZombieType gBossZombieListAnotherPlanet[] = {
+        ZombieType::ZOMBIE_WALLNUT_HEAD,
+        ZombieType::ZOMBIE_JALAPENO_HEAD,
+        ZombieType::ZOMBIE_GATLING_HEAD,
+        ZombieType::ZOMBIE_SQUASH_HEAD,
+        ZombieType::ZOMBIE_TALLNUT_HEAD,
+        ZombieType::ZOMBIE_REPEATER_HEAD,
+        ZombieType::ZOMBIE_POTATOMINE_HEAD,
+        ZombieType::ZOMBIE_PUMPKIN_HEAD,
+        ZombieType::ZOMBIE_CABBAGEPULT_HEAD,
+        ZombieType::ZOMBIE_CHERRYBOMB_HEAD,
+        ZombieType::ZOMBIE_UMBRELLA_HEAD,
+        ZombieType::ZOMBIE_HYPNOSHROOM_HEAD,
+        ZombieType::ZOMBIE_GRAVEBUSTER_HEAD,
+        ZombieType::ZOMBIE_DOOMSHROOM_HEAD
+    };
+
+    ZombieType* aBossZombieList = gBossZombieList;
+    int aZombieTypeCount = LENGTH(gBossZombieList);
+
+    if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WORLD_7_10)
     {
-        ZombieType gBossZombieList[] = {
-            ZombieType::ZOMBIE_TRAFFIC_CONE,
-            ZombieType::ZOMBIE_PAIL,
-            ZombieType::ZOMBIE_FOOTBALL,
-            ZombieType::ZOMBIE_POLEVAULTER,
-            ZombieType::ZOMBIE_JACK_IN_THE_BOX,
-            ZombieType::ZOMBIE_LADDER,
-            ZombieType::ZOMBIE_ZAMBONI,
-            ZombieType::ZOMBIE_CATAPULT,
-            ZombieType::ZOMBIE_POGO,
-            ZombieType::ZOMBIE_NEWSPAPER,
-            ZombieType::ZOMBIE_DOOR,
-            ZombieType::ZOMBIE_DANCER,
-            ZombieType::ZOMBIE_BOBSLED,
-            ZombieType::ZOMBIE_TRASHCAN,
-            ZombieType::ZOMBIE_DOOR_TRAFFIC_CONE,
-            ZombieType::ZOMBIE_DOOR_PAIL,
-            ZombieType::ZOMBIE_BLACK_FOOTBALL,
-            ZombieType::ZOMBIE_REDEYE_GARGANTUAR,
-            ZombieType::ZOMBIE_POGO_PAIL,
-            ZombieType::ZOMBIE_JACK_IN_THE_BOX_CRAZY,
-            ZombieType::ZOMBIE_DANCER_COOL,
-            ZombieType::ZOMBIE_GARGANTUAR
-        };
+        aBossZombieList = gBossZombieListWorld7;
+        aZombieTypeCount = LENGTH(gBossZombieListWorld7);
     }
-    else if (mApp->mGameMode == GAMEMODE_CHALLENGE_WORLD_8_10)
+    else if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WORLD_8_10)
     {
-        ZombieType gBossZombieList[] = {
-            ZombieType::ZOMBIE_TRAFFIC_CONE,
-            ZombieType::ZOMBIE_PAIL,
-            ZombieType::ZOMBIE_FOOTBALL,
-            ZombieType::ZOMBIE_POLEVAULTER,
-            ZombieType::ZOMBIE_JACK_IN_THE_BOX,
-            ZombieType::ZOMBIE_LADDER,
-            ZombieType::ZOMBIE_ZAMBONI,
-            ZombieType::ZOMBIE_CATAPULT,
-            ZombieType::ZOMBIE_POGO,
-            ZombieType::ZOMBIE_NEWSPAPER,
-            ZombieType::ZOMBIE_DOOR,
-            ZombieType::ZOMBIE_DANCER,
-            ZombieType::ZOMBIE_BOBSLED,
-            ZombieType::ZOMBIE_TRASHCAN,
-            ZombieType::ZOMBIE_DOOR_TRAFFIC_CONE,
-            ZombieType::ZOMBIE_DOOR_PAIL,
-            ZombieType::ZOMBIE_BLACK_FOOTBALL,
-            ZombieType::ZOMBIE_REDEYE_GARGANTUAR,
-            ZombieType::ZOMBIE_POGO_PAIL,
-            ZombieType::ZOMBIE_JACK_IN_THE_BOX_CRAZY,
-            ZombieType::ZOMBIE_DANCER_COOL,
-            ZombieType::ZOMBIE_NORMAL_VERY_HUNGRY,
-            ZombieType::ZOMBIE_TRAFFIC_CONE_VERY_HUNGRY,
-            ZombieType::ZOMBIE_PAIL_VERY_HUNGRY,
-            ZombieType::ZOMBIE_SMASH_GARGANTUAR,
-            ZombieType::ZOMBIE_GARGANTUAR
-        };
+        aBossZombieList = gBossZombieListWorld8;
+        aZombieTypeCount = LENGTH(gBossZombieListWorld8);
     }
-    else if (mApp->mGameMode == GAMEMODE_CHALLENGE_BOSS_ANOTHER_PLANET)
+    else if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_BOSS_ANOTHER_PLANET)
     {
-        ZombieType gBossZombieList[] = {
-            ZombieType::ZOMBIE_WALLNUT_HEAD,
-            ZombieType::ZOMBIE_JALAPENO_HEAD,
-            ZombieType::ZOMBIE_GATLING_HEAD,
-            ZombieType::ZOMBIE_SQUASH_HEAD,
-            ZombieType::ZOMBIE_TALLNUT_HEAD,
-            ZombieType::ZOMBIE_REPEATER_HEAD,
-            ZombieType::ZOMBIE_POTATOMINE_HEAD,
-            ZombieType::ZOMBIE_PUMPKIN_HEAD,
-            ZombieType::ZOMBIE_CABBAGEPULT_HEAD,
-            ZombieType::ZOMBIE_CHERRYBOMB_HEAD,
-            ZombieType::ZOMBIE_UMBRELLA_HEAD,
-            ZombieType::ZOMBIE_HYPNOSHROOM_HEAD,
-            ZombieType::ZOMBIE_GRAVEBUSTER_HEAD,
-            ZombieType::ZOMBIE_DOOMSHROOM_HEAD
-        };
-    }
-    else
-    {
-        ZombieType gBossZombieList[] = {
-            ZombieType::ZOMBIE_TRAFFIC_CONE,
-            ZombieType::ZOMBIE_PAIL,
-            ZombieType::ZOMBIE_FOOTBALL,
-            ZombieType::ZOMBIE_POLEVAULTER,
-            ZombieType::ZOMBIE_JACK_IN_THE_BOX,
-            ZombieType::ZOMBIE_LADDER,
-            ZombieType::ZOMBIE_ZAMBONI,
-            ZombieType::ZOMBIE_CATAPULT,
-            ZombieType::ZOMBIE_POGO,
-            ZombieType::ZOMBIE_NEWSPAPER,
-            ZombieType::ZOMBIE_DOOR,
-            ZombieType::ZOMBIE_DANCER,
-            ZombieType::ZOMBIE_BOBSLED,
-            ZombieType::ZOMBIE_TRASHCAN,
-            ZombieType::ZOMBIE_DOOR_TRAFFIC_CONE,
-            ZombieType::ZOMBIE_DOOR_PAIL,
-            ZombieType::ZOMBIE_BLACK_FOOTBALL,
-            ZombieType::ZOMBIE_REDEYE_GARGANTUAR,
-            ZombieType::ZOMBIE_GARGANTUAR
-        };
+        aBossZombieList = gBossZombieListAnotherPlanet;
+        aZombieTypeCount = LENGTH(gBossZombieListAnotherPlanet);
     }
 
     ZombieType aZombieType;
-    int aZombieTypeCount = LENGTH(gBossZombieList);
 
-    if (mApp->mGameMode != GAMEMODE_CHALLENGE_BOSS_ANOTHER_PLANET) {
+    if (mApp->mGameMode != GameMode::GAMEMODE_CHALLENGE_BOSS_ANOTHER_PLANET) {
         if (mZombieAge < 3500)
         {
             aZombieType = ZombieType::ZOMBIE_NORMAL;
@@ -13824,11 +13833,11 @@ void Zombie::BossSpawnContact()
         {
             if (mTargetRow == 0)
             {
-                TOD_ASSERT(gBossZombieList[aZombieTypeCount - 1] == ZombieType::ZOMBIE_GARGANTUAR);
+                TOD_ASSERT(aBossZombieList[aZombieTypeCount - 1] == ZombieType::ZOMBIE_GARGANTUAR);
                 aZombieTypeCount--;
             }
 
-            aZombieType = (ZombieType)TodPickFromArray(gBossZombieList, aZombieTypeCount);
+            aZombieType = (ZombieType)TodPickFromArray(aBossZombieList, aZombieTypeCount);
         }
     }
     else
@@ -13849,11 +13858,11 @@ void Zombie::BossSpawnContact()
         {
             if (mTargetRow == 0)
             {
-                TOD_ASSERT(gBossZombieList[aZombieTypeCount - 1] == ZombieType::ZOMBIE_DOOMSHROOM_HEAD);
+                TOD_ASSERT(aBossZombieList[aZombieTypeCount - 1] == ZombieType::ZOMBIE_DOOMSHROOM_HEAD);
                 aZombieTypeCount--;
             }
 
-            aZombieType = (ZombieType)TodPickFromArray(gBossZombieList, aZombieTypeCount);
+            aZombieType = (ZombieType)TodPickFromArray(aBossZombieList, aZombieTypeCount);
         }
     }
 

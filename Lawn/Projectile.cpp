@@ -1444,11 +1444,13 @@ void Projectile::DoImpact(Zombie* theZombie)
 			{
 				aPosY += 60.0f;
 			}
-			if (mMotionType == ProjectileMotion::MOTION_BACKWARDS)
+			if (mMotionType == ProjectileMotion::MOTION_BACKWARDS) //||
+				//mMotionType == ProjectileMotion::MOTION_LOBBED_BACKWARDS)
 			{
 				aPosX -= 80.0f;
 			}
-			else if (mPosX > theZombie->mX + 40 && mMotionType != ProjectileMotion::MOTION_LOBBED)
+			else if (mPosX > theZombie->mX + 40 && mMotionType != ProjectileMotion::MOTION_LOBBED) //&&
+				//mMotionType != ProjectileMotion::MOTION_LOBBED_BACKWARDS)
 			{
 				aPosX -= 60.0f;
 			}
@@ -1469,7 +1471,9 @@ void Projectile::DoImpact(Zombie* theZombie)
 		}
 		else
 		{
-			if (mMotionType == MOTION_LOBBED) {
+			if (mMotionType == MOTION_LOBBED) //||
+				//mMotionType == MOTION_LOBBED_BACKWARDS)
+			{
 				aSplatPosX = aLastPosX;
 			}
 

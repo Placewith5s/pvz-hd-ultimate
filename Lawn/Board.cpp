@@ -10667,11 +10667,11 @@ void Board::KeyChar(SexyChar theChar)
 			AddZombie(ZombieType::ZOMBIE_GRAVEBUSTER_HEAD, Zombie::ZOMBIE_WAVE_DEBUG);
 			return;
 		}
-		if (theChar == _S('m'))
-		{
-			AddZombie(ZombieType::ZOMBIE_MELONPULT_HEAD, Zombie::ZOMBIE_WAVE_DEBUG);
-			return;
-		}
+		//if (theChar == _S('m'))
+		//{
+		//	AddZombie(ZombieType::ZOMBIE_MELONPULT_HEAD, Zombie::ZOMBIE_WAVE_DEBUG);
+		//	return;
+		//}
 	}
 
 	if (theChar == _S('q'))

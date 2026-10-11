@@ -2047,16 +2047,16 @@ void Challenge::UpdateConveyorBelt()
 		else if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_BOSS_ANOTHER_PLANET)
 		{
 			aSeedPickCount = 5;
-			aSeedPickArray[0].mItem = SEED_INSTANT_COFFEE;
-			aSeedPickArray[0].mWeight = 5;
+			aSeedPickArray[0].mItem = SEED_FLOWERPOT;
+			aSeedPickArray[0].mWeight = 55;
 			aSeedPickArray[1].mItem = SEED_JALAPENO;
-			aSeedPickArray[1].mWeight = 17;
+			aSeedPickArray[1].mWeight = 12;
 			aSeedPickArray[2].mItem = SEED_CABBAGEPULT;
-			aSeedPickArray[2].mWeight = 40;
+			aSeedPickArray[2].mWeight = 20;
 			aSeedPickArray[3].mItem = SEED_KERNELPULT;
-			aSeedPickArray[3].mWeight = 20;
+			aSeedPickArray[3].mWeight = 5;
 			aSeedPickArray[4].mItem = SEED_ICESHROOM;
-			aSeedPickArray[4].mWeight = 18;
+			aSeedPickArray[4].mWeight = 8;
 		}
 	}
 	else if (mApp->IsShovelLevel())

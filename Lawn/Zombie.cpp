@@ -880,6 +880,10 @@ void Zombie::ZombieInitialize(int theRow, ZombieType theType, bool theVariant, Z
         {
             PlayZombieReanim("anim_enter", ReanimLoopType::REANIM_PLAY_ONCE_AND_HOLD, 0, 12.0f);
             mSummonCounter = 500;
+
+            if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_BOSS_ANOTHER_PLANET)
+                mSummonCounter = 250;
+
             mBossHeadCounter = 5000;
             mZombiePhase = ZombiePhase::PHASE_BOSS_ENTER;
         }
@@ -13763,6 +13767,10 @@ void Zombie::BossRVLanding()
     aBodyReanim->SetImageOverride("Boss_RV", IMAGE_REANIM_ZOMBIE_BOSS_RV2);
    
     mSummonCounter = 500;
+
+    if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_BOSS_ANOTHER_PLANET)
+        mSummonCounter = 250;
+
     // mBossHeadCounter = 5000;
     if (mBossMode >= 1 && mBossStompCounter == -1)
     {
@@ -13785,14 +13793,23 @@ void Zombie::BossSpawnAttack()
     if (mBossMode == 0)
     {
         mSummonCounter = RandRangeInt(450, 550);
+
+        if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_BOSS_ANOTHER_PLANET)
+            mSummonCounter = RandRangeInt(225, 275);
     }
     else if (mBossMode == 1)
     {
         mSummonCounter = RandRangeInt(350, 450);
+
+        if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_BOSS_ANOTHER_PLANET)
+            mSummonCounter = RandRangeInt(175, 225);
     }
     else if (mBossMode == 2)
     {
         mSummonCounter = RandRangeInt(150, 250);
+
+        if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_BOSS_ANOTHER_PLANET)
+            mSummonCounter = RandRangeInt(75, 125);
     }
 
     mTargetRow = mBoard->PickRowForNewZombie(ZombieType::ZOMBIE_NORMAL, mFromWave);

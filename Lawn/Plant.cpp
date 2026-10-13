@@ -3047,7 +3047,14 @@ void Plant::UpdateBowling()
         }
         else
         {
-            aZombie->TakeDamage(1800, 0U);
+            if (aZombie->mZombieType == ZombieType::ZOMBIE_GARGANTUAR)
+            {
+                // 9 hits
+                aZombie->TakeDamage(400, 0U);
+            }
+            else {
+                aZombie->TakeDamage(1800, 0U);
+            }
         }
 
         if ((!mApp->IsFirstTimeAdventureMode() || mApp->mPlayerInfo->GetLevel() > 10) && mSeedType == SeedType::SEED_WALLNUT)

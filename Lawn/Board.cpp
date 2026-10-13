@@ -743,7 +743,9 @@ void Board::PickZombieWaves()
 				 mApp->IsNightRoofMiniGameLevel() || mApp->IsGreenHouseMiniGameLevel() ||
 				 aGameMode == GameMode::GAMEMODE_CHALLENGE_COLUMN || mApp->IsShovelLevel() || aGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_2 ||
 				 aGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_3 ||
-				 aGameMode == GameMode::GAMEMODE_CHALLENGE_WALLNUT_BOWLING_2 || aGameMode == GameMode::GAMEMODE_CHALLENGE_POGO_PARTY ||
+				 aGameMode == GameMode::GAMEMODE_CHALLENGE_WALLNUT_BOWLING_2 ||
+				 aGameMode == GameMode::GAMEMODE_CHALLENGE_WALLNUT_BOWLING_3 ||
+				 aGameMode == GameMode::GAMEMODE_CHALLENGE_POGO_PARTY ||
 				 aGameMode == GameMode::GAMEMODE_CHALLENGE_POGO_PARTY_2 ||
 			aGameMode == GameMode::GAMEMODE_CHALLENGE_WORLD_7_4 || aGameMode == GameMode::GAMEMODE_CHALLENGE_WORLD_7_7 || aGameMode == GameMode::GAMEMODE_CHALLENGE_WORLD_7_9 ||
 			aGameMode == GameMode::GAMEMODE_CHALLENGE_WORLD_8_4 || aGameMode == GameMode::GAMEMODE_CHALLENGE_WORLD_8_7 || aGameMode == GameMode::GAMEMODE_CHALLENGE_WORLD_8_9 ||

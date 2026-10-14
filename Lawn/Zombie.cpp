@@ -4135,7 +4135,9 @@ void Zombie::UpdateZombieUmbrellaHead()
                         aProjectile->mProjectileType != ProjectileType::PROJECTILE_ZOMBIE_CABBAGE &&
                         //aProjectile->mProjectileType != ProjectileType::PROJECTILE_ZOMBIE_MELON &&
                         // available in survival endless
-                        aProjectile->mProjectileType != ProjectileType::PROJECTILE_BASKETBALL)
+                        aProjectile->mProjectileType != ProjectileType::PROJECTILE_BASKETBALL &&
+                        // balancing
+                        aProjectile->mProjectileType != ProjectileType::PROJECTILE_COBBIG)
                     {
                         aProjectile->Die();
                         //break;

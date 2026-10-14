@@ -2961,16 +2961,33 @@ PlantingReason Challenge::CanPlantAt(int theGridX, int theGridY, SeedType theSee
 //0x425690
 void Challenge::InitZombieWavesSurvival()
 {
-	mBoard->mZombieAllowed[ZOMBIE_NORMAL] = true;
 	MTRand aLevelRNG = MTRand(mBoard->GetLevelRandSeed());
 
-	if (aLevelRNG.Next((unsigned long)5) == 0)
+	if (mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_WAR_AND_PEAS_ENDLESS)
 	{
-		mBoard->mZombieAllowed[ZOMBIE_NEWSPAPER] = true;
+		mBoard->mZombieAllowed[ZOMBIE_NORMAL] = true;
+
+		if (aLevelRNG.Next((unsigned long)5) == 0)
+		{
+			mBoard->mZombieAllowed[ZOMBIE_NEWSPAPER] = true;
+		}
+		else
+		{
+			mBoard->mZombieAllowed[ZOMBIE_TRAFFIC_CONE] = true;
+		}
 	}
-	else
-	{
-		mBoard->mZombieAllowed[ZOMBIE_TRAFFIC_CONE] = true;
+	else {
+		mBoard->mZombieAllowed[ZOMBIE_PEA_HEAD] = true;
+
+		if (aLevelRNG.Next((unsigned long)5) == 0)
+		{
+			// after gatling pea
+			mBoard->mZombieAllowed[ZOMBIE_SQUASH_HEAD] = true;
+		}
+		else
+		{
+			mBoard->mZombieAllowed[ZOMBIE_WALLNUT_HEAD] = true;
+		}
 	}
 
 	const int previous_cap = 9;
@@ -2978,31 +2995,45 @@ void Challenge::InitZombieWavesSurvival()
 	const int vanilla_zombot_zombies = 6;
 	/* result + redeyed - boss */
 	const int aVanillaZombieCount = (vanilla_almanac_zombies + vanilla_zombot_zombies + 1) - 1;
+	const int aZombotanyZombieCount = vanilla_zombot_zombies + 9;
 
 	int aCapacity = min(mSurvivalStage + 1, previous_cap * ((NUM_ZOMBIE_TYPES - 1) / aVanillaZombieCount));
+	int aZombotanyCapacity = min(mSurvivalStage + 1, previous_cap * ((0 - 1) / aVanillaZombieCount));
 
-	while (aCapacity > 0)
+	if (mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_WAR_AND_PEAS_ENDLESS)
 	{
-		ZombieType aRandZombie = (ZombieType)aLevelRNG.Next((unsigned long)ZombieType::NUM_ZOMBIE_TYPES);
-		if (mBoard->mZombieAllowed[aRandZombie])																															continue;
-		if (mBoard->IsZombieTypePoolOnly(aRandZombie) && !mBoard->StageHasPool())																							continue;
-		if (mBoard->StageHasRoof() && (aRandZombie == ZombieType::ZOMBIE_DIGGER || aRandZombie == ZombieType::ZOMBIE_DANCER ||
-			aRandZombie == ZombieType::ZOMBIE_DANCER_COOL))												continue;
-		if (mBoard->StageHasGraveStones() && aRandZombie == ZombieType::ZOMBIE_ZAMBONI)																						continue;
-		if (!mBoard->StageHasRoof() && !mApp->IsSurvivalEndless(mApp->mGameMode) && !mApp->IsLastStandEndless(mApp->mGameMode) &&
-			(aRandZombie == ZombieType::ZOMBIE_BUNGEE || aRandZombie == ZombieType::ZOMBIE_BUNGEE_PAIL))	continue;
-		if (mBoard->GetSurvivalFlagsCompleted() < 10 && aRandZombie >= ZombieType::ZOMBIE_REDEYE_GARGANTUAR)																continue;
-		if (mApp->IsSurvivalNormal(mApp->mGameMode) && aRandZombie > ZombieType::ZOMBIE_SNORKEL)																			continue;
-		if (mApp->IsSurvivalHard(mApp->mGameMode) && aRandZombie == ZombieType::ZOMBIE_DOOMSHROOM_HEAD) continue;
-		if (mBoard->IsZombieTypeSpawnedOnly(aRandZombie) ||
-			aRandZombie == ZombieType::ZOMBIE_DUCKY_TUBE || aRandZombie == ZombieType::ZOMBIE_YETI || aRandZombie == ZombieType::ZOMBIE_BOSS
+		while (aCapacity > 0)
+		{
+			ZombieType aRandZombie = (ZombieType)aLevelRNG.Next((unsigned long)ZombieType::NUM_ZOMBIE_TYPES);
+			if (mBoard->mZombieAllowed[aRandZombie])																															continue;
+			if (mBoard->IsZombieTypePoolOnly(aRandZombie) && !mBoard->StageHasPool())																							continue;
+			if (mBoard->StageHasRoof() && (aRandZombie == ZombieType::ZOMBIE_DIGGER || aRandZombie == ZombieType::ZOMBIE_DANCER ||
+				aRandZombie == ZombieType::ZOMBIE_DANCER_COOL))												continue;
+			if (mBoard->StageHasGraveStones() && aRandZombie == ZombieType::ZOMBIE_ZAMBONI)																						continue;
+			if (!mBoard->StageHasRoof() && !mApp->IsSurvivalEndless(mApp->mGameMode) && !mApp->IsLastStandEndless(mApp->mGameMode) &&
+				(aRandZombie == ZombieType::ZOMBIE_BUNGEE || aRandZombie == ZombieType::ZOMBIE_BUNGEE_PAIL))	continue;
+			if (mBoard->GetSurvivalFlagsCompleted() < 10 && aRandZombie >= ZombieType::ZOMBIE_REDEYE_GARGANTUAR)																continue;
+			if (mApp->IsSurvivalNormal(mApp->mGameMode) && aRandZombie > ZombieType::ZOMBIE_SNORKEL)																			continue;
+			if (mApp->IsSurvivalHard(mApp->mGameMode) && aRandZombie == ZombieType::ZOMBIE_DOOMSHROOM_HEAD) continue;
+			if (mBoard->IsZombieTypeSpawnedOnly(aRandZombie) ||
+				aRandZombie == ZombieType::ZOMBIE_DUCKY_TUBE || aRandZombie == ZombieType::ZOMBIE_YETI || aRandZombie == ZombieType::ZOMBIE_BOSS
 #ifdef _HAS_BLOOM_AND_DOOM_CONTENTS
-			|| aRandZombie == ZombieType::ZOMBIE_PROPELLER || aRandZombie == ZombieType::ZOMBIE_DOG_WALKER || aRandZombie == ZombieType::ZOMBIE_DOG
+				|| aRandZombie == ZombieType::ZOMBIE_PROPELLER || aRandZombie == ZombieType::ZOMBIE_DOG_WALKER || aRandZombie == ZombieType::ZOMBIE_DOG
 #endif
-			)	
-																																											continue;
-		mBoard->mZombieAllowed[aRandZombie] = true;																															
-		aCapacity--;
+				)
+				continue;
+			mBoard->mZombieAllowed[aRandZombie] = true;
+			aCapacity--;
+		}
+	}
+	else {
+		while (aZombotanyCapacity > 0)
+		{
+			ZombieType aRandZombie = (ZombieType)aLevelRNG.Next((unsigned long)aZombotanyZombieCount);
+			if (mBoard->mZombieAllowed[aRandZombie])																															continue;
+			mBoard->mZombieAllowed[aRandZombie] = true;
+			aZombotanyCapacity--;
+		}
 	}
 }
 
@@ -3023,18 +3054,41 @@ void Challenge::InitZombieWaves()
 	{
 		if (mSurvivalStage == 0)
 		{
-			if (mApp->IsSurvivalNormal(mApp->mGameMode))
+			if (aGameMode != GameMode::GAMEMODE_SURVIVAL_WAR_AND_PEAS_ENDLESS)
 			{
-				aList[ZOMBIE_NORMAL] = true;
-				aList[ZOMBIE_TRAFFIC_CONE] = true;
+				if (mApp->IsSurvivalNormal(mApp->mGameMode))
+				{
+					aList[ZOMBIE_NORMAL] = true;
+					aList[ZOMBIE_TRAFFIC_CONE] = true;
+				}
+				else
+				{
+					aList[ZOMBIE_NORMAL] = true;
+					aList[ZOMBIE_TRAFFIC_CONE] = true;
+					aList[ZOMBIE_PAIL] = true;
+					/* may change this in the future:
+						plant-zombies with zombies together for hard and endless
+					*/
+					aList[ZOMBIE_PEA_HEAD] = true;
+				}
 			}
-			else
-			{
-				aList[ZOMBIE_NORMAL] = true;
-				aList[ZOMBIE_TRAFFIC_CONE] = true;
-				aList[ZOMBIE_PAIL] = true;
-				// plant-zombies with zombies together for hard and endless
-				aList[ZOMBIE_PEA_HEAD] = true;
+			else {
+				if (mApp->IsSurvivalNormal(mApp->mGameMode))
+				{
+					aList[ZOMBIE_PEA_HEAD] = true;
+					aList[ZOMBIE_WALLNUT_HEAD] = true;
+				}
+				else
+				{
+					aList[ZOMBIE_PEA_HEAD] = true;
+					aList[ZOMBIE_WALLNUT_HEAD] = true;
+
+					/* buckethead is after pole-vaulter
+						After jalapeno:
+							result: gatling pea
+					*/
+					aList[ZOMBIE_GATLING_HEAD] = true;
+				}
 			}
 		}
 		else InitZombieWavesSurvival();

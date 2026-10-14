@@ -824,7 +824,8 @@ void Board::PickZombieWaves()
 				mApp->mGameMode != GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_3 && mApp->mGameMode != GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_4 &&
 				mApp->mGameMode != GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_5 &&
 				mApp->mGameMode != GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_NIGHTMARE &&
-				mApp->mGameMode != GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_EXTREME_NIGHTMARE)
+				mApp->mGameMode != GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_EXTREME_NIGHTMARE &&
+				mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_WAR_AND_PEAS_ENDLESS)
 			{
 				//if (mZombieAllowed[ZombieType::ZOMBIE_NORMAL])
 				{
@@ -1190,6 +1191,7 @@ void Board::PickBackground()
 	case GameMode::GAMEMODE_CHALLENGE_VEHICLE_PARTY:
 	case GameMode::GAMEMODE_CHALLENGE_SLOT_MACHINE_2:
 	case GameMode::GAMEMODE_CHALLENGE_EXPLOSIONS:
+	case GameMode::GAMEMODE_SURVIVAL_WAR_AND_PEAS_ENDLESS:
 	case GameMode::GAMEMODE_UPSELL:
 	case GameMode::GAMEMODE_INTRO:
 #ifdef _MOBILE_MINIGAMES
@@ -5857,9 +5859,10 @@ void Board::SpawnZombiesFromSky()
 //0x412CE0
 void Board::SpawnZombiesFromGraves()
 {
-	if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS || mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_2 ||
-		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_3 || mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_4 ||
-		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_5 ||
+	if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS ||
+		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_2 ||
+		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_3 ||
+		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_4 ||
 		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_NIGHTMARE ||
 		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_EXTREME_NIGHTMARE)
 		return;
@@ -7293,7 +7296,8 @@ void Board::DrawBackdrop(Graphics* g)
 			mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_ENDLESS_STAGE_5 &&
 			mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_ENDLESS_STAGE_6 &&
 			mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_ENDLESS_STAGE_7 &&
-			mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_ENDLESS_STAGE_8)
+			mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_ENDLESS_STAGE_8 &&
+			mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_WAR_AND_PEAS_ENDLESS)
 		{
 			g->DrawImageF(Sexy::IMAGE_NIGHT_GRAVE_GRAPHIC, 1092, 30); // Y: 40
 		}
@@ -10597,7 +10601,8 @@ void Board::KeyChar(SexyChar theChar)
 		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_3 || mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_4 ||
 		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_5 ||
 		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_NIGHTMARE ||
-		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_EXTREME_NIGHTMARE)
+		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_EXTREME_NIGHTMARE ||
+		mApp->mGameMode == GameMode::GAMEMODE_SURVIVAL_WAR_AND_PEAS_ENDLESS)
 	{
 		if (theChar == _S('w'))
 		{
@@ -11290,6 +11295,7 @@ bool Board::StageHasGraveStones()
 		case GameMode::GAMEMODE_SURVIVAL_ENDLESS_STAGE_6:
 		case GameMode::GAMEMODE_SURVIVAL_ENDLESS_STAGE_7:
 		case GameMode::GAMEMODE_SURVIVAL_ENDLESS_STAGE_8:
+		case GameMode::GAMEMODE_SURVIVAL_WAR_AND_PEAS_ENDLESS:
 			return true;
 	}
 

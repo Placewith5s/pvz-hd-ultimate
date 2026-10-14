@@ -117,6 +117,8 @@ void CutScene::PlaceAZombie(ZombieType theZombieType, int theGridX, int theGridY
 		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_3 ||
 		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_4 ||
 		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_5 ||
+			mApp->mGameMode == GameMode::GAMEMODE_SURVIVAL_WAR_AND_PEAS_NORMAL ||
+			mApp->mGameMode == GameMode::GAMEMODE_SURVIVAL_WAR_AND_PEAS_HARD ||
 		mApp->mGameMode == GameMode::GAMEMODE_SURVIVAL_WAR_AND_PEAS_ENDLESS))
 	{
 		theZombieType = ZombieType::ZOMBIE_PEA_HEAD;
@@ -856,6 +858,7 @@ void CutScene::StartLevelIntro()
 			mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_ENDLESS_STAGE_6 &&
 			mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_ENDLESS_STAGE_7 &&
 			mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_ENDLESS_STAGE_8 &&
+			mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_WAR_AND_PEAS_HARD &&
 			mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_WAR_AND_PEAS_ENDLESS)
 		{
 			mGraveStoneTime = TimeGraveStoneEnd - TimeGraveStoneStart;

@@ -2998,7 +2998,7 @@ void Challenge::InitZombieWavesSurvival()
 	const int aZombotanyZombieCount = vanilla_zombot_zombies + 9;
 
 	int aCapacity = min(mSurvivalStage + 1, previous_cap * ((NUM_ZOMBIE_TYPES - 1) / aVanillaZombieCount));
-	int aZombotanyCapacity = min(mSurvivalStage + 1, previous_cap * ((0 - 1) / aVanillaZombieCount));
+	int aZombotanyCapacity = min(mSurvivalStage + 1, previous_cap * ((aZombotanyZombieCount - 1) / aVanillaZombieCount));
 
 	if (mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_WAR_AND_PEAS_ENDLESS)
 	{

@@ -2996,10 +2996,51 @@ void Challenge::InitZombieWavesSurvival()
 	/* result + redeyed - boss */
 	const int aVanillaZombieCount = (vanilla_almanac_zombies + vanilla_zombot_zombies + 1) - 1;
 
-	const int zombotany_cap = previous_cap - (previous_cap * ((NUM_ZOMBIE_TYPES - 1) / aVanillaZombieCount) / previous_cap);
+	const int aZombotanyZombieCount = vanilla_zombot_zombies + 31;
+	const int zombotany_cap = aZombotanyZombieCount / (aZombotanyZombieCount - aVanillaZombieCount);
 
 	int aCapacity = min(mSurvivalStage + 1, previous_cap * ((NUM_ZOMBIE_TYPES - 1) / aVanillaZombieCount));
 	int aZombotanyCapacity = min(mSurvivalStage + 1, zombotany_cap);
+
+	static const ZombieType ZOMBOTANY_ZOMBIES[aZombotanyZombieCount]{
+		ZombieType::ZOMBIE_PEA_HEAD,
+		ZombieType::ZOMBIE_WALLNUT_HEAD,
+		ZombieType::ZOMBIE_JALAPENO_HEAD,
+		ZombieType::ZOMBIE_GATLING_HEAD,
+		ZombieType::ZOMBIE_SQUASH_HEAD,
+		ZombieType::ZOMBIE_TALLNUT_HEAD,
+		ZombieType::ZOMBIE_REPEATER_HEAD,
+		ZombieType::ZOMBIE_POTATOMINE_HEAD,
+		ZombieType::ZOMBIE_PUMPKIN_HEAD,
+		ZombieType::ZOMBIE_CABBAGEPULT_HEAD,
+		ZombieType::ZOMBIE_CHERRYBOMB_HEAD,
+		ZombieType::ZOMBIE_UMBRELLA_HEAD,
+		ZombieType::ZOMBIE_DOOMSHROOM_HEAD,
+		ZombieType::ZOMBIE_HYPNOSHROOM_HEAD,
+		ZombieType::ZOMBIE_GRAVEBUSTER_HEAD,
+		ZombieType::ZOMBIE_NIGHTMARE_PEA_HEAD,
+		ZombieType::ZOMBIE_NIGHTMARE_WALLNUT_HEAD,
+		ZombieType::ZOMBIE_NIGHTMARE_JALAPENO_HEAD,
+		ZombieType::ZOMBIE_NIGHTMARE_GATLING_HEAD,
+		ZombieType::ZOMBIE_NIGHTMARE_SQUASH_HEAD,
+		ZombieType::ZOMBIE_NIGHTMARE_TALLNUT_HEAD,
+		ZombieType::ZOMBIE_NIGHTMARE_REPEATER_HEAD,
+		ZombieType::ZOMBIE_NIGHTMARE_POTATOMINE_HEAD,
+		ZombieType::ZOMBIE_NIGHTMARE_PUMPKIN_HEAD,
+		ZombieType::ZOMBIE_NIGHTMARE_CABBAGEPULT_HEAD,
+		ZombieType::ZOMBIE_NIGHTMARE_CHERRYBOMB_HEAD,
+		ZombieType::ZOMBIE_EXTREME_NIGHTMARE_PEA_HEAD,
+		ZombieType::ZOMBIE_EXTREME_NIGHTMARE_WALLNUT_HEAD,
+		ZombieType::ZOMBIE_EXTREME_NIGHTMARE_JALAPENO_HEAD,
+		ZombieType::ZOMBIE_EXTREME_NIGHTMARE_GATLING_HEAD,
+		ZombieType::ZOMBIE_EXTREME_NIGHTMARE_SQUASH_HEAD,
+		ZombieType::ZOMBIE_EXTREME_NIGHTMARE_TALLNUT_HEAD,
+		ZombieType::ZOMBIE_EXTREME_NIGHTMARE_REPEATER_HEAD,
+		ZombieType::ZOMBIE_EXTREME_NIGHTMARE_POTATOMINE_HEAD,
+		ZombieType::ZOMBIE_EXTREME_NIGHTMARE_PUMPKIN_HEAD,
+		ZombieType::ZOMBIE_EXTREME_NIGHTMARE_CABBAGEPULT_HEAD,
+		ZombieType::ZOMBIE_EXTREME_NIGHTMARE_CHERRYBOMB_HEAD
+	};
 
 	if (mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_WAR_AND_PEAS_ENDLESS)
 	{
@@ -3030,7 +3071,7 @@ void Challenge::InitZombieWavesSurvival()
 	else {
 		while (aZombotanyCapacity > 0)
 		{
-			ZombieType aRandZombie = (ZombieType)aLevelRNG.Next((unsigned long)NUM_ZOMBOTANY_TYPES);
+			ZombieType aRandZombie = (ZombieType)aLevelRNG.Next((unsigned long)ZOMBOTANY_ZOMBIES);
 			if (mBoard->mZombieAllowed[aRandZombie])																															continue;
 			//if (aRandZombie != Zombie::IsZombotany(aRandZombie)) continue;
 			mBoard->mZombieAllowed[aRandZombie] = true;

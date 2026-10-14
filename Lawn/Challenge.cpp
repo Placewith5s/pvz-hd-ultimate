@@ -3002,7 +3002,7 @@ void Challenge::InitZombieWavesSurvival()
 	int aCapacity = min(mSurvivalStage + 1, previous_cap * ((NUM_ZOMBIE_TYPES - 1) / aVanillaZombieCount));
 	int aZombotanyCapacity = min(mSurvivalStage + 1, zombotany_cap);
 
-	static const ZombieType ZOMBOTANY_ZOMBIES[aZombotanyZombieCount]{
+	static const ZombieType ZOMBOTANY_ZOMBIES[]{
 		ZombieType::ZOMBIE_PEA_HEAD,
 		ZombieType::ZOMBIE_WALLNUT_HEAD,
 		ZombieType::ZOMBIE_JALAPENO_HEAD,
@@ -3071,9 +3071,9 @@ void Challenge::InitZombieWavesSurvival()
 	else {
 		while (aZombotanyCapacity > 0)
 		{
-			ZombieType aRandZombie = (ZombieType)aLevelRNG.Next((unsigned long)ZOMBOTANY_ZOMBIES);
+			ZombieType aRandZombie = ZOMBOTANY_ZOMBIES[(ZombieType)aLevelRNG.Next((unsigned long)aZombotanyZombieCount)];
 			if (mBoard->mZombieAllowed[aRandZombie])																															continue;
-			//if (aRandZombie != Zombie::IsZombotany(aRandZombie)) continue;
+			//if (!Zombie::IsZombotany(aRandZombie)) continue;
 			mBoard->mZombieAllowed[aRandZombie] = true;
 			aZombotanyCapacity--;
 		}

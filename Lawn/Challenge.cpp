@@ -2963,7 +2963,9 @@ void Challenge::InitZombieWavesSurvival()
 {
 	MTRand aLevelRNG = MTRand(mBoard->GetLevelRandSeed());
 
-	if (mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_WAR_AND_PEAS_ENDLESS)
+	if (mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_WAR_AND_PEAS_NORMAL &&
+		mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_WAR_AND_PEAS_HARD &&
+		mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_WAR_AND_PEAS_ENDLESS)
 	{
 		mBoard->mZombieAllowed[ZOMBIE_NORMAL] = true;
 
@@ -3042,7 +3044,9 @@ void Challenge::InitZombieWavesSurvival()
 		ZombieType::ZOMBIE_EXTREME_NIGHTMARE_CHERRYBOMB_HEAD
 	};
 
-	if (mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_WAR_AND_PEAS_ENDLESS)
+	if (mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_WAR_AND_PEAS_NORMAL &&
+		mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_WAR_AND_PEAS_HARD &&
+		mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_WAR_AND_PEAS_ENDLESS)
 	{
 		while (aCapacity > 0)
 		{
@@ -3074,6 +3078,13 @@ void Challenge::InitZombieWavesSurvival()
 			ZombieType aRandZombie = ZOMBOTANY_ZOMBIES[(ZombieType)aLevelRNG.Next((unsigned long)aZombotanyZombieCount)];
 			if (mBoard->mZombieAllowed[aRandZombie])																															continue;
 			//if (!Zombie::IsZombotany(aRandZombie)) continue;
+			// buckethead screen door gatling pea is arguably the redeyed gargantuar of zombotany
+			if (mBoard->GetSurvivalFlagsCompleted() < 10 && aRandZombie == ZombieType::ZOMBIE_EXTREME_NIGHTMARE_GATLING_HEAD)																continue;
+			if (mApp->IsSurvivalNormal(mApp->mGameMode) && aRandZombie > ZombieType::ZOMBIE_CHERRYBOMB_HEAD)																			continue;
+			if (mApp->IsSurvivalHard(mApp->mGameMode) && aRandZombie == ZombieType::ZOMBIE_DOOMSHROOM_HEAD) continue;
+			/* no zombotany ducky tube enum as expected
+				if (aRandZombie == ZombieType::ZOMBIE_DUCKY_TUBE) continue;
+			*/
 			mBoard->mZombieAllowed[aRandZombie] = true;
 			aZombotanyCapacity--;
 		}
@@ -3097,7 +3108,9 @@ void Challenge::InitZombieWaves()
 	{
 		if (mSurvivalStage == 0)
 		{
-			if (aGameMode != GameMode::GAMEMODE_SURVIVAL_WAR_AND_PEAS_ENDLESS)
+			if (aGameMode != GameMode::GAMEMODE_SURVIVAL_WAR_AND_PEAS_NORMAL &&
+				aGameMode != GameMode::GAMEMODE_SURVIVAL_WAR_AND_PEAS_HARD &&
+				aGameMode != GameMode::GAMEMODE_SURVIVAL_WAR_AND_PEAS_ENDLESS)
 			{
 				if (mApp->IsSurvivalNormal(mApp->mGameMode))
 				{

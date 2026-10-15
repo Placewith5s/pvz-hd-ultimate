@@ -328,6 +328,7 @@ SexyAppBase::SexyAppBase()
 	mEnableVsync = true;
 	mIsHalfspeed = false;
 	mIsScreenShake = false;
+	mIsRealHighContrast = false;
 
 	int i;
 

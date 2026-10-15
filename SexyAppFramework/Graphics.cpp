@@ -113,7 +113,17 @@ void Graphics::SetFont(Sexy::Font* theFont)
 
 void Graphics::SetColor(const Color& theColor)
 {
-	mColor = theColor;
+	if (gSexyAppBase->mIsRealHighContrast)
+	{
+		const int r = min(255, theColor.mRed * 2);
+		const int g = min(255, theColor.mGreen * 2);
+		const int b = min(255, theColor.mBlue * 2);
+
+		mColor = Sexy::Color(r, g, b);
+	}
+	else {
+		mColor = theColor;
+	}
 }
 
 const Color& Graphics::GetColor()

@@ -1959,6 +1959,7 @@ bool LawnApp::KillNewOptionsDialog()
 	//bool want3D = aNewOptionsDialog->mHardwareAccelerationCheckbox->IsChecked();
 	bool wantHalfspeed = aNewOptionsDialog->mHalfspeedCheckbox->IsChecked();
 	bool wantScreenShake = aNewOptionsDialog->mScreenShakeCheckbox->IsChecked();
+	bool wantRealHighContrast = aNewOptionsDialog->mRealHighContrastCheckbox->IsChecked();
 
 	mEnableVsync = aNewOptionsDialog->mHardwareAccelerationCheckbox->IsChecked();
 
@@ -1967,6 +1968,7 @@ bool LawnApp::KillNewOptionsDialog()
 	SwitchScreenMode(wantWindowed, true, false);
 	SwitchSpeedMultiplier(wantHalfspeed);
 	SwitchScreenShake(wantScreenShake);
+	SwitchRealHighContrast(wantRealHighContrast);
 
 	KillDialog(Dialogs::DIALOG_NEWOPTIONS);
 	ClearUpdateBacklog();
@@ -4893,6 +4895,17 @@ void LawnApp::SwitchScreenShake(bool wantScreenShake)
 	if (aNewOptionsDialog)
 	{
 		aNewOptionsDialog->mScreenShakeCheckbox->SetChecked(mIsScreenShake);
+	}
+}
+
+void LawnApp::SwitchRealHighContrast(bool wantRealHighContrast)
+{
+	mIsRealHighContrast = wantRealHighContrast;
+
+	NewOptionsDialog* aNewOptionsDialog = (NewOptionsDialog*)GetDialog(Dialogs::DIALOG_NEWOPTIONS);
+	if (aNewOptionsDialog)
+	{
+		aNewOptionsDialog->mRealHighContrastCheckbox->SetChecked(mIsRealHighContrast);
 	}
 }
 

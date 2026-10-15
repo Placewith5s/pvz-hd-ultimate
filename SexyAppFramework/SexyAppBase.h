@@ -339,6 +339,7 @@ public:
 	bool					mEnableVsync;
 	bool					mIsHalfspeed;
 	bool					mIsScreenShake;
+	bool					mIsRealHighContrast;
 
 protected:	
 	void					RehupFocus();

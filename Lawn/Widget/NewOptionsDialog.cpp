@@ -96,6 +96,10 @@ NewOptionsDialog::NewOptionsDialog(LawnApp* theApp, bool theFromGameSelector) :
     {
         mAlmanacButton->SetVisible(false);
     }
+    else {
+        mScreenShakeCheckbox->SetVisible(false);
+        mRealHighContrastCheckbox->SetVisible(false);
+    }
 
     //if (mFromGameSelector)
     //{

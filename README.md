@@ -1,5 +1,6 @@
-
 # stabledecompile
+
+An improved version of stabledecompile by InLiothixi.
 
 A Project focused in making modding both GOTY and OG possible, adding features and contents from different platforms of the Franchise, and bug fixes.
 

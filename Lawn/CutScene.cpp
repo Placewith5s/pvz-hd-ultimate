@@ -1280,6 +1280,10 @@ void CutScene::AddFlowerPots()
 	{
 		aPotColumns = 8;
 	}
+	else if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_SLOT_MACHINE_3)
+	{
+		aPotColumns = 5;
+	}
 	else if (mBoard->StageHasRoof())
 	{
 		aPotColumns = 3;

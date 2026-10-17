@@ -3297,6 +3297,7 @@ void Challenge::InitZombieWaves()
 		aList[ZOMBIE_TRAFFIC_CONE] = true;
 		aList[ZOMBIE_PAIL] = true;
 		aList[ZOMBIE_BUNGEE] = true;
+		aList[ZOMBIE_CATAPULT] = true;
 	}
 	else if (aGameMode == GAMEMODE_CHALLENGE_SLOT_MACHINE_4)
 	{
@@ -3304,6 +3305,7 @@ void Challenge::InitZombieWaves()
 		aList[ZOMBIE_TRAFFIC_CONE] = true;
 		aList[ZOMBIE_PAIL] = true;
 		aList[ZOMBIE_BUNGEE_PAIL] = true;
+		aList[ZOMBIE_JACK_IN_THE_BOX_CRAZY] = true;
 	}
 	else if (aGameMode == GAMEMODE_CHALLENGE_EXPLOSIONS)
 	{

@@ -709,11 +709,13 @@ void Graphics::DrawImage(Sexy::Image* theImage, int theX, int theY)
 	}
 
 	theX += mTransX;
-	theY += mTransY;	
+	theY += mTransY;
 
 	Rect aClipRect = Rect(mClipRect.mX, mClipRect.mY, mClipRect.mWidth, mClipRect.mHeight);
 	/*if (aClipRect.mWidth == BOARD_WIDTH)	aClipRect.mWidth += gSexyAppBase->mDDInterface->mWideScreenExtraWidth;
 	if (aClipRect.mHeight == BOARD_HEIGHT)	aClipRect.mHeight += gSexyAppBase->mDDInterface->mWideScreenExtraHeight;*/
+
+	//printf("theImage (draw): = %d\n", theImage);
 
 	Rect aDestRect = Rect(theX, theY, theImage->GetWidth(), theImage->GetHeight()).Intersection(aClipRect);
 	Rect aSrcRect(aDestRect.mX - theX, aDestRect.mY - theY, aDestRect.mWidth, aDestRect.mHeight);

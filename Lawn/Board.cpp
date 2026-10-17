@@ -9265,7 +9265,7 @@ void Board::DrawCover(Graphics* g)
 		g->DrawImage(Sexy::IMAGE_BACKGROUND2_COVER, 685, 557);
 		break;
 	case BackgroundType::BACKGROUND_3_POOL:
-	case BackgroundType::BACKGROUND_3_FULL_POOL:
+	//case BackgroundType::BACKGROUND_3_FULL_POOL:
 		g->DrawImage(Sexy::IMAGE_BACKGROUND3_COVER, 671, 613);
 		break;
 	case BackgroundType::BACKGROUND_4_FOG:

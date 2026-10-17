@@ -2971,7 +2971,14 @@ void Challenge::InitZombieWavesSurvival()
 
 		if (aLevelRNG.Next((unsigned long)5) == 0)
 		{
-			mBoard->mZombieAllowed[ZOMBIE_NEWSPAPER] = true;
+			// pool party shouldn't have newspaper zombie
+			if (mApp->mGameMode == GameMode::GAMEMODE_SURVIVAL_POOL_PARTY_ENDLESS)
+			{
+				mBoard->mZombieAllowed[ZOMBIE_SQUASH_HEAD] = true;
+			}
+			else {
+				mBoard->mZombieAllowed[ZOMBIE_NEWSPAPER] = true;
+			}
 		}
 		else
 		{

@@ -1062,6 +1062,10 @@ void Board::LoadBackgroundImages()
 		TodLoadResources("DelayLoad_MushroomGarden");
 		break;
 
+	case BackgroundType::BACKGROUND_3_FULL_POOL:
+		TodLoadResources("DelayLoad_Background3FullPool");
+		break;
+
 	default:
 		TOD_ASSERT();
 		break;
@@ -1298,6 +1302,10 @@ void Board::PickBackground()
 		mBackground = BackgroundType::BACKGROUND_MUSHROOM_GARDEN;
 		break;
 
+	case GameMode::GAMEMODE_SURVIVAL_POOL_PARTY_ENDLESS:
+		mBackground = BackgroundType::BACKGROUND_3_FULL_POOL;
+		break;
+
 	default:
 		TOD_ASSERT();
 		break;
@@ -1384,6 +1392,15 @@ void Board::PickBackground()
 		mPlantRow[3] = PlantRowType::PLANTROW_HIGH_GROUND;
 		mPlantRow[4] = PlantRowType::PLANTROW_NORMAL;
 		mPlantRow[5] = PlantRowType::PLANTROW_NORMAL;
+	}
+	else if (mBackground == BackgroundType::BACKGROUND_3_FULL_POOL)
+	{
+		mPlantRow[0] = PlantRowType::PLANTROW_POOL;
+		mPlantRow[1] = PlantRowType::PLANTROW_POOL;
+		mPlantRow[2] = PlantRowType::PLANTROW_POOL;
+		mPlantRow[3] = PlantRowType::PLANTROW_POOL;
+		mPlantRow[4] = PlantRowType::PLANTROW_POOL;
+		mPlantRow[5] = PlantRowType::PLANTROW_POOL;
 	}
 	else
 	{
@@ -1483,6 +1500,7 @@ void Board::PickBackground()
 		case BackgroundType::BACKGROUND_2_NIGHT:
 		case BackgroundType::BACKGROUND_3_POOL:
 		case BackgroundType::BACKGROUND_4_FOG:
+			// no bushes for full pool
 		{
 			InitBushes();
 			break;
@@ -7110,7 +7128,9 @@ void Board::Update()
 		{
 			mApp->mPoolEffect->mPoolCounter++;
 		}
-		if (mBackground == BackgroundType::BACKGROUND_3_POOL && mPoolSparklyParticleID == ParticleSystemID::PARTICLESYSTEMID_NULL && mDrawCount > 0)
+		if ((mBackground == BackgroundType::BACKGROUND_3_POOL ||
+			mBackground == BackgroundType::BACKGROUND_3_FULL_POOL) &&
+			mPoolSparklyParticleID == ParticleSystemID::PARTICLESYSTEMID_NULL && mDrawCount > 0)
 		{
 			int aRenderPosition = MakeRenderOrder(RenderLayer::RENDER_LAYER_GROUND, 2, 0);
 			TodParticleSystem* aPoolParticle = mApp->AddTodParticle(450, 295, aRenderPosition, ParticleEffect::PARTICLE_POOL_SPARKLY);
@@ -7221,6 +7241,7 @@ void Board::DrawBackdrop(Graphics* g)
 	case BackgroundType::BACKGROUND_ZOMBIQUARIUM:		aBgImage = Sexy::IMAGE_AQUARIUM1;						break;
 	case BackgroundType::BACKGROUND_TREEOFWISDOM:		aBgImage = nullptr;										break;
 	case BackgroundType::BACKGROUND_6:					aBgImage = Sexy::IMAGE_BACKGROUND6;						break;
+	case BackgroundType::BACKGROUND_3_FULL_POOL:		aBgImage = Sexy::IMAGE_BACKGROUND3FULLPOOL;				break;
 	default:											TOD_ASSERT();											break;
 	}
 
@@ -7302,7 +7323,8 @@ void Board::DrawBackdrop(Graphics* g)
 			mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_ENDLESS_STAGE_7 &&
 			mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_ENDLESS_STAGE_8 &&
 			mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_WAR_AND_PEAS_HARD &&
-			mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_WAR_AND_PEAS_ENDLESS)
+			mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_WAR_AND_PEAS_ENDLESS &&
+			mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_POOL_PARTY_ENDLESS)
 		{
 			g->DrawImageF(Sexy::IMAGE_NIGHT_GRAVE_GRAPHIC, 1092, 30); // Y: 40
 		}
@@ -8056,7 +8078,10 @@ void Board::DrawHouseDoorBottom(Graphics* g)
 	{
 	case BackgroundType::BACKGROUND_1_DAY:		g->DrawImage(Sexy::IMAGE_BACKGROUND1_GAMEOVER_INTERIOR_OVERLAY, -126, 225);		break;
 	case BackgroundType::BACKGROUND_2_NIGHT:	g->DrawImage(Sexy::IMAGE_BACKGROUND2_GAMEOVER_INTERIOR_OVERLAY, -125, 196);		break;
-	case BackgroundType::BACKGROUND_3_POOL:		g->DrawImage(Sexy::IMAGE_BACKGROUND3_GAMEOVER_INTERIOR_OVERLAY, -171, 241);		break;
+	case BackgroundType::BACKGROUND_3_POOL:
+	case BackgroundType::BACKGROUND_3_FULL_POOL:
+		g->DrawImage(Sexy::IMAGE_BACKGROUND3_GAMEOVER_INTERIOR_OVERLAY, -171, 241);
+		break;
 	case BackgroundType::BACKGROUND_4_FOG:		g->DrawImage(Sexy::IMAGE_BACKGROUND4_GAMEOVER_INTERIOR_OVERLAY, -172, 246);		break;
 	default:																													break;
 	}
@@ -8069,7 +8094,10 @@ void Board::DrawHouseDoorTop(Graphics* g)
 	{
 	case BackgroundType::BACKGROUND_1_DAY:		g->DrawImage(Sexy::IMAGE_BACKGROUND1_GAMEOVER_MASK, -130, 202);		break;
 	case BackgroundType::BACKGROUND_2_NIGHT:	g->DrawImage(Sexy::IMAGE_BACKGROUND2_GAMEOVER_MASK, -128, 207);		break;
-	case BackgroundType::BACKGROUND_3_POOL:		g->DrawImage(Sexy::IMAGE_BACKGROUND3_GAMEOVER_MASK, -172, 234);		break;
+	case BackgroundType::BACKGROUND_3_POOL:
+	case BackgroundType::BACKGROUND_3_FULL_POOL:
+		g->DrawImage(Sexy::IMAGE_BACKGROUND3_GAMEOVER_MASK, -172, 234);
+		break;
 	case BackgroundType::BACKGROUND_4_FOG:		g->DrawImage(Sexy::IMAGE_BACKGROUND4_GAMEOVER_MASK, -173, 133);		break;
 	case BackgroundType::BACKGROUND_5_ROOF:		g->DrawImage(Sexy::IMAGE_BACKGROUND5_GAMEOVER_MASK, -220, 81);		break;
 	case BackgroundType::BACKGROUND_6_BOSS:		g->DrawImage(Sexy::IMAGE_BACKGROUND6_GAMEOVER_MASK, -220, 81);		break;
@@ -9237,6 +9265,7 @@ void Board::DrawCover(Graphics* g)
 		g->DrawImage(Sexy::IMAGE_BACKGROUND2_COVER, 685, 557);
 		break;
 	case BackgroundType::BACKGROUND_3_POOL:
+	case BackgroundType::BACKGROUND_3_FULL_POOL:
 		g->DrawImage(Sexy::IMAGE_BACKGROUND3_COVER, 671, 613);
 		break;
 	case BackgroundType::BACKGROUND_4_FOG:
@@ -11304,6 +11333,7 @@ bool Board::StageHasGraveStones()
 		case GameMode::GAMEMODE_SURVIVAL_ENDLESS_STAGE_8:
 		case GameMode::GAMEMODE_SURVIVAL_WAR_AND_PEAS_HARD:
 		case GameMode::GAMEMODE_SURVIVAL_WAR_AND_PEAS_ENDLESS:
+		case GameMode::GAMEMODE_SURVIVAL_POOL_PARTY_ENDLESS:
 			return true;
 	}
 
@@ -11319,12 +11349,17 @@ bool Board::StageHasRoof()
 //0x41C0D0
 bool Board::StageHasPool()
 {
-	return (mBackground == BackgroundType::BACKGROUND_3_POOL || mBackground == BackgroundType::BACKGROUND_4_FOG);
+	return (mBackground == BackgroundType::BACKGROUND_3_POOL ||
+		mBackground == BackgroundType::BACKGROUND_4_FOG ||
+		mBackground == BackgroundType::BACKGROUND_3_FULL_POOL);
 }
 
 bool Board::StageHas6Rows()
 {
-	return (mBackground == BackgroundType::BACKGROUND_3_POOL || mBackground == BackgroundType::BACKGROUND_4_FOG || mBackground == BackgroundType::BACKGROUND_6);
+	return (mBackground == BackgroundType::BACKGROUND_3_POOL ||
+		mBackground == BackgroundType::BACKGROUND_4_FOG ||
+		mBackground == BackgroundType::BACKGROUND_6 ||
+		mBackground == BackgroundType::BACKGROUND_3_FULL_POOL);
 }
 
 //0x41C0F0
@@ -11357,7 +11392,8 @@ bool Board::StageIsDayWithoutPool() {
 
 // GOTY @Patoke: inlined 0x41E5E6
 bool Board::StageIsDayWithPool() {
-	return mBackground == BackgroundType::BACKGROUND_3_POOL;
+	return (mBackground == BackgroundType::BACKGROUND_3_POOL ||
+		mBackground == BackgroundType::BACKGROUND_3_FULL_POOL);
 }
 
 //0x41C1C0

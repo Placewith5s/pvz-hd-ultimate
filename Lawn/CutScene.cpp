@@ -859,7 +859,8 @@ void CutScene::StartLevelIntro()
 			mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_ENDLESS_STAGE_7 &&
 			mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_ENDLESS_STAGE_8 &&
 			mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_WAR_AND_PEAS_HARD &&
-			mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_WAR_AND_PEAS_ENDLESS)
+			mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_WAR_AND_PEAS_ENDLESS &&
+			mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_POOL_PARTY_ENDLESS)
 		{
 			mGraveStoneTime = TimeGraveStoneEnd - TimeGraveStoneStart;
 		}

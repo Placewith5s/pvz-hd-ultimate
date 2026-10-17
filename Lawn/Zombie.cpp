@@ -13266,6 +13266,7 @@ bool Zombie::SetupDrawZombieWon(Graphics* g)
         break;
     case BackgroundType::BACKGROUND_3_POOL:
     case BackgroundType::BACKGROUND_4_FOG:
+    case BackgroundType::BACKGROUND_3_FULL_POOL:
         g->ClipRect(-172 - mX, -mY, BOARD_WIDTH, BOARD_HEIGHT);
         break;
     case BackgroundType::BACKGROUND_5_ROOF:

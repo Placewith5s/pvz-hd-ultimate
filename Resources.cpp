@@ -298,6 +298,9 @@ bool Sexy::ExtractDelayLoad_BackgroundUnsoddedResources(ResourceManager* theMana
 
 // DelayLoad_Background3FullPool Resources
 Image* Sexy::IMAGE_BACKGROUND3FULLPOOL;
+//auto IMAGE_BACKGROUND3_GAMEOVER_INTERIOR_OVERLAY = nullptr;
+//auto IMAGE_BACKGROUND3_GAMEOVER_MASK = nullptr;
+//auto IMAGE_BACKGROUND3_COVER = nullptr;
 
 bool Sexy::ExtractDelayLoad_Background3FullPoolResources(ResourceManager* theManager)
 {
@@ -307,6 +310,9 @@ bool Sexy::ExtractDelayLoad_Background3FullPoolResources(ResourceManager* theMan
 	try
 	{
 		IMAGE_BACKGROUND3FULLPOOL = aMgr.GetImageThrow("IMAGE_BACKGROUND3FULLPOOL");
+		//IMAGE_BACKGROUND3_GAMEOVER_INTERIOR_OVERLAY = aMgr.GetImageThrow("IMAGE_BACKGROUND3_GAMEOVER_INTERIOR_OVERLAY");
+		//IMAGE_BACKGROUND3_GAMEOVER_MASK = aMgr.GetImageThrow("IMAGE_BACKGROUND3_GAMEOVER_MASK");
+		//IMAGE_BACKGROUND3_COVER = aMgr.GetImageThrow("IMAGE_BACKGROUND3_COVER");
 	}
 	catch (ResourceManagerException&)
 	{

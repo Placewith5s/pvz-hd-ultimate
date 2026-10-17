@@ -3001,8 +3001,11 @@ void Challenge::InitZombieWavesSurvival()
 	const int aZombotanyZombieCount = vanilla_zombot_zombies + 31;
 	const int zombotany_cap = aZombotanyZombieCount / (aZombotanyZombieCount - aVanillaZombieCount);
 
+	const int full_pool_cap = (aZombotanyZombieCount - 1) / ((aZombotanyZombieCount - 1) - aVanillaZombieCount);
+
 	int aCapacity = min(mSurvivalStage + 1, previous_cap * ((NUM_ZOMBIE_TYPES - 1) / aVanillaZombieCount));
 	int aZombotanyCapacity = min(mSurvivalStage + 1, zombotany_cap);
+	int aFullPoolCapacity = min(mSurvivalStage + 1, full_pool_cap);
 
 	static const ZombieType ZOMBOTANY_ZOMBIES[]{
 		ZombieType::ZOMBIE_PEA_HEAD,
@@ -3044,9 +3047,49 @@ void Challenge::InitZombieWavesSurvival()
 		ZombieType::ZOMBIE_EXTREME_NIGHTMARE_CHERRYBOMB_HEAD
 	};
 
+	static const ZombieType FULL_POOL_ZOMBIES[]{
+		ZombieType::ZOMBIE_NORMAL,
+		ZombieType::ZOMBIE_TRAFFIC_CONE,
+		ZombieType::ZOMBIE_PAIL,
+		ZombieType::ZOMBIE_SNORKEL,
+		ZombieType::ZOMBIE_DOLPHIN_RIDER,
+		ZombieType::ZOMBIE_BUNGEE,
+		ZombieType::ZOMBIE_BUNGEE_PAIL,
+		ZombieType::ZOMBIE_NORMAL_VERY_HUNGRY,
+		ZombieType::ZOMBIE_TRAFFIC_CONE_VERY_HUNGRY,
+		ZombieType::ZOMBIE_PAIL_VERY_HUNGRY,
+		ZombieType::ZOMBIE_PEA_HEAD,
+		ZombieType::ZOMBIE_WALLNUT_HEAD,
+		ZombieType::ZOMBIE_JALAPENO_HEAD,
+		ZombieType::ZOMBIE_GATLING_HEAD,
+		ZombieType::ZOMBIE_SQUASH_HEAD,
+		ZombieType::ZOMBIE_TALLNUT_HEAD,
+		ZombieType::ZOMBIE_REPEATER_HEAD,
+		ZombieType::ZOMBIE_POTATOMINE_HEAD,
+		ZombieType::ZOMBIE_PUMPKIN_HEAD,
+		ZombieType::ZOMBIE_CABBAGEPULT_HEAD,
+		ZombieType::ZOMBIE_CHERRYBOMB_HEAD,
+		ZombieType::ZOMBIE_UMBRELLA_HEAD,
+		ZombieType::ZOMBIE_DOOMSHROOM_HEAD,
+		ZombieType::ZOMBIE_HYPNOSHROOM_HEAD,
+		ZombieType::ZOMBIE_GRAVEBUSTER_HEAD,
+		ZombieType::ZOMBIE_NIGHTMARE_PEA_HEAD,
+		ZombieType::ZOMBIE_NIGHTMARE_WALLNUT_HEAD,
+		ZombieType::ZOMBIE_NIGHTMARE_JALAPENO_HEAD,
+		ZombieType::ZOMBIE_NIGHTMARE_GATLING_HEAD,
+		ZombieType::ZOMBIE_NIGHTMARE_SQUASH_HEAD,
+		ZombieType::ZOMBIE_NIGHTMARE_TALLNUT_HEAD,
+		ZombieType::ZOMBIE_NIGHTMARE_REPEATER_HEAD,
+		ZombieType::ZOMBIE_NIGHTMARE_POTATOMINE_HEAD,
+		ZombieType::ZOMBIE_NIGHTMARE_PUMPKIN_HEAD,
+		ZombieType::ZOMBIE_NIGHTMARE_CABBAGEPULT_HEAD,
+		ZombieType::ZOMBIE_NIGHTMARE_CHERRYBOMB_HEAD
+	};
+
 	if (mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_WAR_AND_PEAS_NORMAL &&
 		mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_WAR_AND_PEAS_HARD &&
-		mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_WAR_AND_PEAS_ENDLESS)
+		mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_WAR_AND_PEAS_ENDLESS &&
+		mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_POOL_PARTY_ENDLESS)
 	{
 		while (aCapacity > 0)
 		{
@@ -3072,7 +3115,21 @@ void Challenge::InitZombieWavesSurvival()
 			aCapacity--;
 		}
 	}
-	else {
+	else if (mApp->mGameMode == GameMode::GAMEMODE_SURVIVAL_POOL_PARTY_ENDLESS)
+	{
+		while (aFullPoolCapacity > 0)
+		{
+			ZombieType aRandZombie = FULL_POOL_ZOMBIES[(ZombieType)aLevelRNG.Next((unsigned long)(aZombotanyZombieCount - 1))];
+			if (mBoard->mZombieAllowed[aRandZombie])																															continue;
+			 // no zombotany ducky tube enum as expected
+			if (aRandZombie == ZombieType::ZOMBIE_DUCKY_TUBE) continue;
+			
+			mBoard->mZombieAllowed[aRandZombie] = true;
+			aFullPoolCapacity--;
+		}
+	}
+	else
+	{
 		while (aZombotanyCapacity > 0)
 		{
 			ZombieType aRandZombie = ZOMBOTANY_ZOMBIES[(ZombieType)aLevelRNG.Next((unsigned long)aZombotanyZombieCount)];

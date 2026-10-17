@@ -8082,7 +8082,7 @@ void Board::DrawHouseDoorBottom(Graphics* g)
 	case BackgroundType::BACKGROUND_1_DAY:		g->DrawImage(Sexy::IMAGE_BACKGROUND1_GAMEOVER_INTERIOR_OVERLAY, -126, 225);		break;
 	case BackgroundType::BACKGROUND_2_NIGHT:	g->DrawImage(Sexy::IMAGE_BACKGROUND2_GAMEOVER_INTERIOR_OVERLAY, -125, 196);		break;
 	case BackgroundType::BACKGROUND_3_POOL:
-	case BackgroundType::BACKGROUND_3_FULL_POOL:
+	//case BackgroundType::BACKGROUND_3_FULL_POOL:
 		g->DrawImage(Sexy::IMAGE_BACKGROUND3_GAMEOVER_INTERIOR_OVERLAY, -171, 241);
 		break;
 	case BackgroundType::BACKGROUND_4_FOG:		g->DrawImage(Sexy::IMAGE_BACKGROUND4_GAMEOVER_INTERIOR_OVERLAY, -172, 246);		break;
@@ -8098,7 +8098,7 @@ void Board::DrawHouseDoorTop(Graphics* g)
 	case BackgroundType::BACKGROUND_1_DAY:		g->DrawImage(Sexy::IMAGE_BACKGROUND1_GAMEOVER_MASK, -130, 202);		break;
 	case BackgroundType::BACKGROUND_2_NIGHT:	g->DrawImage(Sexy::IMAGE_BACKGROUND2_GAMEOVER_MASK, -128, 207);		break;
 	case BackgroundType::BACKGROUND_3_POOL:
-	case BackgroundType::BACKGROUND_3_FULL_POOL:
+	//case BackgroundType::BACKGROUND_3_FULL_POOL:
 		g->DrawImage(Sexy::IMAGE_BACKGROUND3_GAMEOVER_MASK, -172, 234);
 		break;
 	case BackgroundType::BACKGROUND_4_FOG:		g->DrawImage(Sexy::IMAGE_BACKGROUND4_GAMEOVER_MASK, -173, 133);		break;

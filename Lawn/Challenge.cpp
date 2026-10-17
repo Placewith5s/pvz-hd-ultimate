@@ -2126,15 +2126,15 @@ void Challenge::UpdateConveyorBelt()
 	{
 		aSeedPickCount = 5;
 		aSeedPickArray[0].mItem = SEED_CHERRYBOMB;
-		aSeedPickArray[0].mWeight = 10;
+		aSeedPickArray[0].mWeight = 3;
 		aSeedPickArray[1].mItem = SEED_TALLNUT;
-		aSeedPickArray[1].mWeight = 10;
+		aSeedPickArray[1].mWeight = 5;
 		aSeedPickArray[2].mItem = SEED_MAGNETSHROOM;
-		aSeedPickArray[2].mWeight = 10;
+		aSeedPickArray[2].mWeight = 5;
 		aSeedPickArray[3].mItem = SEED_FLOWERPOT;
-		aSeedPickArray[3].mWeight = 50;
+		aSeedPickArray[3].mWeight = 72;
 		aSeedPickArray[4].mItem = SEED_KERNELPULT;
-		aSeedPickArray[4].mWeight = 20;
+		aSeedPickArray[4].mWeight = 15;
 	}
 	else if (mApp->IsGreenHouseMiniGameLevel())
 	{
@@ -3182,6 +3182,7 @@ void Challenge::InitZombieWaves()
 		aList[ZOMBIE_TRAFFIC_CONE] = true;
 		aList[ZOMBIE_PAIL] = true;
 		aList[ZOMBIE_JACK_IN_THE_BOX] = true;
+		aList[ZOMBIE_ZAMBONI] = true;
 		aList[ZOMBIE_DOG_WALKER] = true;
 		aList[ZOMBIE_DOG] = true;
 		aList[ZOMBIE_PROPELLER] = true;

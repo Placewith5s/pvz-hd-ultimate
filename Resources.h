@@ -1021,6 +1021,7 @@ namespace Sexy
         IMAGE_UNLOCK_BUTTON_PRESSED_ID,
         IMAGE_REANIM_ZOMBIE_JACKBOX_CRAZY_HEAD_ID,
         IMAGE_REANIM_ZOMBIE_JACKBOX_CRAZY_HEAD2_ID,
+        IMAGE_BACKGROUND3FULLPOOL_ID,
         RESOURCE_ID_MAX
     };
 
@@ -2040,6 +2041,7 @@ namespace Sexy
     extern Image* IMAGE_UNLOCK_BUTTON;
     extern Image* IMAGE_UNLOCK_BUTTON_HIGHLIGHT;
     extern Image* IMAGE_UNLOCK_BUTTON_PRESSED;
+    extern Image* IMAGE_BACKGROUND3FULLPOOL;
 
     bool                ExtractResourcesByName(ResourceManager* theResourceManager, const char* theName);
     bool                ExtractDelayLoad_AlmanacResources(ResourceManager* theResourceManager);
@@ -2051,6 +2053,7 @@ namespace Sexy
     bool                ExtractDelayLoad_Background5Resources(ResourceManager* theResourceManager);
     bool                ExtractDelayLoad_Background6Resources(ResourceManager* theResourceManager);
     bool                ExtractDelayLoad_BackgroundUnsoddedResources(ResourceManager* theResourceManager);
+    bool                ExtractDelayLoad_Background3FullPoolResources(ResourceManager* theResourceManager);
     bool                ExtractDelayLoad_ChallengeScreenResources(ResourceManager* theResourceManager);
     bool                ExtractDelayLoad_CreditsResources(ResourceManager* theResourceManager);
     bool                ExtractDelayLoad_GreenHouseGardenResources(ResourceManager* theResourceManager);

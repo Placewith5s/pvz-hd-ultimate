@@ -19,6 +19,7 @@ bool Sexy::ExtractResourcesByName(ResourceManager* theResourceManager, const cha
 	else if (!strcmp(theName, "DelayLoad_Background5"))			return ExtractDelayLoad_Background5Resources(theResourceManager);
 	else if (!strcmp(theName, "DelayLoad_Background6"))			return ExtractDelayLoad_Background6Resources(theResourceManager);
 	else if (!strcmp(theName, "DelayLoad_BackgroundUnsodded"))	return ExtractDelayLoad_BackgroundUnsoddedResources(theResourceManager);
+	else if (!strcmp(theName, "DelayLoad_Background3FullPool"))	return ExtractDelayLoad_Background3FullPoolResources(theResourceManager);
 	else if (!strcmp(theName, "DelayLoad_ChallengeScreen"))		return ExtractDelayLoad_ChallengeScreenResources(theResourceManager);
 	else if (!strcmp(theName, "DelayLoad_Credits"))				return ExtractDelayLoad_CreditsResources(theResourceManager);
 	else if (!strcmp(theName, "DelayLoad_GreenHouseGarden"))	return ExtractDelayLoad_GreenHouseGardenResources(theResourceManager);
@@ -287,6 +288,25 @@ bool Sexy::ExtractDelayLoad_BackgroundUnsoddedResources(ResourceManager* theMana
 		IMAGE_BACKGROUND1UNSODDED = aMgr.GetImageThrow("IMAGE_BACKGROUND1UNSODDED");
 		IMAGE_SOD1ROW = aMgr.GetImageThrow("IMAGE_SOD1ROW");
 		IMAGE_SOD3ROW = aMgr.GetImageThrow("IMAGE_SOD3ROW");
+	}
+	catch (ResourceManagerException&)
+	{
+		return false;
+	}
+	return true;
+}
+
+// DelayLoad_Background3FullPool Resources
+Image* Sexy::IMAGE_BACKGROUND3FULLPOOL;
+
+bool Sexy::ExtractDelayLoad_Background3FullPoolResources(ResourceManager* theManager)
+{
+	gNeedRecalcVariableToIdMap = true;
+
+	ResourceManager& aMgr = *theManager;
+	try
+	{
+		IMAGE_BACKGROUND3FULLPOOL = aMgr.GetImageThrow("IMAGE_BACKGROUND3FULLPOOL");
 	}
 	catch (ResourceManagerException&)
 	{
@@ -2796,6 +2816,8 @@ void* gResources[(int)Sexy::ResourceId::RESOURCE_ID_MAX] =
 	&Sexy::IMAGE_WAVECENTER,
 	&Sexy::IMAGE_WAVESIDE,
 	/* DelayLoad_TreeOfWisdom */
+	/* DelayLoad_Background3FullPool */
+	&Sexy::IMAGE_BACKGROUND3FULLPOOL,
 	/* DelayLoad_AwardScreen */
 	&Sexy::IMAGE_AWARDSCREEN_BACK,
 	/* DelayLoad_ChallengeScreen */

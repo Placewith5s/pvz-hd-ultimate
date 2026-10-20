@@ -1625,6 +1625,9 @@ void SexyAppBase::WriteToRegistry()
 	RegistryWriteInteger(_S("InProgress"), 0);
 	RegistryWriteBoolean(_S("WaitForVSync"), mWaitForVSync);
 	RegistryWriteBoolean(_S("EnableVsync"), mEnableVsync);
+	RegistryWriteBoolean(_S("Halfspeed"), mIsHalfspeed);
+	RegistryWriteBoolean(_S("ScreenShake"), mIsScreenShake);
+	RegistryWriteBoolean(_S("RealHighContrast"), mIsRealHighContrast);
 }
 
 bool SexyAppBase::RegistryEraseKey(const SexyString& _theKeyName)
@@ -2005,6 +2008,9 @@ void SexyAppBase::ReadFromRegistry()
 		RegistryWriteInteger(_S("InProgress"), 1);
 
 	RegistryReadBoolean(_S("EnableVsync"), &mEnableVsync);
+	RegistryReadBoolean(_S("Halfspeed"), &mIsHalfspeed);
+	RegistryReadBoolean(_S("ScreenShake"), &mIsScreenShake);
+	RegistryReadBoolean(_S("RealHighContrast"), &mIsRealHighContrast);
 }
 
 bool SexyAppBase::WriteBytesToFile(const SexyString& theFileName, const void *theData, unsigned long theDataLen)

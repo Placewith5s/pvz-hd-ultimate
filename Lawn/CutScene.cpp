@@ -111,32 +111,37 @@ CutScene::~CutScene()
 void CutScene::PlaceAZombie(ZombieType theZombieType, int theGridX, int theGridY)
 {
 	bool aPutOnDuckyTube = false;
-	if (theZombieType == ZombieType::ZOMBIE_DUCKY_TUBE &&
-		(mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS ||
-		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_2 ||
-		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_3 ||
-		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_4 ||
-		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_5 ||
+
+	if (theZombieType == ZombieType::ZOMBIE_DUCKY_TUBE)
+	{
+		if ((mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS ||
+			mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_2 ||
+			mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_3 ||
+			mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_4 ||
+			mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_5 ||
 			mApp->mGameMode == GameMode::GAMEMODE_SURVIVAL_WAR_AND_PEAS_NORMAL ||
 			mApp->mGameMode == GameMode::GAMEMODE_SURVIVAL_WAR_AND_PEAS_HARD ||
-		mApp->mGameMode == GameMode::GAMEMODE_SURVIVAL_WAR_AND_PEAS_ENDLESS))
-	{
-		theZombieType = ZombieType::ZOMBIE_PEA_HEAD;
-		aPutOnDuckyTube = true;
-	}
-
-	if (theZombieType == ZombieType::ZOMBIE_DUCKY_TUBE &&
-		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_NIGHTMARE)
-	{
-		theZombieType = ZombieType::ZOMBIE_NIGHTMARE_PEA_HEAD;
-		aPutOnDuckyTube = true;
-	}
-
-	if (theZombieType == ZombieType::ZOMBIE_DUCKY_TUBE &&
-		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_EXTREME_NIGHTMARE)
-	{
-		theZombieType = ZombieType::ZOMBIE_EXTREME_NIGHTMARE_PEA_HEAD;
-		aPutOnDuckyTube = true;
+			mApp->mGameMode == GameMode::GAMEMODE_SURVIVAL_WAR_AND_PEAS_ENDLESS))
+		{
+			theZombieType = ZombieType::ZOMBIE_PEA_HEAD;
+			aPutOnDuckyTube = true;
+		}
+		else if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_NIGHTMARE)
+		{
+			theZombieType = ZombieType::ZOMBIE_NIGHTMARE_PEA_HEAD;
+			aPutOnDuckyTube = true;
+		}
+		else if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_EXTREME_NIGHTMARE)
+		{
+			theZombieType = ZombieType::ZOMBIE_EXTREME_NIGHTMARE_PEA_HEAD;
+			aPutOnDuckyTube = true;
+		}
+		else if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_EXPLOSIONS)
+		{
+			// potato mine zombie is too easy
+			theZombieType = ZombieType::ZOMBIE_CHERRYBOMB_HEAD;
+			aPutOnDuckyTube = true;
+		}
 	}
 
 	Zombie* aZombie = mBoard->AddZombieInRow(theZombieType, theGridY, -2);

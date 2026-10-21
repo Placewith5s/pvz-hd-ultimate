@@ -827,7 +827,8 @@ void Board::PickZombieWaves()
 				mApp->mGameMode != GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_EXTREME_NIGHTMARE &&
 				mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_WAR_AND_PEAS_NORMAL &&
 				mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_WAR_AND_PEAS_HARD &&
-				mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_WAR_AND_PEAS_ENDLESS)
+				mApp->mGameMode != GameMode::GAMEMODE_SURVIVAL_WAR_AND_PEAS_ENDLESS &&
+				mApp->mGameMode != GameMode::GAMEMODE_CHALLENGE_EXPLOSIONS)
 			{
 				//if (mZombieAllowed[ZombieType::ZOMBIE_NORMAL])
 				{

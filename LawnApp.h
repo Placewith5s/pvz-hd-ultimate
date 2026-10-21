@@ -343,7 +343,10 @@ public:
 	void							BetaAddFile(std::list<std::string>& theUploadFileList, std::string theFileName, std::string theShortName);
 	bool							CanPauseNow();
 	/*inline*/ bool					IsPuzzleMode();
+	/*inline*/ bool					IsLastStandMode();
 	/*inline*/ bool					IsChallengeMode();
+	/*inline*/ bool					IsCustomChal1Mode();
+	/*inline*/ bool					IsCustomChal2Mode();
 	static /*inline*/ bool			IsEndlessIZombie(GameMode theGameMode);
 	void							CrazyDaveDoneHanding();
 	inline SexyString				GetCurrentLevelName() { return _S("Unknown"); }

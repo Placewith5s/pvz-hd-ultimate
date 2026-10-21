@@ -3385,7 +3385,7 @@ bool LawnApp::IsCustomChal2Mode()
 //0x453710
 bool LawnApp::IsChallengeMode()
 {
-	return !IsAdventureMode() && !IsLastStandMode() && !IsPuzzleMode() && !IsSurvivalMode();
+	return !IsAdventureMode() && !IsLastStandMode() && !IsCustomChal1Mode() && !IsCustomChal2Mode() && !IsPuzzleMode() && !IsSurvivalMode();
 }
 
 bool LawnApp::IsSurvivalNormal(GameMode theGameMode)

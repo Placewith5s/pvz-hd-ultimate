@@ -5887,7 +5887,8 @@ void Board::SpawnZombiesFromGraves()
 		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_3 ||
 		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_4 ||
 		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_NIGHTMARE ||
-		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_EXTREME_NIGHTMARE)
+		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_EXTREME_NIGHTMARE ||
+		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_EXPLOSIONS)
 		return;
 
 	if (StageHasRoof())
@@ -5896,6 +5897,10 @@ void Board::SpawnZombiesFromGraves()
 	}
 	else if (StageHasPool())
 	{
+		if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_5 ||
+			mApp->mGameMode == GameMode::GAMEMODE_SURVIVAL_WAR_AND_PEAS_ENDLESS)
+			return;
+
 		SpawnZombiesFromPool();
 		return;
 	}

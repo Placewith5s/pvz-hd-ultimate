@@ -507,6 +507,18 @@ void GameOverDialog::ButtonDepress(int theId)
         {
             mApp->ShowChallengeScreen(ChallengePage::CHALLENGE_PAGE_PUZZLE);
         }
+        else if (mApp->IsLastStandMode())
+        {
+            mApp->ShowChallengeScreen(ChallengePage::CHALLENGE_PAGE_LAST_STAND);
+        }
+        else if (mApp->IsCustomChal1Mode())
+        {
+            mApp->ShowChallengeScreen(ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE);
+        }
+        else if (mApp->IsCustomChal2Mode())
+        {
+            mApp->ShowChallengeScreen(ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE_2);
+        }
         else if (mApp->IsAdventureMode())
         {
             mApp->ShowGameSelector();

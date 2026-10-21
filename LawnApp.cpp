@@ -2605,6 +2605,21 @@ void LawnApp::CheckForGameEnd()
 			ShowChallengeScreen(ChallengePage::CHALLENGE_PAGE_PUZZLE);
 		}
 	}
+	else if (IsLastStandMode())
+	{
+		KillBoard();
+		ShowChallengeScreen(ChallengePage::CHALLENGE_PAGE_LAST_STAND);
+	}
+	else if (IsCustomChal1Mode())
+	{
+		KillBoard();
+		ShowChallengeScreen(ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE);
+	}
+	else if (IsCustomChal2Mode())
+	{
+		KillBoard();
+		ShowChallengeScreen(ChallengePage::CHALLENGE_PAGE_CUSTOM_CHALLENGE_2);
+	}
 	else
 	{
 		KillBoard();
@@ -3340,10 +3355,37 @@ bool LawnApp::IsPuzzleMode()
 		(mGameMode >= GameMode::GAMEMODE_PUZZLE_I_ZOMBIE_1 && mGameMode <= GameMode::GAMEMODE_PUZZLE_I_ZOMBIE_ENDLESS);
 }
 
+bool LawnApp::IsLastStandMode()
+{
+	return
+		(mGameMode >= GameMode::GAMEMODE_LAST_STAND_STAGE_1 &&
+			mGameMode <= GameMode::GAMEMODE_LAST_STAND_ENDLESS_STAGE_5) ||
+		(mGameMode >= GameMode::GAMEMODE_LAST_STAND_STAGE_6 &&
+			mGameMode <= GameMode::GAMEMODE_LAST_STAND_ENDLESS_STAGE_6);
+}
+
+bool LawnApp::IsCustomChal1Mode()
+{
+	return
+		(mGameMode >= GameMode::GAMEMODE_CHALLENGE_WORLD_7_1 &&
+			mGameMode <= GameMode::GAMEMODE_CHALLENGE_POGO_PARTY_3) ||
+		(mGameMode >= GameMode::GAMEMODE_CHALLENGE_VEHICLE_PARTY &&
+			mGameMode <= GameMode::GAMEMODE_CHALLENGE_WALLNUT_BOWLING_3);
+}
+
+bool LawnApp::IsCustomChal2Mode()
+{
+	return
+		(mGameMode >= GameMode::GAMEMODE_CHALLENGE_WORLD_8_1 &&
+			mGameMode <= GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_EXTREME_NIGHTMARE) ||
+		(mGameMode >= GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS_5 &&
+			mGameMode <= GameMode::GAMEMODE_CHALLENGE_LEVEL_EDITOR);
+}
+
 //0x453710
 bool LawnApp::IsChallengeMode()
 {
-	return !IsAdventureMode() && !IsPuzzleMode() && !IsSurvivalMode();
+	return !IsAdventureMode() && !IsLastStandMode() && !IsPuzzleMode() && !IsSurvivalMode();
 }
 
 bool LawnApp::IsSurvivalNormal(GameMode theGameMode)

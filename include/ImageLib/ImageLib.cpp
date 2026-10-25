@@ -228,9 +228,9 @@ Image* GetGIFImage(const SexyString& theFileName)
 		opacity,
 		status;
 
-	register int i;
+	int i;
 
-	register unsigned char *p;
+	unsigned char *p;
 
 	unsigned char
 		background,			// ±³¾°É«ÔÚÈ«¾ÖÑÕÉ«ÁÐ±íÖÐµÄË÷Òý£¨±³¾°É«£ºÍ¼ÏñÖÐÃ»ÓÐ±»Ö¸¶¨ÑÕÉ«µÄÏñËØ»á±»±³¾°É«Ìî³ä£©
@@ -523,10 +523,10 @@ Image* GetGIFImage(const SexyString& theFileName)
 			pass,
 			y;
 
-		register int
+		int
 			x;
 
-		register unsigned int
+		unsigned int
 			datum;
 
 		short
@@ -578,7 +578,7 @@ Image* GetGIFImage(const SexyString& theFileName)
 
 		unsigned long* aBits = new unsigned long[width * height];
 
-		register unsigned char* c = NULL;
+		unsigned char* c = NULL;
 
 		for (y = 0; y < (int)height; y++)
 		{

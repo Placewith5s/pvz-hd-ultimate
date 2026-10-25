@@ -22,7 +22,7 @@
 #include "misc.h"
 
 #define DATA_TYPE ogg_int32_t
-#define REG_TYPE  register ogg_int32_t
+#define REG_TYPE  ogg_int32_t
 
 #ifdef _LOW_ACCURACY_
 #define cPI3_8 (0x0062)

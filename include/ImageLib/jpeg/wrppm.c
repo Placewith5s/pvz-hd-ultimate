@@ -42,7 +42,7 @@
 #else
 /* The word-per-sample format always puts the LSB first. */
 #define PUTPPMSAMPLE(ptr,v)			\
-	{ register int val_ = v;		\
+	{ int val_ = v;		\
 	  *ptr++ = (char) (val_ & 0xFF);	\
 	  *ptr++ = (char) ((val_ >> 8) & 0xFF);	\
 	}
@@ -106,9 +106,9 @@ copy_pixel_rows (j_decompress_ptr cinfo, djpeg_dest_ptr dinfo,
 		 JDIMENSION rows_supplied)
 {
   ppm_dest_ptr dest = (ppm_dest_ptr) dinfo;
-  register char * bufferptr;
-  register JSAMPROW ptr;
-  register JDIMENSION col;
+  char * bufferptr;
+  JSAMPROW ptr;
+  JDIMENSION col;
 
   ptr = dest->pub.buffer[0];
   bufferptr = dest->iobuffer;
@@ -129,13 +129,13 @@ put_demapped_rgb (j_decompress_ptr cinfo, djpeg_dest_ptr dinfo,
 		  JDIMENSION rows_supplied)
 {
   ppm_dest_ptr dest = (ppm_dest_ptr) dinfo;
-  register char * bufferptr;
-  register int pixval;
-  register JSAMPROW ptr;
-  register JSAMPROW color_map0 = cinfo->colormap[0];
-  register JSAMPROW color_map1 = cinfo->colormap[1];
-  register JSAMPROW color_map2 = cinfo->colormap[2];
-  register JDIMENSION col;
+  char * bufferptr;
+  int pixval;
+  JSAMPROW ptr;
+  JSAMPROW color_map0 = cinfo->colormap[0];
+  JSAMPROW color_map1 = cinfo->colormap[1];
+  JSAMPROW color_map2 = cinfo->colormap[2];
+  JDIMENSION col;
 
   ptr = dest->pub.buffer[0];
   bufferptr = dest->iobuffer;
@@ -154,10 +154,10 @@ put_demapped_gray (j_decompress_ptr cinfo, djpeg_dest_ptr dinfo,
 		   JDIMENSION rows_supplied)
 {
   ppm_dest_ptr dest = (ppm_dest_ptr) dinfo;
-  register char * bufferptr;
-  register JSAMPROW ptr;
-  register JSAMPROW color_map = cinfo->colormap[0];
-  register JDIMENSION col;
+  char * bufferptr;
+  JSAMPROW ptr;
+  JSAMPROW color_map = cinfo->colormap[0];
+  JDIMENSION col;
 
   ptr = dest->pub.buffer[0];
   bufferptr = dest->iobuffer;
